@@ -1,7 +1,6 @@
 var APP_VERSION = "1.1.2 beta"
 let update_version = "2.1.4 rc_tiger" //
 
-// DESKTOP-53F7G6S
 // 192.168.0.121
 
 // var DOMAIN = "https://crisnotbrown.pythonanywhere.com";var LOCAL_RENDER = false;
