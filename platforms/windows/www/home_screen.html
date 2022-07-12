@@ -1,0 +1,558 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="format-detection" content="telephone=no">
+		<!-- <meta http-equiv="Content-Security-Policy" content="img-src * data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval';"> -->
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+		<!-- <meta name="color-scheme" content="light dark"> -->
+        <script src="cordova.js"></script>
+
+		<script type="text/javascript" src="js/Brorn.min.js"></script>
+		<script type="text/javascript" src="js/Variables.js"></script>
+		<script type="text/javascript" src="js/modules/autocomplete.js"></script>
+		<script type="text/javascript" src="js/Modules/File_Module.js"></script> 
+		<script type="text/javascript" src="js/Modules/Utility.js"></script> 
+
+
+		<link rel="stylesheet" href="css/x.css">
+		<link rel="stylesheet" href="css/un_x.css">
+		<link rel="stylesheet" href="css/other.css">
+		<link rel="stylesheet" href="css/loader.css">
+		<link rel="stylesheet" href="css/css">
+		<link rel="stylesheet" href="css/chip.css">
+		<link rel="stylesheet" href="css/dropzone.css">
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+				integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+				crossorigin=""/>
+
+		<script src="js/leaflet/jquery.min.js"></script>
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+				integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+				crossorigin=""></script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+		<script src="js/ammchart/index.js"></script>
+		<script src="js/ammchart/xy.js"></script>
+		<script src="js/ammchart/radar.js"></script>
+		<script src="js/ammchart/Animated.js"></script>
+
+		<script src="js/Modules/chartdiv_01.js"></script>
+
+
+		<style type="text/css">
+			#mapid { height: 180px; }
+			#chartdiv_01 {
+				width: 100%;
+				height: 30vh;
+			}
+		</style>
+	</head>
+	<body class=" center-bg " style=" height: 100vh;">
+		<!-- <button class="x-button x-circle x-black">+</button> -->
+		<header id="offline" class="x-header x-red x-center" style="display:none">Offline Mode</header>
+		<header id="localhostversion" class="x-header x-yellow x-center" style="display:block">This is a Localhost Version, do not use outside NPCO</header>
+		<header class="x-header x-white">
+			<div class="x-row">
+				<img src="img/rapidlogo1.jpg" onclick="user_info()" class="x-image x-left" style="max-width:15%;">
+				<!-- <b class="x-left x-padding x-large">DTI | RAPID Growth MIS</b> -->
+				<div class="x-right x-padding">
+					<!-- <span class="x-padding x-right fa fa-user-circle-o x-xlarge" onclick="user_info()"></span> -->
+					<input style="width: 30%;" onkeyup="" class="x-padding x-right x-center x-input x-animate-input x-border x-round-xxlarge" placeholder="&#128269;" type="" name="">
+				</div>
+			</div>
+			<div class="x-row" >
+			<!-- <div class="x-row" style="background-color:#1d77ab;"> -->
+				<span onclick="add_entry()"  class="gr_body x-text-white x-center crop_btn_sel x-col s4 x-container x-padding x-rightbar x-border-black">
+					<b>
+						<span class="x-large fa fa-plus"></span><br> 
+						<span class="x-tiny">Add</span>
+					</b>
+				</span>
+				<span onclick="go_tab(0)"  class="main_tab_profile x-center typebtn_sel x-col s4 x-container x-padding">
+					<span class="x-large fa fa-dashboard"></span><br> 
+					<b class="x-tiny">Dashboard</b>
+				</span>
+				<span onclick="go_tab(1)" class="main_tab_profile x-center typebtn_sel x-col s4 x-container x-padding">
+					<span class="x-large fa fa-users"></span><br> 
+					<b class="x-tiny">Added Profiles</b>
+				</span>
+			</div>
+		</header>
+		<!-- ------------------------------------------------------------------------------------------------------------------ -->
+		<div class="body_content x-_animate-right" style="display: none;">
+			<div class="">
+				<div class="x-container x-col s6 x-padding">
+					<span class="x-xlarge x-text-blue"><span class="x-large fa fa-dashboard"></span> <b class="x-small">Dashboard</b></span>
+				</div>
+				<div class="x-container x-col s6 x-padding">
+					<b class="x-right x-center x-text-orange x-bottombar x-border-orange">
+						<span class="x-tiny">Refresh</span> <span class="fa fa-refresh fa-spin"></span> 
+					</b>
+				</div>
+			</div><br> 
+			<div class="x-container">
+				<div class="x-col s9">
+					<div class="x- x-container x-leftbar x-border-green">
+						<b>Overall Profiling</b><br>
+						<span class="x-text-grey">Per Value Chain</span>
+					</div>
+					<div id="chartdiv_01"></div>
+				</div>
+				<div class="x- x-col s3 x-card x-container x-round-large">
+					<b>Overall Profiling</b>
+				</div>
+			</div>
+		</div>
+		<div class="body_content x-_animate-left" style="display: none;">
+			<div class="">
+				<div class="x-container x-col s6 x-padding">
+					<span class="x-xlarge x-text-blue"><span class="x-large fa fa-users"></span> <b class="x-small">Added Profiles</b></span>
+				</div>
+				<div class="x-container x-col s6 x-padding">
+					<b class="x-right x-center x-text-orange x-bottombar x-border-orange" onclick="populate_file_ls()">
+						<span class="x-tiny">Refresh</span> <span class="fa fa-refresh fa-spin"></span> 
+					</b>
+				</div>
+			</div>
+			<br>
+			<!-- -----------------------PAGE : ------------------------------------- -->
+			<div class=" x-row">
+				<!-- <script type="text/javascript" src="js/Modules/individual.js"></script>  -->
+				<div class="x-row" id="indv_list" style="max-height: 80vh;overflow-y: scroll;">
+					<div id="prof_ls" class="">
+						<!-- <img src="img/norecords.png" class="x-image"><br>
+						<span class="x-text-grey">
+							<span class="x-text-red">*</span>
+							It seems that you don't have any records on this device. Add records by adding profiles or via syncing you device to the server (Charges may apply).
+						</span> -->
+					</div>
+					<div class="x-container">
+						<i class="x-text-grey">Displaying <b id="num_record">No</b> record/s</i>
+					</div>
+					<hr>
+				</div>
+			</div>
+		</div>
+		<!-- ---------------------------MODAL : selected FARMER--------------------------- -->
+		<div id="modal_selected_farmer" class="x-modal" style="display:none">
+			<div class="x-modal-content x-padding x-margin x-round-large x-animate-top">
+				<span onclick="$ID('modal_selected_farmer').style.display='none';" class="x-button x-display-topright x-red"><b>close</b></span>
+				<div>
+					<h4>Information</h4>
+					<div class="x-container x-small">
+
+						<div class="x-col s5 x-padding x-center">
+							<img src="img/no_img.png" class="x-image x-img">
+							<span class="x-center x-text-blue">Upload Farmer Photo</span>
+						</div>
+
+						<div class="x-col s7 x-padding">
+							<span class="x-text-grey">Name : <b id="farmer_name">---</b></span><br>
+							<span class="x-text-grey">Mobile Number : <b id="farmer-number">---</b></span><br>
+							<span class="x-text-grey">Birthday : <b id="farmer-bday">---</b></span><br>
+							<span class="x-text-grey">Civil Status : <b id="farmer-civil_status">---</b></span><br>
+							<span class="x-text-grey">Address : 
+								<b id="addr_street_purok_sitio">---</b>
+								<b id="addr_brgy">---</b>
+								<b id="addr_city">---</b>
+								<b id="addr_prov">---</b>
+								<b id="addr_region">---</b>
+							</span><br>
+						</div>
+
+					</div>
+				</div>
+				<div class="x-container">
+					<span class="x-text-gray">Farm Photos</span>
+					<div id="" class="x-center x-container x-small">
+						<img src="img/no_img.png" class="x-image x-col s4 x-img">
+						<img src="img/no_img.png" class="x-image x-col s4 x-img">
+						<img src="img/no_img.png" class="x-image x-col s4 x-img">
+					</div>
+				</div>
+				<div>
+					<h4>Forms</h4>
+					<div id="forms_list" class="x-container x-small">
+					</div>
+				</div>
+				<hr>
+				<span id="farmer_id_modal" class="x-tiny x-text-grey">-----</span>
+			</div>
+		</div>
+		<!-- -----------------------MODAL : USERINFO------------------------------------- -->
+		<div id="modal_user_info" class="x-modal">
+			<div class="x-modal-content x-round-large">
+				<div class="x-container x-padding">
+					<span onclick="$ID('modal_user_info').style.display='none'"
+					class="x-button x-display-topright">&times;</span>
+					<div class="x-container">
+						<div class="x-col s5 x-padding">
+							<img src="img/no_img.png" class="x-image x-img">
+						</div>
+
+						<div class="x-col s7">
+							<span class="x-xlarge x-text-blue" onclick="view_settings()"><span class="fa fa-user"></span> User Info</span><br>
+							<span class="x-tiny">
+								<span class="x-text-grey">Name : </span><span id="det_name"></span>
+							</span><br>
+							<span class="x-tiny">
+								<span class="x-text-grey">Area Assigned : </span><span id="det_area" ></span>
+							</span><br>
+							<span class="x-tiny">
+								<span class="x-text-grey">Position : </span><span id="det_pos" ></span>
+							</span><br>
+							<span class="x-tiny">
+								<span class="x-text-grey">address: </span><span id="det_address" ></span>
+							</span>
+						</div>
+					</div>
+					<div class="x-padding x-center">
+						<button class="x-btn x-round-large x-block x-green" onclick="SYNC_DATA()">
+							Sync
+						</button>
+					</div>
+					<div class="x-padding x-center">
+						<button class="x-btn x-round-large x-block x-red" onclick="logout()">
+							Sign out
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- -----------------------MODAL : Settings-------------------------------------- -->
+		<div id="moda_settings" class="x-modal" style="">
+			<div class="x-modal-content x-padding x-margin x-round-large">
+				<div class="x-container x-center x-padding">
+					<span onclick="$ID('moda_settings').style.display='none'"
+					class="x-button x-display-topright">&times;</span>
+				</div>
+				<div class="x-container x-center x-padding">
+					<input type="checkbox" name="" onchange="use_local(this.checked)">
+					<span>Use Local Server</span>
+				</div>
+			</div>
+		</div>
+		<!-- -----------------------MODAL : DONE-------------------------------------- -->
+		<div id="modal_done" class="x-modal" style="">
+			<div class="x-modal-content x-padding x-margin x-round-large">
+				<div class="x-container x-center x-padding">
+					<span onclick="$ID('modal_done').style.display='none'"
+					class="x-button x-display-topright">&times;</span>
+					<span class="x-xxxlarge fa fa-thumbs-o-up x-text-blue"></span><br>
+					<span class="x-text-green">Task Done</span><br>
+					<button class="x-green x-round-xlarge x-btn" onclick="done_sync()">Continue</button>
+				</div>
+			</div>
+		</div>
+		<!-- -----------------------MODAL : LOADING-------------------------------------- -->
+		<div id="modal_login_loading" class="x-modal" style="display:none">
+			<div class="x-modal-content x-padding x-margin x-round-large">
+				<span onclick="$ID('modal_login_loading').style.display='none';no_edit()" class="x-button x-display-topright x-round-large"><b>x</b></span>
+				<div class="x-container x-center x-padding">
+					<span class="x-xxxlarge fa fa-circle-o-notch fa-spin x-text-blue"></span><br>
+					<span class="x-text-gray">Loading. please wait</span>
+				</div>
+			</div>
+		</div>
+		<!-- ---------------------------MODAL : choose vco ------------------------------ -->
+		<div id="_sample_modal_datapriv" class="x-modal" style="display:none;padding: 0px;margin: 0px;">
+			<br><br><br>
+			<div class="x-modal-content x-animate-top">
+				<header class="-header x-padding">
+					<span onclick="$ID('_sample_modal_datapriv').style.display='none';no_edit()" class="x-button x-display-topright x-round-large x-red"><b>x</b></span>
+					<b class="x-xlarge">Data Privacy Act Statement</b>
+					<hr>
+				</header>
+				<div class="x-container  x-padding">
+					<span id="data_priv">loading</span><hr>
+					<div class="x-container x-row">
+						<canvas id="sig-canvas" class="x-round-large x-border-dashed" style="width:100%">
+						<span>Place the signature above inside the box if the person is </span>
+						<script type="text/javascript" src="js/Modules/signature.js"></script> 
+					</div>
+					<button class="x-btn x-green x-round-large x-block" onclick="proceed_profile()">Yes, I understand</button>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let _USER_DATA_ = undefined
+		try{
+			document.addEventListener("deviceready", onDeviceReady, false);
+			function onDeviceReady() {
+				get_user_info()
+				populate_file_ls()
+
+				window.setInterval(function () {
+					if(isOnline()){$ID("offline").style.display="none"}
+					else{$ID("offline").style.display="block"}
+				}, 1000)
+			}
+		}catch(err){println(err)}
+
+		function get_user_info(argument) {
+			_readFileEntry("user_info.txt",function(res){
+				println("_USER_DATA_---------")
+				
+				_USER_DATA_ = JSON.parse(res).data[0]
+				println("_USER_DATA_---------")
+			})
+		}
+
+
+		function done_sync(){
+			$ID('modal_done').style.display='none';
+			populate_file_ls()
+		}
+
+		function user_info(){
+			$ID('modal_user_info').style.display='block';
+			$ID('det_name').innerHTML = _USER_DATA_["name"];
+			$ID('det_area').innerHTML = _USER_DATA_["rcu"]+" | "+_USER_DATA_["pcu"];
+			$ID('det_pos').innerHTML = _USER_DATA_["job"];
+			$ID('det_address').innerHTML = _USER_DATA_["address"];
+		}
+
+		function logout(){
+			goto('index.html');
+		}
+
+		// ---------------------------------------------------------------------------------------
+
+		function add_entry(){
+			$ID("data_priv").innerHTML = DATA_PRIV
+			$ID("_sample_modal_datapriv").style.display = "block";
+		}
+
+		function proceed_profile(){
+			// $ID('_sample_modal_ind_info').style.display = 'block';$ID('_sample_modal_datapriv').style.display = 'none';
+			goto("form_a/profile.html?farmer_id=&user_id="+_USER_DATA_["id"])
+		}
+
+		function no_edit() {
+			// body...
+		}
+
+
+		// ------------------------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------------------------
+
+		let FORM_A_LS = [
+			{"file":"profile" , "label":"Farmer Basic Info" },
+			{"file":"add_farm" , "label":"Farm Information" },
+			{"file":"hh_profile" , "label":"Household Profiles" },
+			{"file":"prod_cost" , "label":"Production Cost" },
+			{"file":"workers_laborers" , "label":"Farm Workers and Labors" },
+			{"file":"post_harvest" , "label":"Post Harvest" },
+			{"file":"marketing_sales" , "label":"Marketing/Sales Distribution Channels" },
+			{"file":"access_financial" , "label":"Access to Financial Services and Products" },
+			{"file":"feedback" , "label":"Industry Feedback" },
+		]
+
+		function view_farmer_form(f_id,page){
+			// alert(page+"\n"+f_id)
+			redirectto("form_a/"+page+".html?user_id="+_USER_DATA_["id"]+"&farmer_id="+f_id)
+		}
+
+		function selected_farmer(farmer_id){
+			$ID('farmer_id_modal').innerHTML = farmer_id
+			var form_btn = ""
+			for (var i = 0; i < FORM_A_LS.length; i++) {
+				form_btn += `
+					<button 
+						id="`+FORM_A_LS[i].file+`"
+						class="x-btn x-pale-yellow x-row x-leftbar x-border x-border-yellow x-block"
+						onclick="view_farmer_form('`+farmer_id+`', '`+FORM_A_LS[i].file+`')"
+						style="margin: 2px;">
+							<b class="x-left">`+FORM_A_LS[i].label+` </b>
+							<b class="x-right" id='p_`+FORM_A_LS[i].file+`'><i>Not filled</i></b>
+					</button><br>`
+			}
+			$ID("forms_list").innerHTML = form_btn
+			$ID('modal_selected_farmer').style.display='block';
+			_readFileEntry(farmer_id+"@profile.txt",function(res){
+				var f_profile = JSON.parse(res)
+				for (const [key, value] of Object.entries(f_profile)) {
+					try{$ID(key).innerHTML = value}
+					catch{}
+					// println(key+" : "+value)
+				}
+			})
+
+			FILES_GET_EXTERNALSTORAGE(function(files){
+				var forms_available = []
+				for (var i = 0; i < files.length; i++) {
+					var file_name_ = files[i].name.split("@")
+					if(file_name_[0] == farmer_id ){
+						forms_available.push(file_name_[1].split(".")[0])
+						try{
+							$ID(file_name_[1].split(".")[0]).classList.add("x-pale-blue")
+							$ID(file_name_[1].split(".")[0]).classList.add("x-border-blue")
+							$ID(file_name_[1].split(".")[0]).classList.remove("x-pale-yellow");
+							$ID(file_name_[1].split(".")[0]).classList.remove("x-border-yellow");
+						}catch{}
+						_readFileEntry(files[i].name,function(res,fname_){
+							var f_profile = JSON.parse(res)
+							var _fname_ = fname_.split('@')
+							var input = 0; var inputed = 0
+							for (const [key, value] of Object.entries(f_profile)) {
+								input += 1
+								if (value == undefined || value == "" ) {}
+								else{
+									inputed += 1
+								}
+							}
+							var tagName_ = "p_"+_fname_[1].split(".")[0]
+							var form_percent_ = (inputed/input*100).toFixed(2)
+							$ID(tagName_).innerHTML = inputed+"/"+input +" <i>("+ form_percent_ +"%)</i>"
+							var per_width = $ID(_fname_[1].split(".")[0]).parentNode.width
+							println(per_width + " : Parent BORDER WIDTH")
+							var border_width = (form_percent_ * 0.01) *per_width
+							println(border_width + " : BORDER WIDTH")
+							$ID(_fname_[1].split(".")[0]).style.borderLeftWidth = border_width+"px";
+						})
+					}
+
+				}
+				// println(JSON.stringify(forms_available)) //
+			})
+		}
+
+		function populate_file_ls(){
+			var profile_container = $ID('prof_ls')
+			var ls_profile = ""
+			FILES_GET_EXTERNALSTORAGE(function(files){
+				var num_records = 0
+				println("** START LISTING ***")
+				for (var i = 0; i < files.length; i++) {
+					var _sync_note
+					if(files[i].name.includes("@profile.txt")){
+						num_records +=1
+						$ID('num_record').innerHTML = num_records
+						_readFileEntry(files[i].name,function(res){
+							println("** START DATA CONVERTION ***")
+							var farmer_info  = JSON.parse(res)
+							println("** END DATA CONVERTION ***")
+							var FARMER_ID = farmer_info.farmer_code
+							// println("Farmer : "+farmer_info.is_synced)
+							// println(JSON.stringify(_USER_DATA_))
+							if (parseInt(farmer_info.is_synced )== 1){
+								_sync_note = `
+								<div class="x-padding x-center x-col s1 x-rightbar x-pale-blue x-border-blue" style="height: 100%;">
+									<b class="x-center x-text-blue" style="writing-mode: vertical-rl;text-orientation: mixed">Synced</b>
+								</div>`
+							}
+							
+							if (parseInt(farmer_info.is_synced )== 0){
+								_sync_note = `
+									<div class="x-padding x-center x-col s1 x-rightbar x-pale-red x-border-red" style="height: 100%;">
+										<b class="x-center x-text-red" style="writing-mode: vertical-rl;text-orientation: mixed">Unsync</b>
+									</div>`
+							}
+
+							ls_profile += `
+								<div id="_`+FARMER_ID+`" class="x-container" style="padding-bottom:5px;">
+									<div class="x-card x-round x-small x-container" style="padding-left:0px;display:flex">
+										`+_sync_note+`
+										<div class="x-col s6 x-padding">
+											<span class="x-text-grey">Name<br><b class="x-text-black">`+farmer_info.farmer_name+`</b> </span>
+										</div>
+										<div class=" x-col s5 x-right">
+											<div class='x-container x-center x-padding x-green x-col s5'  style="height: 100%;" onclick="selected_farmer('`+FARMER_ID+`')">
+												<b class="x-large fa fa-edit"></b><br>
+												<span class="">Edit</span>
+											</div>
+											<div class='x-container x-center x-padding x-blue x-col s5'  style="height: 100%;" onclick='ind_sync("`+FARMER_ID+`")'>
+												<b class="x-large fa fa-cloud"></b><br>
+												<span class="">Upload</span>
+											</div>
+										</div>
+									</div>
+								</div>`
+							$ID('prof_ls').innerHTML = ls_profile
+						})
+					}
+				}
+				println("** DONE LISTING ***")
+				// if(tab_home=="1"){
+				// 	if(url_args['selected_farmer_']!=undefined || url_args['selected_farmer_']!=""){
+				// 		selected_farmer(url_args['selected_farmer_']) // IF from Form go back to the farmer profile
+				// 	}
+				// }
+			})
+		}
+
+		function ind_sync(argument) {
+			$ID("modal_login_loading").style.display = "block"
+			FILES_GET_EXTERNALSTORAGE(function(files){
+				var inc_loop = 0
+				for (var i = 0; i < files.length; i++) {
+						println(argument)
+					if(files[i].name.includes(argument)){
+						if(files[i].name != "user_info.txt"){
+							_readFileEntry(files[i].name,function(res,fnames_){
+								var farmer_info  = JSON.parse(res)
+								var FARMER_ID = farmer_info.farmer_code
+								// send_data(FARMER_ID,JSON.stringify(farmer_info),i,lll_) // OLD IMPLEMENTATION
+								send_data(
+									fnames_.split(".")[0],
+									JSON.stringify(farmer_info),
+									function(count_){
+										// alert(count_)
+									}
+								) // OLD IMPLEMENTATION
+							})
+						}
+					}
+
+				}
+				$ID("modal_login_loading").style.display = "none"
+				$ID("modal_done").style.display = "block"
+			})
+		}
+
+		// let tab_home = url_args['tab_index']
+		// if(tab_home=="1"){
+		// 	go_tab(1)
+		// }else{
+		// 	go_tab(0)
+		// }
+		go_tab(1)
+
+		println(tab_home)
+		function go_tab(_index){
+			var tabs = $CLASS("main_tab_profile")
+			var body_content = $CLASS("body_content")
+			for (var i = 0; i < tabs.length; i++) {
+				tabs[i].classList.remove("x-bottombar","x-border-green")
+				body_content[i].style.display = "none"
+			}
+			tabs[_index].classList.add("x-bottombar","x-border-green")
+			body_content[_index].style.display = "block"
+
+			if(_index==1){
+				println(" ** CHANGED TABS TO : " + _index)
+				populate_file_ls()
+			}
+			if(_index==0){
+				println(" ** CHANGED TABS TO : " + _index)
+				url_args['selected_farmer_'] = undefined
+				// load_chartdiv_01()
+			}
+		}
+
+
+
+	</script>
+</html>

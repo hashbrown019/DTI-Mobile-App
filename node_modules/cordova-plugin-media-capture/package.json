@@ -1,0 +1,85 @@
+{
+  "_from": "cordova-plugin-media-capture@4.0.0",
+  "_id": "cordova-plugin-media-capture@4.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-lridmJkDQablZDy0l3YspXYsesj6l905D5mAMVqRrYN/h8imUSZsi5x/hy9LOUd88ayjgqiwdtsXpRayn51QQg==",
+  "_location": "/cordova-plugin-media-capture",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-media-capture@4.0.0",
+    "name": "cordova-plugin-media-capture",
+    "escapedName": "cordova-plugin-media-capture",
+    "rawSpec": "4.0.0",
+    "saveSpec": null,
+    "fetchSpec": "4.0.0"
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-media-capture/-/cordova-plugin-media-capture-4.0.0.tgz",
+  "_shasum": "4ee91debde38c8b8c5eddd095985fb43adceab7d",
+  "_spec": "cordova-plugin-media-capture@4.0.0",
+  "_where": "C:\\Users\\crisnotbrown\\Desktop\\SYSTEMS\\DTI-Mobile-App\\dtirapid",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
+  "bugs": {
+    "url": "https://github.com/apache/cordova-plugin-media-capture/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-media-capture",
+    "platforms": [
+      "android",
+      "ios",
+      "windows",
+      "browser"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova Media Capture Plugin",
+  "devDependencies": {
+    "@cordova/eslint-config": "^3.0.0"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova-android": ">=6.3.0"
+      },
+      "4.0.0": {
+        "cordova-android": ">=10.0.0"
+      },
+      "5.0.0": {
+        "cordova": ">100"
+      },
+      ">=1.4.4": {
+        "cordova-ios": ">=4.0.0"
+      }
+    }
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-media-capture#readme",
+  "keywords": [
+    "cordova",
+    "media",
+    "capture",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-windows"
+  ],
+  "license": "Apache-2.0",
+  "name": "cordova-plugin-media-capture",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apache/cordova-plugin-media-capture.git"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "npm run lint"
+  },
+  "types": "./types/index.d.ts",
+  "version": "4.0.0"
+}

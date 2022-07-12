@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> ---- </title><meta name="format-detection" content="telephone=no">
+		<!-- <meta http-equiv="Content-Security-Policy" content="img-src * data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval';"> -->
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+		<!-- <meta name="color-scheme" content="light dark"> -->
+				<script src="../cordova.js"></script>
+
+		<script type="text/javascript" src="../js/Brorn.min.js"></script>
+		<script type="text/javascript" src="../js/Modules/saveform.js"></script> 
+		<script type="text/javascript" src="../js/Variables.js"></script>
+		<script type="text/javascript" src="../js/modules/autocomplete.js"></script>
+		<script type="text/javascript" src="../js/Modules/File_Module.js"></script> 
+		<script type="text/javascript" src="../js/Modules/media_capture.js"></script> 
+
+		<link rel="stylesheet" href="../css/x.css">
+		<link rel="stylesheet" href="../css/un_x.css">
+		<link rel="stylesheet" href="../css/other.css">
+		<link rel="stylesheet" href="../css/loader.css">
+		<link rel="stylesheet" href="../css/css">
+		<link rel="stylesheet" href="../css/chip.css">
+		<link rel="stylesheet" href="../css/dropzone.css">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+				integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+				crossorigin=""/>
+
+		<script src="../js/leaflet/jquery.min.js"></script>
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+				integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+				crossorigin=""></script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<style type="text/css">
+			#mapid { height: 180px; }
+		</style>
+	</head>
+	<body onload="__init__()" class=" center-bg" style=" height: 100vh;">
+		<header id="offline" class="x-header x-red x-center" style="display:none">Offline Mode</header>
+<header id="localhostversion" class="x-header x-yellow x-center" style="display:block">This is a Localhost Version, do not use outside NPCO</header>
+		<div id="form0" class="" style="display:block;padding: 0px;margin: 0px;">
+			<div class="">
+				<header class="-header gr_body x-blue x-padding">
+					<span onclick="back_to_home()" class="x-button x-display-topright x-red"><b>close</b></span>
+					<b id="is_form_filled">Profiling</b>
+				</header>
+
+				<input type="hidden" id="farmer_code" name="farmer_code" class="form_data">
+				<input type="hidden" id="is_synced" name="farmer-is_synced" class="form_data" value="0">
+				<input type="hidden" id="datetime" name="farmer-is_synced" class="form_data">
+
+				<div class="x-container  x-padding">
+					<b class="x-text-green">Profile Information</b><br>
+					<!-- <span class="x-text-grey">Farmer Photo</span>
+					<input type="file" id="farmer-photo" name="farmer-photo" accept="image/*;capture=camera" class="form_data x-input x-border x-round require_f"> -->
+					<div class="x-container x-center">
+						<img id="preview_profile_img" src="../img/no_img.png" class="x-image x-img x-round-xlarge" style="max-width:70%;">
+					</div>
+					<button class="x-input x-border x-round-large" id = "imageCapture" onclick="_imageCapture('farmer_img_base64','preview_profile_img') ">Open Camera</button>
+
+					<input type="hidden" id="farmer_img_base64" name="farmer_img_base64" class="form_data x-input x-border x-round require_f">
+					<!-- -------------------------------- -->
+					<span class="x-text-grey">Farmer Name</span>
+					<input type="text" id="farmer_name" name="farmer_name" class="form_data x-input x-border x-round require_f">
+					<span class="x-text-grey">Farmer Mobile number</span>
+					<input type="text" id="farmer-number" name="farmer-number" class="form_data x-input x-border x-round ">
+					<span class="x-text-grey">Farmer email</span>
+					<input type="email" id="farmer-email" name="farmer-email" class="form_data x-input x-border x-round ">
+					<span class="x-text-grey">Birthday</span>
+					<input type="date" id="farmer-bday" name="farmer-bday" class="form_data x-input x-border x-round require_f" onchange="cal_age(this.value)">
+					<span class="x-text-grey">age</span>
+					<input type="number" id="farmer-age" name="farmer-age" class="form_data x-input x-border x-round require_f" disabled>
+					<span class="x-text-grey">Civil Status</span>
+					<select name="farmer-civil_status" id="farmer-civil_status" class="form_data x-select x-border">
+						<option disabled selected value="">Please select Civil Status</option>
+						<option value="Single">Single</option>
+						<option value="Married">Married</option>
+						<option value="Widow/Widower">Widow/Widower</option>
+						<option value="Separated">Separated</option>
+					</select><hr>
+					
+					<b class="x-text-green">Addresses</b><br>
+					<span class="x-text-grey x-small">
+						<b>To get exact farmer's address please <i class="x-blue x-round" style="padding:2px" onmouseup="get_location()">click here</i></b><br>
+						<span>Or you can manually input the coordinates</span><br>
+					</span>
+					<span class="x-text-grey">
+						<span id="geolocation" style="display:none"></span>
+						<input class="form_data" placeholder="Coordinates : Longitude" type="text" id="farmer-coords_long">
+						<input class="form_data" placeholder="Coordinates : Latitude" type="text" id="farmer-coords_lat">
+					</span><br><br>
+
+					<span class="x-text-grey">Full Address</span>
+					<div class="x-container">
+						<div class="x-col s3 autocomplete">
+							<input id="addr_region" type="text" class="form_data x-input x-border x-round require_f" placeholder="Region" onkeyup="region_sel(this)">
+						</div>
+						<div class="x-col s9 autocomplete">
+							<input id="addr_prov" type="text" class="form_data x-input x-border x-round require_f" placeholder="Province" onkeyup="ls_prov(this)">
+						</div>
+					</div>
+					<div class="x-container">
+						<div class="x-col s6 autocomplete">
+							<input id="addr_city" type="text" class="form_data x-input x-border x-round require_f" placeholder="Municipality/City" onkeyup="ls_city(this)">
+						</div>
+						<div class="x-col s6 autocomplete">
+							<input id="addr_brgy" type="text" class="form_data x-input x-border x-round require_f" placeholder="Barangay" onkeyup="ls_brgy(this)">
+						</div>
+					</div>
+					<div class="x-container">
+						<input id="addr_street_purok_sitio" type="text" class="form_data x-input x-border x-round x-block require_f" placeholder="Street/Purok/Sitio">
+					</div>
+					<hr>
+
+					<span class="x-text-grey">Primary Crop.</span>
+					<select name="farmer-primary_crop" id="farmer-primary_crop" class="form_data x-select x-border require_f">
+						<option value="Cacao">Cacao</option>
+						<option value="Coffee">Coffee</option>
+						<option value="Coconut">Coconut</option>
+						<option value="Banana">Banana</option>
+						<option value="Calamansi">Calamansi</option>
+						<option value="Jackfruit">Jackfruit</option>
+						<option value="Mango">Mango</option>
+						<option value="Pili Nut">Pili Nut</option>
+						<option value="Other fruits and nuts">Other fruits and nuts</option>
+					</select>
+
+					<span class="x-text-grey">DIP Reference</span>
+					<select name="farmer-dip_ref" id="farmer-dip_ref" class="form_data x-select x-border require_f" onchange="ls_prov(this.value)">
+						<option disabled selected value=''>Please select entry</option>
+							<option value="Coffee - Nestle MOR and LDN">Coffee - Nestle MOR and LDN</option>
+							<option value="PFN Banana – with Sees’International">PFN Banana – with Sees’International</option>
+							<option value="Coffee - Linear Coffee Roaster as Anchor Firm">Coffee - Linear Coffee Roaster as Anchor Firm</option>
+							<option value="Coffee – Nestle +++">Coffee – Nestle +++</option>
+							<option value="Coconut - Copra (Anchor Firm: Granex)">Coconut - Copra (Anchor Firm: Granex)</option>
+							<option value="Coconut - Charcoal (Anchor Firm: Donau Carbon Phil">Coconut - Charcoal (Anchor Firm: Donau Carbon Phil)</option>
+							<option value="Coconut - Fiber (Anchor Firm: CDO Draco & PEM Cargo)">Coconut - Fiber (Anchor Firm: CDO Draco & PEM Cargo)</option>
+							<option value="PFN - Kalamansi">PFN - Kalamansi</option>
+							<option value="PFN-Banana">PFN-Banana</option>
+							<option value="Cacao - 2 FOs to link with AM Noble Nature's Blessing">Cacao - 2 FOs to link with AM Noble Nature's Blessing</option>
+							<option value="Coconut Fiber with PAGRO">Coconut Fiber with PAGRO</option>
+							<option value="Cacao–with Kennemer">Cacao–with Kennemer</option>
+							<option value="PFN - Kalamansi">PFN - Kalamansi</option>
+					</select>
+					<hr>
+					<span class="x-text-grey">Sectoral Group.</span><br>
+
+					<!-- <input id="farmer-is_farmer" name="farmer-is_farmer" class="form_data x-check" type="checkbox" checked="checked">
+					<label>Farmer</label><br>
+					<input id="farmer-is_youth" name="farmer-is_youth" class="form_data x-check" type="checkbox">
+					<label> Youth (18 - 30 yo)</label><br>
+					<input id="farmer-is_srcitizen" name="farmer-srcitizen" class="form_data x-check" type="checkbox">
+					<label>Senior Citizen</label><br> -->
+					<input id="farmer-is_pwd" name="farmer-is_pwd" class="form_data x-check" type="checkbox">
+					<label>PWD</label><br>
+					<input id="farmer-is_ofw" name="farmer-is_ofw" class="form_data x-check" type="checkbox">
+					<label>OFW</label><br>
+					<input id="farmer-is_ip" name="farmer-is_ip" class="form_data x-check" type="checkbox" onchange="$ID('farmer-ip').disabled= !this.checked">
+					<label>IP</label><br>
+					<span class="x-text-grey">IP Group</span>
+					<select name="farmer-ip" id="farmer-ip" class="form_data x-select x-border" disabled onchange="println(this.value)">
+						<option disabled selected value='none'>Please select entry</option>
+						<option value="Aromanon">Aromanon</option>
+						<option value="Ata">Ata</option>
+						<option value="'laan">B'laan</option>
+						<option value="Badjao">Badjao</option>
+						<option value="Badjao, Sama Laut">Badjao, Sama Laut</option>
+						<option value="Bagobo">Bagobo</option>
+						<option value="Banwaon">Banwaon</option>
+						<option value="Dibabawon">Dibabawon</option>
+						<option value="Dulangan">Dulangan</option>
+						<option value="Higaonon">Higaonon</option>
+						<option value="Iranon">Iranon</option>
+						<option value="Iranun">Iranun</option>
+						<option value="Jama Mapon">Jama Mapon</option>
+						<option value="Kagan">Kagan</option>
+						<option value="Kalagan">Kalagan</option>
+						<option value="Kalibugan">Kalibugan</option>
+						<option value="Kamigin">Kamigin</option>
+						<option value="Karintik">Karintik</option>
+						<option value="Klata-Guiangan">Klata-Guiangan</option>
+						<option value="Kongking">Kongking</option>
+						<option value="Lambangian">Lambangian</option>
+						<option value="Maguindanaon">Maguindanaon</option>
+						<option value="Mamanwa">Mamanwa</option>
+						<option value="Mandaya">Mandaya</option>
+						<option value="Manobo">Manobo</option>
+						<option value="Manobo B'lit">Manobo B'lit</option>
+						<option value="Mansaka">Mansaka</option>
+						<option value="Maranao">Maranao</option>
+						<option value="Matigsalog">Matigsalog</option>
+						<option value="Sama">Sama</option>
+						<option value="Sama-Bangingi">Sama-Bangingi</option>
+						<option value="Samal">Samal</option>
+						<option value="Sangil">Sangil</option>
+						<option value="Subanen">Subanen</option>
+						<option value="Subanon">Subanon</option>
+						<option value="T-boli">T-boli</option>
+						<option value="Tagabawa">Tagabawa</option>
+						<option value="Tagakaolo">Tagakaolo</option>
+						<option value="Talaandig">Talaandig</option>
+						<option value="Talaingod, Langilan">Talaingod, Langilan</option>
+						<option value="Tausug">Tausug</option>
+						<option value="Tigawahanon">Tigawahanon</option>
+						<option value="Tiruray">Tiruray</option>
+						<option value="Ubo Manobo">Ubo Manobo</option>
+						<option value="Umayamnon">Umayamnon</option>
+						<option value="Yakan">Yakan</option>
+						<option value="others">others</option>
+					</select><br><br>
+					<span class="x-text-grey">Years of Farming</span>
+					<input type="number" id="farmer-yearsfarming" name="farmer-yearsfarming" class="form_data x-input x-border x-round ">
+					<span class="x-text-grey">Name of Cooperative or Farmers Organization (RAPID beneficiary only)</span>
+					<input value="None" type="text" id="farmer-fo_name_rapid" name="farmer-fo_name_rapid" class="form_data x-input x-border x-round ">
+					<span class="x-text-grey">Position in Cooperative or Farmers Organization (RAPID beneficiary only).</span>
+					<select name="farmer-fo_position" id="farmer-fo_position" class="form_data x-select x-border" onchange="foposition_change(this.value)">
+						<option selected value='none'>None</option>
+						<option value='Member'>Member</option>
+						<option value='Officer'>Officer</option>
+					</select>
+					<span class="x-text-grey">If Officer, what designation?</span>
+					<input value="None" type="text" id="farmer-fo_designation" name="farmer-fo_designation" class="form_data x-input x-border x-round ">
+					<span class="x-text-grey">Coop/FO member since (year)?</span>
+					<input value="None" type="text" id="farmer-fo_member_since" name="farmer-fo_member_since" class="form_data x-input x-border x-round ">
+
+					<span class="x-text-grey">Listed in Registry System for Basic Sectors in Agriculture (RSBSA).</span>
+					<select name="farmer-rsbsa" id="farmer-rsbsa" class="form_data x-select x-border" onchange="rsbsa_change(this.value)">
+						<option selected value='No'>No</option>
+						<option value='yes'>yes</option>
+						<option value='No Idea'>No Idea</option>
+					</select>
+
+					<hr>
+
+					<span class="x-text-grey">Highest Educational Attainment?</span>
+					<select name="farmer-highest_education" id="farmer-highest_education" class="form_data x-select x-border">
+						<option value="College Graduate">College Graduate</option>
+						<option value="College Undergraduate">College Undergraduate</option>
+						<option value="High School Graduate">High School Graduate</option>
+						<option value="High School Undergraduate">High School Undergraduate</option>
+						<option value="Elementary Graduate">Elementary Graduate</option>
+						<option value="Elementary Undergraduate">Elementary Undergraduate</option>
+						<option value="No formal education">No formal education</option>
+					</select>
+					
+					<span class="x-text-grey">Vocational Skills</span>
+					<input value="None" type="text" id="farmer-vocational" name="farmer-vocational" class="form_data x-input x-border x-round ">
+
+					<span class="x-text-grey">Are you the head of the household</span>
+					<select name="farmer-head_of_house" id="farmer-head_of_house" class="form_data x-select x-border">
+						<option value="Yes">Yes</option>
+						<option value="No">No</option>
+					</select>
+					<hr>
+					
+					<hr>
+					<b class="x-text-grey">Remarks (For Enumerator)</b><br>
+					<input placeholder="" type="text" id="form-remarks" name="feedback-rsbsa_no" class="form_data x-input x-border x-round ">
+					<hr>
+					<span class="x-text-grey">
+						
+						Before Clicking next, pls make sure to check all fields as they cannot be undone while the profiling is not yet finished
+					</span><br>
+					<div class="x-container">
+	<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="history.back()">Previous Form<span class="fa fa-arrow-lef"></span></button>
+	<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
+</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript">
+		function __init__(){
+			println(" = Page Loaded ======================================")
+		}
+		println(url_args)
+		println(url_args)
+		try{
+			document.addEventListener("deviceready", onDeviceReady, false);
+			function onDeviceReady() {
+				var page = window.location.pathname.split("/").pop()
+				println("+=+=+=+=+= PAGE READY ["+page+"] +=+=+=+=+=+=")
+
+				window.setInterval(function () {
+					if(isOnline()){$ID("offline").style.display="none"}
+					else{$ID("offline").style.display="block"}
+				}, 1000)
+			}
+		}catch(err){println(" ERROR on DEVICE INIT : "+err)}
+
+
+		// ---------------------------------------------------------------------------------------
+		function save_form(){
+			if(url_args['farmer_id'] ==undefined || url_args['farmer_id'] ==""){
+				var Farmer_ID = gen_code(76)
+				alert("You Have Added a New Profile")
+				url_args['farmer_id'] = Farmer_ID
+			}else{
+				var ans = confirm("You are about to modify an existing profile.\nDoing so may change the status of the profile depending on the modification\nClick [ok] to continue, [cancel] otherwise")
+				if(!ans){
+					goto("../home_screen.html?tab_index=1&selected_farmer_="+undefined)
+				}
+			}
+
+			$ID('farmer_code').value = url_args['farmer_id']
+			$ID('datetime').value = $datetime()
+
+			var FILE_NAME = url_args['farmer_id']+"@"+page+".txt"
+			create_formdata(FILE_NAME,function(){
+				redirectto("add_farm.html?user_id="+url_args['user_id']+"&farmer_id="+url_args['farmer_id'])
+			})
+		}
+
+		function cal_age(bday){
+			var parts2 = bday.split('-');
+			// var todate = new Date(parts[0], parts[1] - 1, parts[2]);
+			var todate = $date()
+			var sbday = new Date(parts2[0], parts2[1] - 1, parts2[2]); 
+			println(todate)
+			println(sbday)
+			const diffTime = Math.abs(todate - sbday);
+			var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+			var age = diffDays/365
+			$ID("farmer-age").value = (""+age).split(".")[0];
+			if(age<=18.0){
+				alert("oops you are profiling a minor with the age of ["+(""+age).split(".")[0]+"]\nPlease select a legal age by selecting the correct birthday")
+			}
+			if(age <=30 && age >=18){$ID("farmer-is_youth").checked = true}
+			else{$ID("farmer-is_youth").checked = false}
+
+		}
+		function foposition_change(val){
+			if(val=="Officer"){
+				$ID("farmer-fo_designation").disabled = false
+			}else{
+				$ID("farmer-fo_designation").disabled = true
+			}
+		}
+		function rsbsa_change(val){
+			if(val=="yes"){
+				$ID("farmer-rsbsa_no").disabled = false
+			}else{
+				$ID("farmer-rsbsa_no").disabled = true
+			}
+		}
+
+	</script>
+</html>

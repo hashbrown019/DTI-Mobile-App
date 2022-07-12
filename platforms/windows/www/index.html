@@ -1,0 +1,450 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="format-detection" content="telephone=no">
+		<!-- <meta http-equiv="Content-Security-Policy" content="img-src * data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval';"> -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+		<!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  -->
+		<!-- <meta name="color-scheme" content="light dark"> -->
+
+        <!-- <script src="cordova.js"></script> -->
+
+		<script type="text/javascript" src="js/Brorn.min.js"></script>
+		<script type="text/javascript" src="js/Variables.js"></script>
+        <script src="cordova.js"></script>
+		<script type="text/javascript" src="js/Modules/File_Module.js"></script> <!-- +++++++++++++++++++++++ -->
+
+		<link rel="stylesheet" href="css/x.css">
+		<link rel="stylesheet" href="css/other.css">
+		<!-- <link rel="stylesheet" href="css/loader.css"> -->
+		<link rel="stylesheet" href="css/css">
+		<link rel="stylesheet" href="css/chip.css">
+		<link rel="stylesheet" href="css/dropzone.css">
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+				integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+				crossorigin=""/>
+
+		<script src="js/leaflet/jquery.min.js"></script>
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+				integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+				crossorigin=""></script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<style type="text/css">
+			#mapid { height: 180px; }
+		</style>
+	</head>
+
+	<body onload="__initBody__()" class=" x-center-bg gr_body_" style=";height: 100vh;">
+		<div id="loader" class="x-animate-opacity x-display-container" style="height: 100vh;">
+			<div class="x-display-middle">
+				<div class="x-center">
+					<img src="img/rapidlogo1.jpg" class="x-image">
+					<b class="x-tiny ">RAPID Growth Project Management Information System</b>
+					<br>
+					<br>
+					<span class="x-large fa fa-circle-o-notch fa-spin"></span>
+				</div>
+			</div>
+			<!-- <div class="x-display-topleft">Top Left</div>
+			<div class="x-display-topright">Top Right</div>
+			<div class="x-display-bottomleft">Bottom Left</div>
+			<div class="x-display-bottomright">Bottom Right</div>
+			<div class="x-display-left">Left</div>
+			<div class="x-display-right">Right</div>
+			<div class="x-display-topmiddle x-hide-small">Top Middle</div> -->
+			<div class="x-display-bottommiddle x-padding">
+				<span class="x-grey x-padding x-round-large x-text-white x-tiny" id="update_version"></span><br><br><br>
+			</div> 
+		</div>
+
+		<div style="display:none;" id="login_view" class="x-animate-top gr_body" style="height: 100vh;">
+			<header id="offline" class="x-header x-red x-center" style="display:none">Offline Mode</header>
+			<header id="localhostversion" class="x-header x-yellow x-center" style="display:block">This is a Localhost Version, do not use outside NPCO</header>
+			
+			<div class="x-container x-margin x-padding"><br><br><br>
+				<div class="x-container x-padding x-white x-center x-card x-round-large">
+					<div class="x-container">
+						<img src="img/rapidlogo1.jpg" class="x-image"><br><br>
+						<b>RAPID Growth Project Management Information System</b><hr>
+					</div>
+					<div class="x-container">
+						<span id="er_note"></span>
+						<span class="x-left"><span class="fa fa-user"></span> Username</span>
+						<input value="sample" placeholder="username" id="login_username" type="text" class="login_form x-input  x-round-large" name="">
+						<br>
+						<span class="x-left"><span class="fa fa-lock"></span> Password </span>
+						<input value="sample" placeholder="*password" id="login_password" type="password" class="login_form x-input x-round-large"  name="">
+						<br>
+					</div>
+					<div class="x-container">
+						<button 
+							class="x-row x-button x-large x-round-large x-green"
+							onclick="user_login($ID('login_username').value, $ID('login_password').value)">
+								Sign In <span class="fa fa-arrow-right"></span>
+						</button><hr>
+						<span class="x-text-grey">If you don't have an account, please<b class="x-text-blue" onclick="open_reg()"> click here</b> for registration</span>
+					</div>
+				</div>
+			</div>
+			<!-- ------------------------------------------------------------------------------- -->
+			<div id="registration_modal" class="x-modal">
+				<div class="x-modal-content x-padding x-margin x-round-large">
+					<div class="x-container x-center x-padding">
+						<b onclick="$ID('registration_modal').style.display='none'"
+						class="x-button x-display-topright">&times;</b>
+						<span class=" x-large x-text-green">
+						Registration</span>
+					</div>
+					<div class="x-container">
+						<form name="reg_form">
+							<span class="x-text-grey">Name<span class="x-text-red">*</span></span>
+							<input type="text" name="name" class="form_data x-input x-border x-round ">
+							<span class="x-text-grey">Email Address<span class="x-text-red">*</span></span>
+							<input type="text" name="email" class="form_data x-input x-border x-round ">
+
+							<span class="x-text-grey">Home Address<span class="x-text-red">*</span></span>
+							<input type="text" id="address" name="address" class="form_data x-input x-border x-round ">
+							<div id="map_cont" class="x-container x-round x-padding x-round-xlarge">
+								<div id="mapid"></div>
+							</div>
+							<hr>
+							<b class="x-text-green">Area of Assignment</b><br>
+
+							<span class="x-text-grey">RCU<span class="x-text-red">*</span></span>
+							<select name="rcu"t id="rcu" class="form_data x-select x-border" onchange="set_ls_pcu(this.value)">
+								<option disabled selected value="">Please select RCU</option>
+							</select>
+
+							<span class="x-text-grey">PCU<span class="x-text-red">*</span></span>
+							<select name="pcu"t id="pcu" class="form_data x-select x-border" disabled>
+								<option disabled selected value="">Please select PCU</option>
+							</select>
+
+
+							<span class="x-text-grey">Mobile Phone<span class="x-text-red">*</span></span>
+							<input type="phone" id="mobile" name="mobile" class="form_data x-input x-border x-round ">
+
+							
+							<span class="x-text-grey">Job Designation<span class="x-text-red">*</span></span>
+							<select name="job" id="job" class="form_data x-select x-border">
+								<option disabled selected value="">Please select Job Designation</option>
+								<option value="Enumerator">Enumerator</option>
+								<option value="Value Chain Facilitator">Value Chain Facilitator</option>
+								<option value="Provincial Project Coordinator">Provincial Project Coordinator</option>
+								<option value="Regional Project Coordinator">Regional Project Coordinator</option>
+							</select><br>
+							<hr>
+							<b class="x-text-green">Account information</b><br>
+
+							<span class="x-text-grey">Username<span class="x-text-red">*</span></span>
+							<input type="text" id="username" name="username" class="form_data x-input x-border x-round ">
+
+							<span class="x-text-grey">Password<span class="x-text-red">*</span></span>
+							<input type="password" id="password" name="password" class="form_data x-input x-border x-round ">
+						</form>
+						<div class="x-container x-center">
+							<span id="note_reg" class="x-text-red x-leftbar x-border-red x-pale-red"></span>
+							<hr>
+							<span class="x-text-grey">By Clicking "Register", I have fully read, understand and AGREE on the <b class="x-text-blue" onclick="show_eula()">Terms and Condition</b> of this app</span><br><br>
+							<button class="x-btn x-green x-round-xlarge x-block" onclick="next_step_reg()">Register</button>
+						</div>
+						<hr>
+					</div>
+				</div>
+			</div>
+			<div id="login_loading_modal" class="x-modal">
+				<div class="x-modal-content x-padding x-margin x-round-large">
+					<div class="x-container x-center x-padding">
+						<span onclick="$ID('login_loading_modal').style.display='none'"
+						class="x-button x-display-topright">&times;</span>
+						<span class="x-jumbo fa fa-circle-o-notch fa-spin x-text-blue"></span><br>
+						<span class="x-text-gray x-large">Loading. please wait</span>
+					</div>
+				</div>
+			</div>
+
+			<div id="modal_done" class="x-modal" style="">
+				<div class="x-modal-content x-padding x-margin x-round-large">
+					<div class="x-container x-center x-padding">
+						<span onclick="$ID('modal_done').style.display='none'"
+						class="x-button x-display-topright">&times;</span>
+						<span class="x-xxxlarge fa fa-thumbs-o-up x-text-blue"></span><br>
+						<span class="x-text-green">Task Done</span>
+						<button class="x-green x-round-xlarge x-btn" onclick="$ID('modal_done').style.display='none'">Continue</button>
+					</div>
+				</div>
+			</div>
+
+			<div id="modal_eula" class="x-modal">
+				<div class="x-modal-content x-padding x-margin x-round-large">
+					<div class="x-container x-center x-padding">
+						<span onclick="$ID('modal_eula').style.display='none'"
+						class="x-button x-display-topright">&times;</span>
+					</div>
+					,<div class="x-container" id="eula" style="overflow-y: scroll;max-height: 80vh;"></div>
+				</div>
+			</div>
+			<br><br><br><br><br><br><br>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var myVar;
+		
+		function myFunction() {
+		  println("loading")
+		  myVar = setTimeout(showPage, 3000);
+		}
+
+		function showPage() {
+		  $ID("loader").style.display = "none";
+		  $ID("login_view").style.display = "block";
+		  println("done")
+		}
+
+		function __initBody__(){
+			$ID("update_version").innerHTML = update_version
+			myFunction()
+			println("--body loaded ---")
+			$send({
+				action : DOMAIN + "/api/test",
+				method : GET,
+				data : JSON.stringify({"data": "SAMPLE"}),
+				func : function (res){
+					println(res)
+				}
+			})
+		}
+
+
+		// ======================================================================
+		window.setInterval(function () {
+			if(isOnline()){$ID("offline").style.display="none"}
+			else{$ID("offline").style.display="block"}
+		}, 1000)
+
+		document.addEventListener("deviceready", onDeviceReady, false);
+		function onDeviceReady() {
+			console.log(cordova.file.externalDataDirectory);
+			println(" * Login Module Ready ================================");
+			__initBody__()
+		}
+		// ----------------------------------------------------------------------
+		function open_reg(){
+			$ID('registration_modal').style.display='block'
+			for(var key in RCU_PCU){
+				$ID("rcu").innerHTML += "<option value='"+key+"'>"+key+"</option>"
+			}
+		}
+
+		function next_step_reg(){
+			var form_data = $CLASS("form_data")
+			var form_data_json = {}
+			for (var i = 0; i < form_data.length; i++) {
+				form_data_json[form_data[i].name] = form_data[i].value
+			}
+			if(input_validate('form_data')){
+				send_register(form_data_json)
+			}else{
+				$ID("note_reg").innerHTML = "Pls fill-up all for inputs"
+			}
+			println(form_data_json)
+		}
+
+		function set_ls_pcu(sel_rcu){
+			$ID("pcu").innerHTML = ''
+			println(RCU_PCU[sel_rcu])
+			for (var i = 0; i < RCU_PCU[sel_rcu].length; i++) {
+				$ID("pcu").innerHTML += "<option value='"+RCU_PCU[sel_rcu][i]+"'>"+RCU_PCU[sel_rcu][i]+"</option>"
+			}
+			$ID("pcu").disabled = false
+		}
+
+		function show_eula(){
+			$ID('modal_eula').style.display='block'
+			$ID("eula").innerHTML = EULA
+		}
+
+		function send_register(_DATA){
+			$ID('login_loading_modal').style.display='block'
+			$send({
+				action : DOMAIN + "/api/user_register",
+				data : JSON.stringify(_DATA),
+				method : POST,
+				headers : {"Content-Type": "application/json"},
+				func : function(r){
+					var res = JSON.parse(r)
+					println(res)
+					// alert("Registration Submitted")
+					$ID('login_loading_modal').style.display='none'
+					$ID('registration_modal').style.display='none'
+					$ID('modal_done').style.display='block'
+
+					// __createNewFileEntry("cur_registered.txt",JSON.stringify(_DATA),function(){
+					// 	// goto("home_screen.html?data="+__data)  //PLS UNCOMMENT LATER
+					// })
+
+				}
+			})
+		}
+		// alert(isOnline())
+		function user_login(log_usern,log_passwd){
+			if(!isOnline()){
+				FILES_IS_EXIST(
+					"user_info.txt",
+					function (res){ // file found
+						_readFileEntry("user_info.txt",function(res){
+							println("------- Offline Mode login : DATA FOUND ----------")
+							$ID('login_loading_modal').style.display='none'
+							var USER_INFO = JSON.parse(res).data[0]
+							println(JSON.stringify(USER_INFO))
+							println((USER_INFO.username))
+							if(USER_INFO.username==log_usern && USER_INFO.password==log_passwd){
+								println("------- OFFLINE LOGIN SUCCESS")
+								goto("home_screen.html")
+							}
+							else{
+								println("------- OFFLINE LOGIN FAILED")
+								$ID("er_note").innerHTML ="<p class='x-text-red x-pale-red x-leftbar x-border-red '>Offline Mode Login failed <br>User Input doesn't match to the save offline information. Try logging in using online mode</p>"
+
+							}
+							println("-------")
+						})
+
+					},
+					function (){ // file not found
+						println("------- Offline Mode login : DATA NOT FOUND ----------")
+						$ID('login_loading_modal').style.display='none'
+						$ID("er_note").innerHTML ="<p class='x-text-red x-pale-red x-leftbar x-border-red '>Offline Mode Login failed <br>User information not yet been saved. Try logging in using online mode</p>"
+					}
+				)
+			}
+			else{
+				println("------- Online Mode login Initiated ----------")
+				$ID('login_loading_modal').style.display='block'
+				if(input_validate("login_form")){
+					$send({
+						action : DOMAIN + "/api/login",
+						method : POST,
+						data : JSON.stringify({"username":log_usern,"password":log_passwd}),
+						headers : {"Content-Type": "application/json"},
+						func : function (ress){
+							println("------- Online Mode login : Request Finished ----------")
+							var resp = JSON.parse(ress)
+							println("resp---=-==--=-=-=-=-=-=-=-=-==")
+							println(resp)
+							if(!resp.success){
+								println("------- Online Mode login :Login Failed ----------")
+								$ID('login_loading_modal').style.display='none'
+								$ID("er_note").innerHTML ="<p class='x-text-red x-pale-red x-leftbar x-border-red '>Login failed</p>"
+							}
+							else{
+								
+								$ID('login_loading_modal').style.display='none'
+
+								if(resp.data.length != 0){
+									document.cookie = "usern="+$ID("login_username").value;
+									document.cookie = "passwd="+ $ID("login_password").value;
+									println(JSON.stringify(resp))
+									println("------- Online Mode login :Login Success ----------")
+									_createNewFileEntry("user_info.txt",JSON.stringify(resp),function(){
+										print(" =-=-=- Use Data file creation completed")
+										goto("home_screen.html")
+									})
+								}
+								else{
+									println("------- Online Mode login :User Not Found ----------")
+									$ID("er_note").innerHTML ="<p class='x-text-red x-pale-red x-leftbar x-border-red '>User not found</p>"
+								}
+							}
+						},
+						err : function (res){
+							println(" ----- Connection Error -------")
+							// _createNewFileEntry("Error_log.txt",JSON.stringify(res),function(){
+							// 	print(" =-=-=- ERROR LOG CRETED")
+							// })
+						},
+						// headers:{
+						// 	"Accept":"application/json",
+						// 	"Content-Type":"application/json"
+						// }
+					})
+				}
+				else{
+					$ID('login_loading_modal').style.display='none'
+					$ID("er_note").innerHTML = "<p class='x-text-yellow x-pale-yellow x-leftbar x-border-yellow '>Fill up the forms Correctly</p>"
+
+				}
+			}
+		}
+
+
+		// -----------------------------------------
+
+		if(getCookie("usern")==undefined || getCookie("usern")==null){
+			println(' * no Cookies/Session found')
+		}
+		else{println('hascookie')}
+
+
+		// --------------------------------------------------
+
+		var marker = undefined
+		try{
+			var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+			L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+				attribution: 'DTI RAPID GROWTH',
+				maxZoom: 18,
+				id: 'mapbox/streets-v11',
+				tileSize: 512,
+				zoomOffset: -1,
+				accessToken: 'pk.eyJ1IjoiZGlvYW1lIiwiYSI6ImNrbGo1ZDc1aDAxZTQybnBoc2tpZGcxOWoifQ.90lp0SPxVC4Kz113q_Wn9g'
+			}).addTo(mymap);
+			let samp = {"lat":8.945209,"lng":125.538939}
+			mymap.setView([samp.lat, samp.lng], 13);
+
+
+			// var popup = L.popup();
+
+			function onMapClick(e) {
+				if(marker != undefined){mymap.removeLayer(marker)}
+				// popup
+				// 	.setLatLng(e.latlng)
+				// 	.setContent("You clicked the map at " + e.latlng.toString())
+				// 	.openOn(mymap);
+
+				marker = L.marker(e.latlng).addTo(mymap);
+				// println(e.latlng.lat)
+				$.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+e.latlng.lat+'&lon='+e.latlng.lng, function(data){
+					console.log(data.address);
+					// $ID("reg_business_address").value = data.address.region + ', ' +data.address.state
+					// $ID("reg_muni").value = data.address.city
+					var addr = 
+						 String(data.address.village + "," ).replace("undefined,",'')
+						+String(data.address.neighbourhood+",").replace("undefined,",'')
+						+String(data.address.quarter+",").replace("undefined,",'')
+						+String(data.address.suburb+",").replace("undefined,",'')
+						+String(data.address.road + ",").replace("undefined,",'')
+						+String(data.address.tourism + ",").replace("undefined,",'')
+						+String(data.address.leisure + ",").replace("undefined,",'')
+						+String(data.address.state + ",").replace("undefined,",'')
+						+String(data.address.region + ",").replace("undefined,",'')
+						+String(e.latlng.lat +","+e.latlng.lng+ ",").replace("undefined,",'')
+					// $ID("reg_brgy").value = addr.split("undefined ,").join("")
+					$ID("address").value = addr
+					// $ID("address").value = addr.replaceAll("undefined,","")
+				});
+			}
+			mymap.on('click', onMapClick);
+		}
+		catch(e){
+			$ID("map_cont").style.display = "none"
+		}
+
+
+
+	</script>
+</html>

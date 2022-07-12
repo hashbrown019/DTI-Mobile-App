@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> ---- </title><meta name="format-detection" content="telephone=no">
+		<!-- <meta http-equiv="Content-Security-Policy" content="img-src * data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval';"> -->
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+		<!-- <meta name="color-scheme" content="light dark"> -->
+        <script src="../cordova.js"></script>
+
+		<script type="text/javascript" src="../js/Brorn.min.js"></script>
+		<script type="text/javascript" src="../js/Variables.js"></script>
+		<script type="text/javascript" src="../js/modules/autocomplete.js"></script>
+		<script type="text/javascript" src="../js/Modules/File_Module.js"></script> 
+		<script type="text/javascript" src="../js/Modules/saveform.js"></script> 
+
+
+		<link rel="stylesheet" href="../css/x.css">
+		<link rel="stylesheet" href="../css/un_x.css">
+		<link rel="stylesheet" href="../css/other.css">
+		<link rel="stylesheet" href="../css/loader.css">
+		<link rel="stylesheet" href="../css/css">
+		<link rel="stylesheet" href="../css/chip.css">
+		<link rel="stylesheet" href="../css/dropzone.css">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+				integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+				crossorigin=""/>
+
+		<script src="../js/leaflet/jquery.min.js"></script>
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+				integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+				crossorigin=""></script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<style type="text/css">
+			#mapid { height: 180px; }
+		</style>
+	</head>
+	<body class=" center-bg" style=" height: 100vh;">
+		<header id="offline" class="x-header x-red x-center" style="display:none">Offline Mode</header>
+<header id="localhostversion" class="x-header x-yellow x-center" style="display:block">This is a Localhost Version, do not use outside NPCO</header>
+		<form action="" method="POST" id="form0" class="" style="display:block;padding: 0px;margin: 0px;">
+			<div class="">
+				<header class="-header gr_body x-blue x-padding">
+					<span onclick="back_to_home()" class="x-button x-display-topright x-red"><b>close</b></span>
+					<b id="is_form_filled">Profiling</b>
+				</header>
+				<input type="hidden" id="farmer_code" name="farmer_code" class="form_data">
+				<input type="hidden" id="is_synced" name="farmer-is_synced" class="form_data" value="0">
+				<input type="hidden" id="datetime" name="farmer-is_synced" class="form_data">
+				<div id="board" class="x-container  x-padding">
+					<!--  -->
+					<div id="post_harvest0">
+						<b class="x-text-green"><b class="post_num">1</b> POST Harvest/Semi-Processing Capacity</b><hr>
+						
+						<span class="x-text-">Facility/Equipment Information</span><br>
+						<span class="x-text-grey"> Type of PH Facility/Equipment</span>
+						<select name="[]post_harv-type_faci_equip" id="[]post_harv-type_faci_equip" class="form_data x-select x-border" _onchange="ls_muni(this.value)" >
+							<option  value='Mechanized'>Mechanized</option>
+							<option  value='Manual'>Manual</option>
+							<option  value='Both Mechanized and Manual'>Both Mechanized and Manual</option>
+						</select>
+						
+						<b class="x-text-green">Addresses</b><br>
+						<span class="x-text-grey x-small">
+							<b>To get exact farmer's address please <i class="x-text-blue" onmouseup="get_location()">click here</i></b><br>
+						</span>
+						<span class="x-text-grey">
+							<span id="geolocation"></span>
+							<input class="form_data" type="hidden" id="farmer-coords_long">
+							<input class="form_data" type="hidden" id="farmer-coords_lat">
+						</span><br><br>
+
+						<span class="x-text-grey">Full Address</span>
+						<div class="x-container">
+							<div class="x-col s3 autocomplete">
+								<input id="addr_region" type="text" class="form_data x-input x-border x-round " placeholder="Region" onkeyup="region_sel(this)">
+							</div>
+							<div class="x-col s9 autocomplete">
+								<input id="addr_prov" type="text" class="form_data x-input x-border x-round " placeholder="Province" onkeyup="ls_prov(this)">
+							</div>
+						</div>
+						<div class="x-container">
+							<div class="x-col s6 autocomplete">
+								<input id="addr_city" type="text" class="form_data x-input x-border x-round " placeholder="Municipality/City" onkeyup="ls_city(this)">
+							</div>
+							<div class="x-col s6 autocomplete">
+								<input id="addr_brgy" type="text" class="form_data x-input x-border x-round " placeholder="Barangay" onkeyup="ls_brgy(this)">
+							</div>
+						</div>
+						<div class="x-container">
+							<input id="addr_street_purok_sitio" type="text" class="form_data x-input x-border x-round x-block" placeholder="Street/Purok/Sitio">
+						</div>
+
+						<hr>
+						<span class="x-text-grey"> PH Product Form</span>
+						<select name="[]post_harv-ph_product_form" id="[]post_harv-ph_product_form" class="form_data x-select x-border" onchange="phcrop(this.value)">
+							<option value="primary" selected>Primary Crop (selected primary crop)</option>
+							<optgroup label="Coffee">
+								<option value="fresh cherries">fresh cherries</option>
+								<option value="dried beans/green coffee beans">dried beans/green coffee beans</option>
+								<option value="roasted beans">roasted beans</option>
+								<option value="roasted ground coffee">roasted ground coffee</option>
+							</optgroup>
+							<optgroup label="Cacao">
+								<option value="wet beans">wet beans</option> 
+								<option value="sun dried beans">sun dried beans</option> 
+								<option value="dried fermented beans">ried fermented beans</option> 
+								<option value="tablea (cocoa mass)">tablea (cocoa mass)</option> 
+								<option value="cacao nibs">cacao nibs</option> 
+								<option value="chocolates">chocolates</option> 
+							</optgroup>
+							<optgroup label="Coconut">
+								<option value="whole nuts (dehusked)">whole nuts (dehusked)</option>
+								<option value="whole nut with husk">whole nut with husk</option>
+								<option value="copra">copra</option>
+								<option value="desiccated coconut">desiccated coconut</option>
+								<option value="virgin coconut oil">virgin coconut oil</option>
+								<option value="coco vinegar">coco vinegar</option>
+								<option value="lump charcoal">lump charcoal</option>
+								<option value="coconut fiber">coconut fiber</option>
+								<option value="pressed coconut hut">pressed coconut hut</option>
+							</optgroup>
+
+							<optgroup label="Calamansi">
+								<option value="fresh calamansi">fresh calamansi</option>
+								<option value="calamansi concentrate">calamansi concentrate</option>
+								<option value="calamansi puree">calamansi puree</option>
+								<option value="raw calamansi juice">raw calamansi juice</option>
+								<option value="calamansi powder">calamansi powder</option> 
+							</optgroup>
+
+							<optgroup label="Banana">
+								<option value="defingered banana">defingered banana</option>
+								<option value="first fry banana">first fry banana</option>
+								<option value="first fry banana chips">first fry banana chips</option>
+								<option value="fresh cardaba banana">fresh cardaba banana</option>
+								<option value="banana flour">banana flour</option>
+							</optgroup>
+							<option value="others">Others</option>
+						</select>
+						<script type="text/javascript">
+							function phcrop(val){
+								if(val=="others"){$ID('[]post_harv-phcropothers').style.display="block"}
+								else{$ID('[]post_harv-phcropothers').style.display="none"}
+							}
+						</script>
+						<input placeholder="If Others, please specify product form" type="text" id="[]post_harv-phcropothers" name="[]post_harv-others" class="form_data x-input x-border x-round" style="display: none;"><hr>
+
+						<span class="x-text-grey"> PH Capacity (in kg)</span>
+						<input type="text" id="[]post_harv-capacity" name="[]post_harv-capacityfull_address" class="form_data x-input x-border x-round ">
+						
+						<span class="x-text-grey">Farmer Photo</span>
+						<input type="file" id="[]post_harv-photo" name="[]post_harv-photo" class="form_data x-input x-border x-round ">
+						<hr>
+					</div>
+					<hr>
+
+				</div>
+				<div class="x-container">
+					<button type="button" class="x-btn x-round-large x-block x-blue" onclick="duplicate()">Add Post Harvest Form <span class="fa fa-plus"></span></button>
+				</div>
+				<hr>
+				
+				<hr>
+				<b class="x-text-grey">Remarks (For Enumerator)</b><br>
+				<input placeholder="" type="text" id="form-remarks" name="feedback-rsbsa_no" class="form_data x-input x-border x-round ">
+				<hr>
+
+				<span class="x-text-grey">
+					
+					Before Clicking next, pls make sure to check all fields as they cannot be undone while the profiling is not yet finished
+				</span><br>
+				<div class="x-container">
+					<div class="x-container">
+	<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="history.back()">Previous Form<span class="fa fa-arrow-lef"></span></button>
+	<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
+</div>
+				</div>
+			</div>
+		</form>
+
+	</body>
+	<script type="text/javascript">
+		try{
+			document.addEventListener("deviceready", onDeviceReady, false);
+			function onDeviceReady() {
+				console.log(cordova.file);
+				println(" * File Module Ready ================================");
+				window.setInterval(function () {
+					if(isOnline()){$ID("offline").style.display="none"}
+					else{$ID("offline").style.display="block"}
+				}, 1000)
+			}
+		}catch(err){println(err)}
+
+		var iii = 0;
+
+		function duplicate() {
+			var original = $ID('post_harvest' + iii);
+			var clone = original.cloneNode(true); // "deep" clone
+			clone.id = "post_harvest" + ++ iii; // there can only be one element with an ID
+			clone.onclick = duplicate; // event handlers are not cloned
+			original.parentNode.appendChild(clone);
+			for (var i = 0; i < $CLASS('post_num').length; i++) {
+				$CLASS('post_num')[i].innerHTML = i+1
+			}
+		}
+		// -------------------------------------board--------------------------------------------------
+		function save_form(){
+			var FILE_NAME = url_args['farmer_id']+"@"+page+".txt"
+			
+			$ID('farmer_code').value = url_args['farmer_id']
+			$ID('datetime').value = $datetime()
+
+			create_formdata(FILE_NAME,function(){
+				redirectto("marketing_sales.html?user_id="+url_args['user_id']+"&farmer_id="+url_args['farmer_id'])
+			})
+		}
+
+
+		function cal_age(bday){
+			var parts2 = bday.split('-');
+			// var todate = new Date(parts[0], parts[1] - 1, parts[2]);
+			var todate = $date()
+			var sbday = new Date(parts2[0], parts2[1] - 1, parts2[2]); 
+			println(todate)
+			println(sbday)
+			const diffTime = Math.abs(todate - sbday);
+			var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+			var age = diffDays/365
+			$ID("[]post_harv-age").value = (""+age).split(".")[0];
+			if(age<=18.0){
+				alert("oops you are profiling a minor with the age of ["+(""+age).split(".")[0]+"]\nPlease select a legal age by selecting the correct birthday")
+				
+			}
+			if(age <=30 && age >=18){
+				$ID("[]post_harv-isyouth").checked = true
+			}else{
+				$ID("[]post_harv-isyouth").checked = false
+			}
+
+		}
+		function foposition_change(val){
+			if(val=="Officer"){
+				$ID("[]post_harv-fo_designation").disabled = false
+			}else{
+				$ID("[]post_harv-fo_designation").disabled = true
+			}
+		}
+		function rsbsa_change(val){
+			if(val=="yes"){
+				$ID("[]post_harv-rsbsa_no").disabled = false
+			}else{
+				$ID("[]post_harv-rsbsa_no").disabled = true
+			}
+		}
+			
+		// offline
+
+		// ===============================================================
+
+
+
+
+	</script>
+</html>

@@ -1,0 +1,1 @@
+cls & adb devices & cordova run android & adb logcat | findstr INFO:CONSOLE
