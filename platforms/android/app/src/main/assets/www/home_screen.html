@@ -146,7 +146,7 @@
 
 						<div class="x-col s5 x-padding x-center">
 							<img id="farmer_img_base64" src="img/no_img.png" class="x-image x-img">
-							<span class="x-center x-text-blue">Upload Farmer Photo</span>
+							<span class="x-center x-text-blue">Farmer Photo</span>
 						</div>
 
 						<div class="x-col s7 x-padding">
@@ -165,6 +165,7 @@
 
 					</div>
 				</div>
+				<!-- >
 				<div class="x-container">
 					<span class="x-text-gray">Farm Photos</span>
 					<div id="" class="x-center x-container x-small">
@@ -173,6 +174,7 @@
 						<img src="img/no_img.png" class="x-image x-col s4 x-img">
 					</div>
 				</div>
+				< -->
 				<div>
 					<h4>Forms</h4>
 					<div id="forms_list" class="x-container x-small">
@@ -376,14 +378,22 @@
 			var form_btn = ""
 			for (var i = 0; i < FORM_A_LS.length; i++) {
 				form_btn += `
-					<button 
+					<div 
 						id="`+FORM_A_LS[i].file+`"
-						class="x-btn x-pale-yellow x-row x-leftbar x-border x-border-yellow x-block"
+						class="x-container x-border x-light-grey x-row x-leftbar x-block"
 						onclick="view_farmer_form('`+farmer_id+`', '`+FORM_A_LS[i].file+`')"
-						style="margin: 2px;">
+						style="
+							padding-left:0px;
+							padding-right:0px;
+							">
 							<b class="x-left">`+FORM_A_LS[i].label+` </b>
-							<b class="x-right" id='p_`+FORM_A_LS[i].file+`'><i>Not filled</i></b>
-					</button><br>`
+
+						<div class="x-container" style="padding-left:0px;padding-right:0px;">
+							<div id="percent_`+FORM_A_LS[i].file+`" class="x-container x-center x-teal" style="width:0%;">
+								<div id="pret_`+FORM_A_LS[i].file+`" class="x-center x-text-white">0%</div>
+							</div>
+						</div>
+					</div><br>`
 			}
 			$ID("forms_list").innerHTML = form_btn
 			$ID('modal_selected_farmer').style.display='block';
@@ -404,10 +414,8 @@
 					if(file_name_[0] == farmer_id ){
 						forms_available.push(file_name_[1].split(".")[0])
 						try{
-							$ID(file_name_[1].split(".")[0]).classList.add("x-pale-blue")
-							$ID(file_name_[1].split(".")[0]).classList.add("x-border-blue")
-							$ID(file_name_[1].split(".")[0]).classList.remove("x-pale-yellow");
-							$ID(file_name_[1].split(".")[0]).classList.remove("x-border-yellow");
+							$ID(file_name_[1].split(".")[0]).classList.add("x-border-yellow",)
+							// $ID(file_name_[1].split(".")[0]).classList.remove("x-pale-red");
 						}catch{}
 						_readFileEntry(files[i].name,function(res,fname_){
 							var f_profile = JSON.parse(res)
@@ -422,12 +430,22 @@
 							}
 							var tagName_ = "p_"+_fname_[1].split(".")[0]
 							var form_percent_ = (inputed/input*100).toFixed(2)
-							$ID(tagName_).innerHTML = inputed+"/"+input +" <i>("+ form_percent_ +"%)</i>"
-							var per_width = $ID(_fname_[1].split(".")[0]).parentNode.width
-							println(per_width + " : Parent BORDER WIDTH")
-							var border_width = (form_percent_ * 0.01) *per_width
-							println(border_width + " : BORDER WIDTH")
-							$ID(_fname_[1].split(".")[0]).style.borderLeftWidth = border_width+"px";
+
+							var id_btn = (fname_.split("@")[1]).split(".")[0]
+							println(form_percent_ + " >>>> " + id_btn)
+							if(form_percent_>=90){
+								// $ID(id_btn).classList.remove("x-pale-yellow","x-border-yellow","x-pale-red","x-border-red");
+								$ID(id_btn).classList.remove("x-border-yellow");
+								$ID(id_btn).classList.add("x-border-green")
+							}
+
+							$ID("percent_"+id_btn).style.width=form_percent_+"%"
+							$ID("pret_"+id_btn).innerHTML=inputed+"/"+input +" <i>("+ form_percent_ +"%)</i>"
+							// var per_width = $ID(_fname_[1].split(".")[0]).parentNode.width
+							// println(per_width + " : Parent BORDER WIDTH")
+							// var border_width = (form_percent_ * 0.01) *per_width
+							// println(border_width + " : BORDER WIDTH")
+							// $ID(_fname_[1].split(".")[0]).style.borderLeftWidth = border_width+"px";
 						})
 					}
 

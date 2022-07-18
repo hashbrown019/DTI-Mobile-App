@@ -40,7 +40,7 @@
 	<body class=" center-bg" style=" height: 100vh;">
 		<header id="offline" class="x-header x-red x-center" style="display:none">Offline Mode</header>
 <header id="localhostversion" class="x-header x-yellow x-center" style="display:block">This is a Localhost Version, do not use outside NPCO</header>
-		<form action="" method="POST" id="form0" class="" style="display:block;padding: 0px;margin: 0px;">
+		<!-- <form action="" method="POST" id="form0" class="" style="display:block;padding: 0px;margin: 0px;"> -->
 			<div class="">
 				<header class="-header gr_body x-blue x-padding">
 					<span onclick="back_to_home()" class="x-button x-display-topright x-red"><b>close</b></span>
@@ -53,76 +53,78 @@
 
 				<div id="board" class="x-container  x-padding">
 					<h4 class="x-text-blue">Marketing Sales</h4>
-					<div id="post_harvest0">
-						<div class="x-container x-card x-round-large x-padding-top" style="">
-							<span class="x-text-grey">Primary Crop Product Type</span>
-							<input type="text" id="market[]-primary_crop_type" name="market[]-primary_crop_type" class="form_data x-input x-border x-round ">
-							<span class="x-text-grey">Primary Crop Volume (Delivery)</span>
-							<input type="text" id="market[]-primary_vol_del" name="market[]-primary_vol_del" class="form_data x-input x-border x-round ">
+					<div class="x-container">
+						<div id="post_harvest0">
+							<div class="x-container x-card x-round-large x-padding-top" style="">
+								<span class="x-text-grey">Primary Crop Product Type</span>
+								<input type="text" id="market[]-primary_crop_type" name="market[]-primary_crop_type" class="form_data x-input x-border x-round ">
+								<span class="x-text-grey">Primary Crop Volume (Delivery)</span>
+								<input type="text" id="market[]-primary_vol_del" name="market[]-primary_vol_del" class="form_data x-input x-border x-round ">
 
-							<span class="x-text-grey">Primary Crop Distribution Point/Location</span><br>
-							
-							<input id="market[]-is_coop" class="form_data dis_check x-check" type="checkbox" onchange="interc('coop','dis_in')" >
-							<label>FO/Coop</label><br>
-							<input id="market[]-is_sme" class="form_data dis_check x-check" type="checkbox" onchange="interc('sme','dis_in')" >
-							<label>SME</label><br>
-							<input id="market[]-is_anchor_firm" class="form_data dis_check x-check" type="checkbox" onchange="interc('afirm','dis_in')" >
-							<label>Anchor Firm</label><br>
-							<input id="market[]-is_negosyo_center" class="form_data x-check" type="checkbox">
-							<label>Negosyo Center</label><br>
-							<input id="market[]-is_others" class="form_data dis_check x-check" type="checkbox" onchange="interc('others','dis_in')" >
-							<label>Others</label><br>
-							<script type="text/javascript">
-								function interc(tag,class__){
-									var dis_check = $CLASS("dis_check")
-									for (var i = 0; i < dis_check.length; i++) {
-										if(dis_check[i].checked){
-											$CLASS(class__)[i].style.display = "block"
-										}else{
-											$CLASS(class__)[i].style.display = "none"
+								<span class="x-text-grey">Primary Crop Distribution Point/Location</span><br>
+								
+								<input id="market[]-is_coop" class="form_data dis_check x-check" type="checkbox" onchange="interc('coop','dis_in')" >
+								<label>FO/Coop</label><br>
+								<input id="market[]-is_sme" class="form_data dis_check x-check" type="checkbox" onchange="interc('sme','dis_in')" >
+								<label>SME</label><br>
+								<input id="market[]-is_anchor_firm" class="form_data dis_check x-check" type="checkbox" onchange="interc('afirm','dis_in')" >
+								<label>Anchor Firm</label><br>
+								<input id="market[]-is_negosyo_center" class="form_data x-check" type="checkbox">
+								<label>Negosyo Center</label><br>
+								<input id="market[]-is_others" class="form_data dis_check x-check" type="checkbox" onchange="interc('others','dis_in')" >
+								<label>Others</label><br>
+								<script type="text/javascript">
+									function interc(tag,class__){
+										var dis_check = $CLASS("dis_check")
+										for (var i = 0; i < dis_check.length; i++) {
+											if(dis_check[i].checked){
+												$CLASS(class__)[i].style.display = "block"
+											}else{
+												$CLASS(class__)[i].style.display = "none"
+											}
 										}
-										
 									}
-								}
-							</script>
-							<hr>
-							<input style="display: none;" placeholder="Name of Coop" type="text" id="market[]-name_coop" name="" class="form_data dis_in x-input x-border x-round ">
-							<input style="display: none;" placeholder="Name of SME" type="text" id="market[]-name_sme" name="" class="form_data dis_in x-input x-border x-round ">
-							<input style="display: none;" placeholder="Name of Anchor Firm" type="text" id="market[]-name_anchor_firm" name="" class="form_data dis_in x-input x-border x-round ">
-							<input style="display: none;" placeholder="If Others, please specify" type="text" id="market[]-name_others" name="" class="form_data dis_in x-input x-border x-round ">
-							<hr>
-							<span class="x-text-grey">Primary Crop Distribution Point/Location</span>
-							<select name="market[]-primary_crop_dist_point" id="market[]-primary_crop_dist_point" class="form_data x-select x-border">
-								<option selected value='Consignment'>Consignment</option>
-								<option selected value='COD-w'>Cash on Delivery (Weekly)</option>
-								<option selected value='COD-15d'>Cash on Delivery (15 days)</option>
-								<option selected value='COD-mnth'>Cash on Delivery (Monthly)</option>
-								<option selected value='CASH'>Cash</option>
-								<option selected value='others'>Others</option>
-							</select>
-							<span class="x-text-grey">If Others, please specify</span>
-							<input type="text" id="market[]-primary_crop_dist_others" class="form_data x-input x-border x-round dist"><br>
+								</script>
+								<hr>
+								<input style="display: none;" placeholder="Name of Coop" type="text" id="market[]-name_coop" name="" class="form_data dis_in x-input x-border x-round ">
+								<input style="display: none;" placeholder="Name of SME" type="text" id="market[]-name_sme" name="" class="form_data dis_in x-input x-border x-round ">
+								<input style="display: none;" placeholder="Name of Anchor Firm" type="text" id="market[]-name_anchor_firm" name="" class="form_data dis_in x-input x-border x-round ">
+								<input style="display: none;" placeholder="If Others, please specify" type="text" id="market[]-name_others" name="" class="form_data dis_in x-input x-border x-round ">
+								<hr>
+								<span class="x-text-grey">Primary Crop Distribution Point/Location</span>
+								<select name="market[]-primary_crop_dist_point" id="market[]-primary_crop_dist_point" class="form_data x-select x-border">
+									<option selected value='Consignment'>Consignment</option>
+									<option selected value='COD-w'>Cash on Delivery (Weekly)</option>
+									<option selected value='COD-15d'>Cash on Delivery (15 days)</option>
+									<option selected value='COD-mnth'>Cash on Delivery (Monthly)</option>
+									<option selected value='CASH'>Cash</option>
+									<option selected value='others'>Others</option>
+								</select>
+								<span class="x-text-grey">If Others, please specify</span>
+								<input type="text" id="market[]-primary_crop_dist_others" class="form_data x-input x-border x-round dist"><br>
 
-							<span class="x-text-grey">Primary Crop Type of Buyer</span>
-							<select name="market[]-primary_crop_type_buyer" id="market[]-primary_crop_type_buyer" class="form_data x-select x-border">
-								<option selected value='Trader'>Trader</option>
-								<option selected value='Consolidator'>Consolidator</option>
-								<option selected value='Processor'>Processor</option>
-								<option selected value='Others'>Others</option>
-							</select>
-							<span class="x-text-grey">If Others, please specify</span>
-							<input type="text" id="market[]-primary_crop_buyer_others" class="form_data x-input x-border x-round dist"><br>
-							<hr><hr>
+								<span class="x-text-grey">Primary Crop Type of Buyer</span>
+								<select name="market[]-primary_crop_type_buyer" id="market[]-primary_crop_type_buyer" class="form_data x-select x-border">
+									<option selected value='Trader'>Trader</option>
+									<option selected value='Consolidator'>Consolidator</option>
+									<option selected value='Processor'>Processor</option>
+									<option selected value='Others'>Others</option>
+								</select>
+								<span class="x-text-grey">If Others, please specify</span>
+								<input type="text" id="market[]-primary_crop_buyer_others" class="form_data x-input x-border x-round dist"><br>
+								<hr><hr>
+							</div>
+							
+							<hr>
+							
 						</div>
-						
-						<hr>
-						<b class="x-text-grey">Remarks (For Enumerator)</b><br>
-						<input placeholder="" type="text" id="form-remarks" name="feedback-rsbsa_no" class="form_data x-input x-border x-round ">
-						<hr>
 						
 					</div>
 
 					<div class="">
+						<hr>
+						<b class="x-text-grey">Remarks (For Enumerator)</b><br>
+						<input placeholder="" type="text" id="form-remarks" name="feedback-rsbsa_no" class="form_data x-input x-border x-round ">
 						<hr>
 						<button class="x-blue x-block x-btn x-round-large" onclick="duplicate()">Add More Crop <span class="fa fa-plus"></span></button>
 						<hr>
@@ -131,16 +133,16 @@
 							Before Clicking next, pls make sure to check all fields as they cannot be undone while the profiling is not yet finished
 						</span><br>
 						<div class="x-container">
-	<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="history.back()">Previous Form<span class="fa fa-arrow-lef"></span></button>
-	<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
-</div>
+							<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="history.back()">Previous Form<span class="fa fa-arrow-lef"></span></button>
+							<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</form>
+		<!-- </form> -->
 
 	</body>
-	<script type="text/javascript" src="../js/Modules/saveform.js"></script> 
+	<!-- <script type="text/javascript" src="../js/Modules/saveform.js"></script>  -->
 
 	<script type="text/javascript">
 		try{
@@ -157,12 +159,13 @@
 
 
 		var iii = 0;
-
 		function duplicate() {
+			println('post_harvest' + iii)
 			var original = $ID('post_harvest' + iii);
-			var clone = original.cloneNode(true); // "deep" clone
-			clone.id = "post_harvest" + ++ iii; // there can only be one element with an ID
-			clone.onclick = duplicate; // event handlers are not cloned
+			var clone = original.cloneNode(true); 		// "deep" clone
+			clone.id = "post_harvest" + ++ iii; 		// there can only be one element with an ID
+			// clone.onclick = duplicate; 					// event handlers are not cloned
+			original.parentNode.appendChild(clone);
 			
 		}
 		// ----------------------------------------------------------------------------------
@@ -224,15 +227,14 @@
 			$ID("market[]-age").value = (""+age).split(".")[0];
 			if(age<=18.0){
 				alert("oops you are profiling a minor with the age of ["+(""+age).split(".")[0]+"]\nPlease select a legal age by selecting the correct birthday")
-				
 			}
 			if(age <=30 && age >=18){
 				$ID("market[]-isyouth").checked = true
 			}else{
 				$ID("market[]-isyouth").checked = false
 			}
-
 		}
+
 		function foposition_change(val){
 			if(val=="Officer"){
 				$ID("market[]-fo_designation").disabled = false
@@ -240,10 +242,12 @@
 				$ID("market[]-fo_designation").disabled = true
 			}
 		}
+
 		function rsbsa_change(val){
 			if(val=="yes"){
 				$ID("market[]-rsbsa_no").disabled = false
-			}else{
+			}
+			else{
 				$ID("market[]-rsbsa_no").disabled = true
 			}
 		}
@@ -253,59 +257,59 @@
 
 		// ===============================================================
 
-		var marker = undefined
-		try{
-			var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-			L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-				attribution: 'DTI RAPID GROWTH',
-				maxZoom: 18,
-				id: 'mapbox/streets-v11',
-				tileSize: 512,
-				zoomOffset: -1,
-				accessToken: 'pk.eyJ1IjoiZGlvYW1lIiwiYSI6ImNrbGo1ZDc1aDAxZTQybnBoc2tpZGcxOWoifQ.90lp0SPxVC4Kz113q_Wn9g'
-			}).addTo(mymap);
-			let samp = {"lat":8.945209,"lng":125.538939}
-			mymap.setView([samp.lat, samp.lng], 13);
+		// var marker = undefined
+		// try{
+		// 	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+		// 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+		// 		attribution: 'DTI RAPID GROWTH',
+		// 		maxZoom: 18,
+		// 		id: 'mapbox/streets-v11',
+		// 		tileSize: 512,
+		// 		zoomOffset: -1,
+		// 		accessToken: 'pk.eyJ1IjoiZGlvYW1lIiwiYSI6ImNrbGo1ZDc1aDAxZTQybnBoc2tpZGcxOWoifQ.90lp0SPxVC4Kz113q_Wn9g'
+		// 	}).addTo(mymap);
+		// 	let samp = {"lat":8.945209,"lng":125.538939}
+		// 	mymap.setView([samp.lat, samp.lng], 13);
 
 
-			// var popup = L.popup();
+		// 	// var popup = L.popup();
 
-			function onMapClick(e) {
-				if(marker != undefined){mymap.removeLayer(marker)}
-				// popup
-				// 	.setLatLng(e.latlng)
-				// 	.setContent("You clicked the map at " + e.latlng.toString())
-				// 	.openOn(mymap);
+		// 	function onMapClick(e) {
+		// 		if(marker != undefined){mymap.removeLayer(marker)}
+		// 		// popup
+		// 		// 	.setLatLng(e.latlng)
+		// 		// 	.setContent("You clicked the map at " + e.latlng.toString())
+		// 		// 	.openOn(mymap);
 
-				marker = L.marker(e.latlng).addTo(mymap);
-				// println(e.latlng.lat)
-				$.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+e.latlng.lat+'&lon='+e.latlng.lng, function(data){
-					console.log(data.address);
-					// $ID("reg_business_address").value = data.address.region + ', ' +data.address.state
-					// $ID("reg_muni").value = data.address.city
-					var addr = data.address.village + "," 
-						+data.address.road + "," 
-						+data.address.neighbourhood+","
-						+data.address.quarter+","
-						+data.address.suburb+","
-						+data.address.tourism + ","
-						+data.address.leisure + ","
-						+data.address.state + ","
-						+data.address.city + ","
-						+data.address.region + " || "
-						+e.latlng.lat +","+e.latlng.lng+ ","
-					// $ID("reg_brgy").value = addr.split("undefined ,").join("")
-					$ID("market[]-full_address").value = addr.replaceAll("undefined,","")
-				});
-			}
-			mymap.on('click', onMapClick);
-		}
-		catch(e){
-			try{
-				$ID("map_cont").style.display = "none"
-			}
-			catch(e){println("Map Error");println(e)}
-		}
+		// 		marker = L.marker(e.latlng).addTo(mymap);
+		// 		// println(e.latlng.lat)
+		// 		$.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+e.latlng.lat+'&lon='+e.latlng.lng, function(data){
+		// 			console.log(data.address);
+		// 			// $ID("reg_business_address").value = data.address.region + ', ' +data.address.state
+		// 			// $ID("reg_muni").value = data.address.city
+		// 			var addr = data.address.village + "," 
+		// 				+data.address.road + "," 
+		// 				+data.address.neighbourhood+","
+		// 				+data.address.quarter+","
+		// 				+data.address.suburb+","
+		// 				+data.address.tourism + ","
+		// 				+data.address.leisure + ","
+		// 				+data.address.state + ","
+		// 				+data.address.city + ","
+		// 				+data.address.region + " || "
+		// 				+e.latlng.lat +","+e.latlng.lng+ ","
+		// 			// $ID("reg_brgy").value = addr.split("undefined ,").join("")
+		// 			$ID("market[]-full_address").value = addr.replaceAll("undefined,","")
+		// 		});
+		// 	}
+		// 	mymap.on('click', onMapClick);
+		// }
+		// catch(e){
+		// 	try{
+		// 		$ID("map_cont").style.display = "none"
+		// 	}
+		// 	catch(e){println("Map Error");println(e)}
+		// }
 
 
 	</script>

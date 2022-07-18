@@ -211,8 +211,11 @@
 			println("--body loaded ---")
 			$send({
 				action : DOMAIN + "/api/test",
-				method : GET,
-				data : JSON.stringify({"data": "SAMPLE"}),
+				method : POST,
+				data : $DATA({
+					"app_version": APP_VERSION,
+					"update_version": update_version,
+				}),
 				func : function (res){
 					println(res)
 				}

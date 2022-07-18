@@ -39,8 +39,13 @@
 	</head>
 	<body class=" center-bg" style=" height: 100vh;">
 		<header id="offline" class="x-header x-red x-center" style="display:none">Offline Mode</header>
-<header id="localhostversion" class="x-header x-yellow x-center" style="display:block">This is a Localhost Version, do not use outside NPCO</header>
+		<header id="localhostversion" class="x-header x-yellow x-center" style="display:block">This is a Localhost Version, do not use outside NPCO</header>
 		<form action="" method="POST" id="form0" class="" style="display:block;padding: 0px;margin: 0px;">
+
+				<input type="text" disabled id="record_num" name="record_num" class="form_data" >
+				<input type="text" disabled id="record_duplicate_id" name="record_duplicate_id" class="form_data" value="post_harvest">
+
+
 			<div class="">
 				<header class="-header gr_body x-blue x-padding">
 					<span onclick="back_to_home()" class="x-button x-display-topright x-red"><b>close</b></span>
@@ -68,8 +73,8 @@
 						</span>
 						<span class="x-text-grey">
 							<span id="geolocation"></span>
-							<input class="form_data" type="hidden" id="farmer-coords_long">
-							<input class="form_data" type="hidden" id="farmer-coords_lat">
+							<input class="form_data" type="hidden" id="[]farmer-coords_long">
+							<input class="form_data" type="hidden" id="[]farmer-coords_lat">
 						</span><br><br>
 
 						<span class="x-text-grey">Full Address</span>
@@ -174,9 +179,9 @@
 				</span><br>
 				<div class="x-container">
 					<div class="x-container">
-	<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="history.back()">Previous Form<span class="fa fa-arrow-lef"></span></button>
-	<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
-</div>
+						<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="history.back()">Previous Form<span class="fa fa-arrow-lef"></span></button>
+						<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
+					</div>
 				</div>
 			</div>
 		</form>
@@ -196,13 +201,13 @@
 		}catch(err){println(err)}
 
 		var iii = 0;
-
 		function duplicate() {
 			var original = $ID('post_harvest' + iii);
 			var clone = original.cloneNode(true); // "deep" clone
 			clone.id = "post_harvest" + ++ iii; // there can only be one element with an ID
-			clone.onclick = duplicate; // event handlers are not cloned
+			// clone.onclick = duplicate; // event handlers are not cloned
 			original.parentNode.appendChild(clone);
+			$ID('record_num').value = iii
 			for (var i = 0; i < $CLASS('post_num').length; i++) {
 				$CLASS('post_num')[i].innerHTML = i+1
 			}

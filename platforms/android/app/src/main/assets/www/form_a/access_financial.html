@@ -37,8 +37,8 @@
 	</head>
 	<body class=" center-bg" style=" height: 100vh;">
 		<header id="offline" class="x-header x-red x-center" style="display:none">Offline Mode</header>
-<header id="localhostversion" class="x-header x-yellow x-center" style="display:block">This is a Localhost Version, do not use outside NPCO</header>
-		<header class="x-text-red x-padding x-leftbar x-pale-red x-border-red">FORM UNDER MAINTENANCE</header>
+		<header id="localhostversion" class="x-header x-yellow x-center" style="display:block">This is a Localhost Version, do not use outside NPCO</header>
+		<!-- <header class="x-text-red x-padding x-leftbar x-pale-red x-border-red">FORM UNDER MAINTENANCE</header> -->
 		<form action="" method="POST" id="form0" class="" style="display:block;padding: 0px;margin: 0px;">
 			<div class="">
 				<header class="-header gr_body x-blue x-padding">
@@ -53,97 +53,173 @@
 
 					<b class="x-text-green">Access to Financial Services and Products</b><br>
 					<span class="x-text-grey">Primary Crop Distribution Point/Location</span><br>
+					<hr>
+
 					<div class="">
-						<input id="financial-is_primary_crop_distribution" class="form_data x-check" type="checkbox"  checked="checked">
-						<label>Loan</label><br>
-						<input id="financial-is_loan" class="form_data x-check" type="checkbox" >
-						<label>Crop Insurance</label><br>
-						<input id="financial-is_crop_insurance" class="form_data x-check" type="checkbox" >
-						<label>Deposits</label><br>
-						<input id="financial-is_deposits" class="form_data x-check" type="checkbox" >
-						<label>Insurance</label><br>
-						<input id="financial-is_insurance" class="form_data x-check" type="checkbox" >
-						<label>Payments (utilities)</label><br>
-						<input id="financial-is_utilities_payment" class="form_data x-check" type="checkbox" >
-						<label>Remittances (OFWs)</label><br>
-						<input id="financial-is_remit" class="form_data x-check" type="checkbox" >
-						<label>Government Financial Institutions (Landbank,DBP)</label><br>
-						<input id="financial-is_gov_financial_ins" class="form_data x-check" type="checkbox" >
-						<label>Others</label><br>
-						<input id="financial-is_finance_others" class="form_data x-check" type="checkbox" >
-						<label>None</label><br><br>
+						<div class="x-leftbar">
+							<input id="financial-is_loan" class="form_data x-check" type="checkbox" >
+							<label>Crop Insurance</label><br>
+						</div>
+						<hr>
+
+						<!-- -------------------------------------- -->
+						<div class="x-leftbar">
+							<input id="financial-is_primary_crop_distribution" class="form_data x-check" type="checkbox">
+							<label>Loan</label><br>
+							<div class="x-container">
+
+								<input id="financial-if_loan_bank" class="form_data x-check" type="checkbox">
+								<label>Bank</label><br>
+
+								<div class="x-container">
+									<select id="financial-type_loan" class="form_data x-select x-border">
+										<option value="Government">Government</option>
+										<option value="Private">Private</option>
+									</select>
+
+									<div class="x-container">
+										<label>Name of Government Bank</label><br>
+										<div>
+											<select id="financial-loan_govbank_name" class="form_data x-col s6 x-select x-border">
+												<option value="LBP">LandBank of the Philippines</option>
+												<option value="DBP">Development Bank of the Philippines</option>
+											</select>
+											<input type="text" id="financial-loan_govbank_type" class="form_data x-col s6 x-input x-border" placeholder="Type of loan">
+											
+										</div>
+										<br>
+
+										<label>Name of Private</label><br>
+										<div>
+											<input id="financial-loan_private_name" type="text" class="form_data x-col s6 x-input x-border" placeholder="Name of Private">
+											<input id="financial-loan_private_type" type="text" class="form_data x-col s6 x-input x-border" placeholder="Type of loan">
+										</div>
+
+									</div>
+								</div>
+
+								<hr>
+								<input id="financial-if_loan_non_bank" class="form_data x-check" type="checkbox" >
+								<label>Non-Bank</label><br>
+								<div class="x-container">
+									<span class="x-text-grey">Name of Farmers' Organization/Cooperative<span class="x-text-grey"></span>
+									<div>
+										<input placeholder="" type="text" id="financial-loan_name_fo" class="form_data x-input x-border x-round  x-col s6">
+										<input type="text" class="form_data x-input x-border x-col s6" id="financial-loan_type_fo" placeholder="Type of Loan">
+									</div>
+									<span class="x-text-grey">Name of NGO<span class="x-text-grey"></span>
+									<div>
+										<input placeholder="" type="text" id="financial-loan_name_ngo" class="form_data x-input x-border x-round  x-col s6">
+										<input type="text" class="form_data x-input x-border x-col s6" id="financial-loan_type_ngo" placeholder="Type of Loan">
+									</div>
+									<span class="x-text-grey">Name of Lending Investor<span class="x-text-grey"></span>
+									<div>
+										<input placeholder="" type="text" id="financial-loan_name_lending" class="form_data x-input x-border x-round  x-col s6">
+										<input type="text" class="form_data x-input x-border x-col s6" id="financial-loan_type_lending" placeholder="Type of Loan">
+									</div>
+									
+								</div>
+
+								<hr>
+								<input id="financial-loan_if_nonbank_others" class="form_data x-check" type="checkbox" >
+								<label>Others</label><br>
+								<div class="x-container">
+									<label>Loan Initiative</label><br>
+									<div>
+										<select class="form_data x-select x-border  x-col s6" id="financial-loan_name_others">
+											<option value="Government">Relatives</option>
+											<option value="Private">Informal Lenders</option>
+										</select>
+										<input type="text" class="form_data x-input x-border x-col s6" id="financial-loan_type_others" placeholder="Type of Loan">
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<!-- --------------------------------------------------------------------------- -->
+
+						<div class="x-leftbar">
+							<input id="financial-is_crop_deposit" class="form_data x-check" type="checkbox" >
+							<label>Deposits</label><br>
+							<div class="x-container">
+								<input type="text" class="form_data x-input x-border" id="financial-type_deposit" placeholder="Type of Deposit">
+
+								<label>Input the name of the bank If the FSP is BANK</label><br>
+								<input type="text" class="form_data x-input x-border" id="financial-type_deposit_bank" placeholder="Name of Bank">
+
+								<label>Input the Name of Non-Bank FSP If the FSP is NON-BANK</label><br>
+								<input type="text" class="form_data x-input x-border" id="financial-type_deposit_non_bank" placeholder="Name of Non-Bank">
+							</div>
+						</div>
+						<hr>
+
+
+						<div class="x-leftbar">
+							<input id="financial-is_crop_insurance" class="form_data x-check" type="checkbox" >
+							<label>Insurance</label><br>
+							<div class="x-container">
+								<input type="text" class="form_data x-input x-border" id="financial-type_insurance" placeholder="Type of insurance">
+
+								<label>Input the name of the bank If the FSP is BANK</label><br>
+								<input type="text" class="form_data x-input x-border" id="financial-type_insurance_bank" placeholder="Name of Bank">
+
+								<label>Input the Name of Non-Bank FSP If the FSP is NON-BANK</label><br>
+								<input type="text" class="form_data x-input x-border" id="financial-type_insurance_non_bank" placeholder="Name of Non-Bank">
+							</div>
+						</div>
+						<hr>
+
+						<div class="x-leftbar">
+							<input id="financial-is_crop_payments" class="form_data x-check" type="checkbox" >
+							<label>Payments (utilities)</label><br>
+							<div class="x-container">
+								<input type="text" class="form_data x-input x-border" id="financial-type_payments" placeholder="Type of payments">
+
+								<label>Input the name of the bank If the FSP is BANK</label><br>
+								<input type="text" class="form_data x-input x-border" id="financial-type_payments_bank" placeholder="Name of Bank">
+
+								<label>Input the Name of Non-Bank FSP If the FSP is NON-BANK</label><br>
+								<input type="text" class="form_data x-input x-border" id="financial-type_payments_non_bank" placeholder="Name of Non-Bank">
+							</div>
+						</div>
+						<hr>
+
+						<div class="x-leftbar">
+							<input id="financial-is_remmitances" class="form_data x-check" type="checkbox" >
+							<label>Remittances (OFW)</label><br>
+							<div class="x-container">
+								<input type="text" class="form_data x-input x-border" id="financial-type_remmittance_name" placeholder="Name of Non-Bank FSP">
+							</div>
+						</div>
+						<hr>
+
+						<div class="x-leftbar">
+							<input id="financial-is_crop_others" class="form_data x-check" type="checkbox" >
+							<label>Others</label><br>
+							<div class="x-container">
+								<label>Input the name of the bank If the FSP is BANK</label><br>
+								<input type="text" class="form_data x-input x-border" id="financial-type_others_bank" placeholder="Name of Bank">
+
+								<label>Input the Name of Non-Bank FSP If the FSP is NON-BANK</label><br>
+								<input type="text" class="form_data x-input x-border" id="financial-type_others_non_bank" placeholder="Name of Non-Bank">
+							</div>
+						</div>
+						<hr>
 					</div>
 
-					<span class="x-text-grey">If Loan, what type of FSP</span><br>
-					<input id="financial-if_loan_fsp" class="form_data x-check" type="checkbox"  checked="checked">
-					<label>Bank</label><br>
-					<input id="financial-if_bank" class="form_data x-check" type="checkbox" >
-					<label>Non-Bank</label><br>
-					<input id="financial-if_nonbank_others" class="form_data x-check" type="checkbox" >
-					<label>Others</label><br>
-
-					<span class="x-text-grey">Name of Farmers' Organization/Cooperative<span class="x-text-grey"></span>
-					<input placeholder="" type="text" id="financial-name_fo" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Name of NGO<span class="x-text-grey"></span>
-					<input placeholder="" type="text" id="financial-name_ngo" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Name of Lending Investor<span class="x-text-grey"></span>
-					<input placeholder="" type="text" id="financial-name_lending" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Type of Loan<span class="x-text-grey"></span>
-					<input placeholder="" type="text" id="financial-name_loan" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Amount of Loan<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-amount_loan" class="form_data x-input x-border x-round ">
-
-					<span class="x-text-grey">Personal Loan/Initiative<span class="x-text-grey"></span>
-					<select id="financial-personal_loan" class="form_data x-select x-border">
-						<option selected value='From Relatives'>From Relatives</option>
-						<option selected value='From Informal Lenders'>From Informal Lenders</option>
-					</select>
-
-					<span class="x-text-grey">Amount of Loan<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-amount_personal_loan" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Type of Crop Insurance Provider<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-type_crop_insurance" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Name of Farmers' Organization/Cooperative of Crop Insurance<span class="x-text-grey"></span
->					<select id="financial-name" class="form_data x-select x-border">
-						<option selected value=''>PIC</option>
-						<option selected value=''>Others</option>
-					</select>
-
-					<span class="x-text-grey">If Others, please specify<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-name_fo_crop_insurance_others" class="form_data x-input x-border x-round ">
 					<hr>
-					<span class="x-text-grey">Cost of Crop Insurance<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Name of NGO<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Name of Crop Insurance Provider through NGO<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Cost of Crop Insurance<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Name of Crop Insurance Provider through Personal Initiative<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Cost of Crop Insurance<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Type of Loan Government Program, if any<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Name of Loan Government Program<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-" class="form_data x-input x-border x-round ">
-					<span class="x-text-grey">Amount of Loan from Government Program<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="financial-" class="form_data x-input x-border x-round ">
-
-				<hr>
-				<b class="x-text-grey">Remarks (For Enumerator)</b><br>
-				<input placeholder="" type="text" id="form-remarks" name="feedback-rsbsa_no" class="form_data x-input x-border x-round ">
-				<hr>
+					<b class="x-text-grey">Remarks (For Enumerator)</b><br>
+					<input placeholder="" type="text" id="form-remarks" name="feedback-rsbsa_no" class="form_data x-input x-border x-round ">
+					<hr>
 					<hr>
 					<span class="x-text-grey">
 						
 						Before Clicking next, pls make sure to check all fields as they cannot be undone while the profiling is not yet finished
 					</span><br>
 					<div class="x-container">
-	<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="history.back()">Previous Form<span class="fa fa-arrow-lef"></span></button>
-	<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
-</div>
+						<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="history.back()">Previous Form<span class="fa fa-arrow-lef"></span></button>
+						<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
+					</div>
 				</div>
 			</div>
 		</form>
@@ -250,54 +326,54 @@
 
 		// ===============================================================
 
-		var marker = undefined
-		try{
-			var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-			L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-				attribution: 'DTI RAPID GROWTH',
-				maxZoom: 18,
-				id: 'mapbox/streets-v11',
-				tileSize: 512,
-				zoomOffset: -1,
-				accessToken: 'pk.eyJ1IjoiZGlvYW1lIiwiYSI6ImNrbGo1ZDc1aDAxZTQybnBoc2tpZGcxOWoifQ.90lp0SPxVC4Kz113q_Wn9g'
-			}).addTo(mymap);
-			let samp = {"lat":8.945209,"lng":125.538939}
-			mymap.setView([samp.lat, samp.lng], 13);
+		// var marker = undefined
+		// try{
+		// 	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+		// 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+		// 		attribution: 'DTI RAPID GROWTH',
+		// 		maxZoom: 18,
+		// 		id: 'mapbox/streets-v11',
+		// 		tileSize: 512,
+		// 		zoomOffset: -1,
+		// 		accessToken: 'pk.eyJ1IjoiZGlvYW1lIiwiYSI6ImNrbGo1ZDc1aDAxZTQybnBoc2tpZGcxOWoifQ.90lp0SPxVC4Kz113q_Wn9g'
+		// 	}).addTo(mymap);
+		// 	let samp = {"lat":8.945209,"lng":125.538939}
+		// 	mymap.setView([samp.lat, samp.lng], 13);
 
 
-			// var popup = L.popup();
+		// 	// var popup = L.popup();
 
-			function onMapClick(e) {
-				if(marker != undefined){mymap.removeLayer(marker)}
-				marker = L.marker(e.latlng).addTo(mymap);
-				// println(e.latlng.lat)
-				$.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+e.latlng.lat+'&lon='+e.latlng.lng, function(data){
-					console.log(data.address);
-					// $ID("reg_business_address").value = data.address.region + ', ' +data.address.state
-					// $ID("reg_muni").value = data.address.city
-					var addr = data.address.village + "," 
-						+data.address.road + "," 
-						+data.address.neighbourhood+","
-						+data.address.quarter+","
-						+data.address.suburb+","
-						+data.address.tourism + ","
-						+data.address.leisure + ","
-						+data.address.state + ","
-						+data.address.city + ","
-						+data.address.region + " || "
-						+e.latlng.lat +","+e.latlng.lng+ ","
-					// $ID("reg_brgy").value = addr.split("undefined ,").join("")
-					$ID("financial-full_address").value = addr.replaceAll("undefined,","")
-				});
-			}
-			mymap.on('click', onMapClick);
-		}
-		catch(e){
-			try{
-				$ID("map_cont").style.display = "none"
-			}
-			catch(e){println(e)}
-		}
+		// 	function onMapClick(e) {
+		// 		if(marker != undefined){mymap.removeLayer(marker)}
+		// 		marker = L.marker(e.latlng).addTo(mymap);
+		// 		// println(e.latlng.lat)
+		// 		$.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+e.latlng.lat+'&lon='+e.latlng.lng, function(data){
+		// 			console.log(data.address);
+		// 			// $ID("reg_business_address").value = data.address.region + ', ' +data.address.state
+		// 			// $ID("reg_muni").value = data.address.city
+		// 			var addr = data.address.village + "," 
+		// 				+data.address.road + "," 
+		// 				+data.address.neighbourhood+","
+		// 				+data.address.quarter+","
+		// 				+data.address.suburb+","
+		// 				+data.address.tourism + ","
+		// 				+data.address.leisure + ","
+		// 				+data.address.state + ","
+		// 				+data.address.city + ","
+		// 				+data.address.region + " || "
+		// 				+e.latlng.lat +","+e.latlng.lng+ ","
+		// 			// $ID("reg_brgy").value = addr.split("undefined ,").join("")
+		// 			$ID("financial-full_address").value = addr.replaceAll("undefined,","")
+		// 		});
+		// 	}
+		// 	mymap.on('click', onMapClick);
+		// }
+		// catch(e){
+		// 	try{
+		// 		$ID("map_cont").style.display = "none"
+		// 	}
+		// 	catch(e){println(e)}
+		// }
 
 
 	</script>

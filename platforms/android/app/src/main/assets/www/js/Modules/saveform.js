@@ -1,5 +1,5 @@
 let page = window.location.pathname.split("/").pop().split(".")[0]
-println("Current page : "+page)
+// println("Current page : "+page)
 document.querySelector('title').textContent = page;
 
 // ==================================================================
@@ -51,7 +51,7 @@ function refill_data_forms(file_name){ /////////// REFILLING FOR HAS DATA
 
 		// -----------------For Image PROFILE--------------------
 		try{
-			$ID('farm_photo-viewer').src = form_data_refill['farmer_img_base64']
+			$ID('preview_profile_img').src = form_data_refill['farmer_img_base64']
 		}
 		catch{
 			println(" no image preview availble on this form")
@@ -184,6 +184,11 @@ function onError(error) {
 // --------------------------------------
 
 
+function ip_names(el){
+	_autocomplete(el,IP_NAMES)
+	// println(JSON.stringify(IP_NAMES))
+}
+
 function region_sel(el){
 	var arrs = []
 	for (const [key, value] of Object.entries(ALL_LOCATION)) {
@@ -247,9 +252,10 @@ function _autocomplete(inp, arr) {
 					b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
 					b.innerHTML += arr[i].substr(val.length);
 					b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+					println(arr[i])
 					b.addEventListener("click", function(e) {
 							inp.value = this.getElementsByTagName("input")[0].value;
-							closeAllLists();
+							// closeAllLists();
 					});
 					a.appendChild(b);
 				}

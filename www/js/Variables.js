@@ -1,10 +1,19 @@
+
+// var MOBILE_AGENT = "Mozilla/5.0 (Linux; Android 11; RMX3151 Build/RP1A.200720.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/103.0.5060.71 Mobile Safari/537.36" // Mobile
+// var BROWSER_AGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+// println("Current platform >>>>> "+ navigator.userAgent)
+
+
 var APP_VERSION = "1.1.2 beta"
 let update_version = "2.1.4 rc_tiger" //
+
+
 
 // 192.168.0.121
 
 // var DOMAIN = "https://crisnotbrown.pythonanywhere.com";var LOCAL_RENDER = false;
-var DOMAIN = "https://192.168.0.106:5000"; var LOCAL_RENDER = true;
+// var DOMAIN = "http://192.168.0.118:5000"; var LOCAL_RENDER = true; // LOCAL UNSECURE
+var DOMAIN = "https://192.168.0.118:5000"; var LOCAL_RENDER = true; // LOCAL SECUREE
 
 
 
@@ -30,9 +39,11 @@ let  __DATA_TO_SYNC = {
 	"data":{}
 }
 
+let IP_NAMES = ["Aromanon","Ata","B'laan","Badjao","Badjao, Sama Laut","Bagobo","Banwaon","Bukidnon","Dibabawon","Dulangan","Higaonon","Iranon","Iranun","Jama Mapon","Kagan","Kalagan","Kalibugan","Kamigin","Karintik","Klata-Guiangan","Kongking","Lambangian","Maguindanaon","Mamanwa","Mandaya","Manobo","Manobo B'lit","Mansaka","Maranao","Matigsalog","Sama","Sama-Bangingi","Samal","Sangil","Subanen","Subanon","T-boli","Tagabawa","Tagakaolo","Talaandig","Talaingod, Langilan","Tausug","Tigwahanon","Tiruray","Ubo Manobo","Umayamnon","Yakan",]
+
 let DATA_PRIV = `I understand that I am being invited to participate in a Value Chain Profiling for smallholder farmers.<br>  This profiling is being done by (name of enumerators) from the DTI RAPID Growth Project.<br>  The purpose of this activity is to create a database of profiles of all RAPID stakeholders for data analysis and data-driven decision-making.<br>  I am at least 18 years old, have read and understood this consent form and agree to participate in this profiling.  (Verification through signing.)that I am being invited to participate in a Value Chain Profiling for smallholder farmers.<br>  This profiling is being done by (name of enumerators) from the DTI RAPID Growth Project.<br>  The purpose of this activity is to create a database of profiles of all RAPID stakeholders for data analysis and data-driven decision-making.<br>
   I am at least 18 years old, have read and understood this consent form and agree to participate in this profiling.
-<br>
+  <br>
   (Verification through signing.)`
 
 let RCU_PCU = {
@@ -49153,8 +49164,6 @@ let EULA = `
     Our Service and its contents are provided "as is" and "as available" without any warranty or representations of any kind, whether express or implied. We are a distributor and not a publisher of the content supplied by third parties; as such, our exercises no editorial control over such content and makes no warranty or representation as to the accuracy, reliability or currency of any information, content, service or merchandise provided through or accessible via our Service. Without limiting the foregoing, We specifically disclaim all warranties and representations in any content transmitted on or in connection with our Service or on sites that may appear as links on our Service, or in the products provided as a part of, or otherwise in connection with, our Service, including without limitation any warranties of merchantability, fitness for a particular purpose or non-infringement of third party rights. No oral advice or written information given by us or any of its affiliates, employees, officers, directors, agents, or the like will create a warranty. Price and availability information is subject to change without notice. Without limiting the foregoing, we do not warrant that our Service will be uninterrupted, uncorrupted, timely, or error-free.
     </span></p> 
 `
-
-
 
 
 
