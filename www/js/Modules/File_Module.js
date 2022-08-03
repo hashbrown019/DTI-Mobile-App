@@ -5,7 +5,7 @@ try{
 		// if(navigator.userAgent==BROWSER_AGENT){cordova.file.externalDataDirectory = cordova.file.cacheDirectory ;  println("USING WEB PLATFORM")}
 		// else{println("USING PHONE PLATFORM")}
 
-		console.log(cordova.file);
+		console.log(JSON.stringify(cordova.file));
 		println(" * File Module Ready ================================");
 	}
 }catch(err){println(err)}

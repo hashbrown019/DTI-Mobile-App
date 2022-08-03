@@ -11,9 +11,9 @@ let update_version = "2.1.4 rc_tiger" //
 
 // 192.168.0.121
 
-var DOMAIN = "https://crisnotbrown.pythonanywhere.com";var LOCAL_RENDER = false;
+// var DOMAIN = "https://crisnotbrown.pythonanywhere.com";var LOCAL_RENDER = false;
 // var DOMAIN = "http://192.168.0.118:5000"; var LOCAL_RENDER = true; // LOCAL UNSECURE
-// var DOMAIN = "https://192.168.0.118:5000"; var LOCAL_RENDER = true; // LOCAL SECUREE
+var DOMAIN = "https://192.168.0.130:5000"; var LOCAL_RENDER = true; // LOCAL SECUREE
 
 
 

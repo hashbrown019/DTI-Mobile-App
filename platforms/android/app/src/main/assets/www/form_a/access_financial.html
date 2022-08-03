@@ -57,26 +57,27 @@
 
 					<div class="">
 						<div class="x-leftbar">
-							<input id="financial-is_loan" class="form_data x-check" type="checkbox" >
+							<input id="financial-is_loan" class="form_data x-check" type="checkbox">
 							<label>Crop Insurance</label><br>
 						</div>
 						<hr>
 
 						<!-- -------------------------------------- -->
-						<div class="x-leftbar">
-							<input id="financial-is_primary_crop_distribution" class="form_data x-check" type="checkbox">
-							<label>Loan</label><br>
-							<div class="x-container">
 
-								<input id="financial-if_loan_bank" class="form_data x-check" type="checkbox">
+						<div class="x-leftbar" id="c_is_loan">
+							<input id="financial-is_primary_crop_distribution" class="form_data x-check" type="checkbox" onclick="trigger_check(this,'c_is_primary_crop_distribution')">
+							<label>Loan</label><br>
+							<div class="x-container" id="c_is_primary_crop_distribution" style="display:none;">
+
+								<input id="financial-if_loan_bank" class="form_data x-check" type="checkbox" onchange="trigger_check(this,'c_if_loan_bank')">
 								<label>Bank</label><br>
 
-								<div class="x-container">
-									<select id="financial-type_loan" class="form_data x-select x-border">
+								<div class="x-container" id="c_if_loan_bank" style="display:none;">
+									<!-- <select id="financial-type_loan" class="form_data x-select x-border">
 										<option value="Government">Government</option>
 										<option value="Private">Private</option>
 									</select>
-
+ -->
 									<div class="x-container">
 										<label>Name of Government Bank</label><br>
 										<div>
@@ -99,9 +100,9 @@
 								</div>
 
 								<hr>
-								<input id="financial-if_loan_non_bank" class="form_data x-check" type="checkbox" >
+								<input id="financial-if_loan_non_bank" class="form_data x-check" type="checkbox" onchange="trigger_check(this,'c_if_loan_non_bank')" >
 								<label>Non-Bank</label><br>
-								<div class="x-container">
+								<div class="x-container" id="c_if_loan_non_bank" style="display:none;">
 									<span class="x-text-grey">Name of Farmers' Organization/Cooperative<span class="x-text-grey"></span>
 									<div>
 										<input placeholder="" type="text" id="financial-loan_name_fo" class="form_data x-input x-border x-round  x-col s6">
@@ -121,9 +122,9 @@
 								</div>
 
 								<hr>
-								<input id="financial-loan_if_nonbank_others" class="form_data x-check" type="checkbox" >
+								<input id="financial-loan_if_nonbank_others" class="form_data x-check" type="checkbox" onclick="trigger_check(this,'c_loan_if_nonbank_others')">
 								<label>Others</label><br>
-								<div class="x-container">
+								<div class="x-container" id="c_loan_if_nonbank_others" style="display:none;">
 									<label>Loan Initiative</label><br>
 									<div>
 										<select class="form_data x-select x-border  x-col s6" id="financial-loan_name_others">
@@ -139,9 +140,9 @@
 						<!-- --------------------------------------------------------------------------- -->
 
 						<div class="x-leftbar">
-							<input id="financial-is_crop_deposit" class="form_data x-check" type="checkbox" >
+							<input id="financial-is_crop_deposit" class="form_data x-check" type="checkbox" onclick="trigger_check(this,'c_is_crop_deposit')">
 							<label>Deposits</label><br>
-							<div class="x-container">
+							<div class="x-container" id="c_is_crop_deposit" style="display:none;">
 								<input type="text" class="form_data x-input x-border" id="financial-type_deposit" placeholder="Type of Deposit">
 
 								<label>Input the name of the bank If the FSP is BANK</label><br>
@@ -155,9 +156,9 @@
 
 
 						<div class="x-leftbar">
-							<input id="financial-is_crop_insurance" class="form_data x-check" type="checkbox" >
+							<input id="financial-is_crop_insurance" class="form_data x-check" type="checkbox" onclick="trigger_check(this,'c_is_crop_insurance')">
 							<label>Insurance</label><br>
-							<div class="x-container">
+							<div class="x-container" id="c_is_crop_insurance" style="display:none;">
 								<input type="text" class="form_data x-input x-border" id="financial-type_insurance" placeholder="Type of insurance">
 
 								<label>Input the name of the bank If the FSP is BANK</label><br>
@@ -170,9 +171,9 @@
 						<hr>
 
 						<div class="x-leftbar">
-							<input id="financial-is_crop_payments" class="form_data x-check" type="checkbox" >
+							<input id="financial-is_crop_payments" class="form_data x-check" type="checkbox" onclick="trigger_check(this,'c_is_crop_payments')">
 							<label>Payments (utilities)</label><br>
-							<div class="x-container">
+							<div class="x-container" id="c_is_crop_payments" style="display:none;">
 								<input type="text" class="form_data x-input x-border" id="financial-type_payments" placeholder="Type of payments">
 
 								<label>Input the name of the bank If the FSP is BANK</label><br>
@@ -185,18 +186,18 @@
 						<hr>
 
 						<div class="x-leftbar">
-							<input id="financial-is_remmitances" class="form_data x-check" type="checkbox" >
+							<input id="financial-is_remmitances" class="form_data x-check" type="checkbox" onclick="trigger_check(this,'c_is_remmitances')">
 							<label>Remittances (OFW)</label><br>
-							<div class="x-container">
+							<div class="x-container" id="c_is_remmitances" style="display:none;">
 								<input type="text" class="form_data x-input x-border" id="financial-type_remmittance_name" placeholder="Name of Non-Bank FSP">
 							</div>
 						</div>
 						<hr>
 
 						<div class="x-leftbar">
-							<input id="financial-is_crop_others" class="form_data x-check" type="checkbox" >
+							<input id="financial-is_crop_others" class="form_data x-check" type="checkbox" onclick="trigger_check(this,'c_is_crop_others')">
 							<label>Others</label><br>
-							<div class="x-container">
+							<div class="x-container" id="c_is_crop_others" style="display:none;">
 								<label>Input the name of the bank If the FSP is BANK</label><br>
 								<input type="text" class="form_data x-input x-border" id="financial-type_others_bank" placeholder="Name of Bank">
 
@@ -217,7 +218,7 @@
 						Before Clicking next, pls make sure to check all fields as they cannot be undone while the profiling is not yet finished
 					</span><br>
 					<div class="x-container">
-						<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="history.back()">Previous Form<span class="fa fa-arrow-lef"></span></button>
+						<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="window.history.go(-1)">Previous Form<span class="fa fa-arrow-lef"></span></button>
 						<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
 					</div>
 				</div>
