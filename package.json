@@ -15,11 +15,7 @@
   "devDependencies": {
     "cordova-android": "^10.1.2",
     "cordova-browser": "^6.0.0",
-<<<<<<< HEAD
-
     "cordova-electron": "^3.1.0",
-=======
->>>>>>> parent of 6679297 (Long Time Ago Hhuhuhuh)
     "cordova-ios": "^6.2.0",
     "cordova-plugin-file": "^7.0.0",
     "cordova-plugin-geolocation": "^4.1.0",

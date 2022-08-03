@@ -11,11 +11,21 @@ function onDeviceReady() {
 	console.log(cordova.file);
 	println(" * SAVE FORM Module Ready ===================");
 
-	check_for_data()
+	check_for_data(function(fname,DATA){
+		println("--- Done Loading Data From >>> "+fname)
+		println("--- Calling ONLOADDATA() function ")
+		try{
+			ONLOADDATA(DATA)
+			println("--- ONLOADDATA() function Detected")
+
+		}catch{
+			println("xxx NO ONLOADDATA() function Detected")
+		}
+	})
 
 }
 
-function check_for_data(){
+function check_for_data(func){
 	var form_name = url_args['farmer_id']+"@"+page+".txt"
 	selected_farmer_ = url_args['farmer_id']
 	println("Finding :::: "+form_name)
@@ -24,7 +34,7 @@ function check_for_data(){
 		function (res){
 			println("data found :::: "+form_name)
 			$ID("is_form_filled").innerHTML = "Profiling - Edit"
-			refill_data_forms(form_name)
+			refill_data_forms(form_name,func)
 
 		},
 		function (){
@@ -35,13 +45,21 @@ function check_for_data(){
 	)
 }
 
-function refill_data_forms(file_name){ /////////// REFILLING FOR HAS DATA 
-	_readFileEntry(file_name,function(res){
+function refill_data_forms(file_name,func){ /////////// REFILLING FOR HAS DATA 
+	_readFileEntry(file_name,function(res,fnmae){
 		var form_data_refill = JSON.parse(res)
 		var form_data = $CLASS("form_data")
+
+		func(fnmae,form_data_refill) // CALLBACK FROM check_for_data() FUNCTION
+
 		for (var i = 0; i < form_data.length; i++) {
 			if(form_data[i].type=='checkbox'){
-				form_data[i].checked = form_data_refill[form_data[i].id]
+				// form_data[i].checked = form_data_refill[form_data[i].id] // DIRECT VALUE Transfer 
+
+				if(form_data_refill[form_data[i].id]){// Simulate Clicked
+					println(" --- Clicking >>>> "+form_data[i].id) // Simulate Clicked
+					form_data[i].click() // Simulate Clicked
+				}
 			}
 			else{
 				try{form_data[i].value = form_data_refill[form_data[i].id]}
@@ -69,6 +87,7 @@ function refill_data_forms(file_name){ /////////// REFILLING FOR HAS DATA
 		catch{
 			println(" no image preview availble on this form")
 		}
+		// func(fnmae,form_data_refill)
 	})
 }
 
@@ -305,4 +324,9 @@ function _autocomplete(inp, arr) {
 	document.addEventListener("click", function (e) {
 			closeAllLists(e.target);
 	});
+}
+
+function trigger_check(chbox,_ids){
+	if (chbox.checked) {$ID(_ids).style.display = "block"}
+	else{$ID(_ids).style.display = "none"}
 }
