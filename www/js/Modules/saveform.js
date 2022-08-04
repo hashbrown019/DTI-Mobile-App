@@ -382,3 +382,60 @@ function trigger_check(chbox,_ids){
 	if (chbox.checked) {$ID(_ids).style.display = "block"}
 	else{$ID(_ids).style.display = "none"}
 }
+
+
+// ==============================Temporary Solutionfor Duplication field in prod_cost address
+
+function __region_sel(el){
+	var arrs = []
+	for (const [key, value] of Object.entries(ALL_LOCATION)) {
+		arrs.push(key)
+	}
+	_autocomplete(el,arrs)
+}
+
+function __ls_prov(el){
+	println(el.parentNode.parentNode.querySelectorAll(".reg"))
+	var selregion = el.parentNode.parentNode.querySelectorAll(".reg")[0].value.toUpperCase();
+	// var selregion = $ID('addr_region').value.toUpperCase();
+	var arrs = []
+	for (const [key, value] of Object.entries(ALL_LOCATION[selregion]['province_list'])) {
+		arrs.push(key)
+	}
+	_autocomplete(el,arrs)
+}
+
+
+function __ls_city(el){
+	var arrs = []
+	var region = el.parentNode.parentNode.querySelectorAll(".reg")[0].value.toUpperCase();
+	var prov = el.parentNode.parentNode.querySelectorAll(".prov")[0].value.toUpperCase();
+
+	// var region = $ID("addr_region").value.toUpperCase();
+	// var prov = $ID("addr_prov").value.toUpperCase();
+
+	for (const [key, value] of Object.entries(ALL_LOCATION[region]['province_list'][prov]['municipality_list'])) {
+		arrs.push(key)
+	}
+	_autocomplete(el,arrs)
+}
+
+
+function __ls_brgy(el){
+	var arrs = []
+
+	var region = el.parentNode.parentNode.querySelectorAll(".reg")[0].value.toUpperCase();
+	var prov = el.parentNode.parentNode.querySelectorAll(".prov")[0].value.toUpperCase();
+	var municipality = el.parentNode.parentNode.querySelectorAll(".city")[0].value.toUpperCase();
+
+	// var region = $ID("addr_region").value.toUpperCase();
+	// var prov = $ID("addr_prov").value.toUpperCase();
+	// var municipality = $ID("addr_city").value.toUpperCase();
+
+	for (var i = 0; i < ALL_LOCATION[region]['province_list'][prov]['municipality_list'][municipality]['barangay_list'].length; i++) {
+		var key = ALL_LOCATION[region]['province_list'][prov]['municipality_list'][municipality]['barangay_list'][i]
+		arrs.push(key)
+	}
+	_autocomplete(el,arrs)
+
+}

@@ -11,9 +11,9 @@ let update_version = "2.1.4 rc_tiger" //
 
 // 192.168.0.121
 
-// var DOMAIN = "https://crisnotbrown.pythonanywhere.com";var LOCAL_RENDER = false;
+var DOMAIN = "https://crisnotbrown.pythonanywhere.com";var LOCAL_RENDER = false;
 // var DOMAIN = "http://192.168.0.118:5000"; var LOCAL_RENDER = true; // LOCAL UNSECURE
-var DOMAIN = "https://192.168.0.112:5000"; var LOCAL_RENDER = true; // LOCAL SECUREE
+// var DOMAIN = "https://192.168.0.112:5000"; var LOCAL_RENDER = true; // LOCAL SECUREE
 
 
 
@@ -38,6 +38,20 @@ let  __DATA_TO_SYNC = {
 	},
 	"data":{}
 }
+
+let VALUE_CHAIN_CROP = [
+  "Cacao",
+  "Coffee",
+  "Coconut",
+  "Banana",
+  "Calamansi",
+  "Jackfruit",
+  "Mango",
+  "Pili_Nut",
+  "Other fruits and nuts",
+  "Others"
+]
+
 
 let IP_NAMES = ["Aromanon","Ata","B'laan","Badjao","Badjao, Sama Laut","Bagobo","Banwaon","Bukidnon","Dibabawon","Dulangan","Higaonon","Iranon","Iranun","Jama Mapon","Kagan","Kalagan","Kalibugan","Kamigin","Karintik","Klata-Guiangan","Kongking","Lambangian","Maguindanaon","Mamanwa","Mandaya","Manobo","Manobo B'lit","Mansaka","Maranao","Matigsalog","Sama","Sama-Bangingi","Samal","Sangil","Subanen","Subanon","T-boli","Tagabawa","Tagakaolo","Talaandig","Talaingod, Langilan","Tausug","Tigwahanon","Tiruray","Ubo Manobo","Umayamnon","Yakan",]
 

@@ -78,24 +78,26 @@
 						</span><br><br>
 
 						<span class="x-text-grey">Full Address</span>
-						<div class="x-container">
-							<div class="x-col s3 autocomplete">
-								<input id="addr_region" type="text" class="form_data x-input x-border x-round " placeholder="Region" onkeyup="region_sel(this)">
+						<div id="addrs_area">
+							<div class="x-container">
+								<div class="x-col s3 autocomplete">
+									<input name="reg" id="addr_region" type="text" class=" reg form_data x-input x-border x-round " placeholder="Region" onkeyup="__region_sel(this)">
+								</div>
+								<div class="x-col s9 autocomplete">
+									<input name="prov" id="addr_prov" type="text" class="prov form_data x-input x-border x-round " placeholder="Province" onkeyup="__ls_prov(this)">
+								</div>
+							<!-- </div>
+							<div class="x-container"> -->
+								<div class="x-col s6 autocomplete">
+									<input name="city" id="addr_city" type="text" class="city form_data x-input x-border x-round " placeholder="Municipality/City" onkeyup="__ls_city(this)">
+								</div>
+								<div class="x-col s6 autocomplete">
+									<input id="addr_brgy" type="text" class="brgy form_data x-input x-border x-round " placeholder="Barangay" onkeyup="__ls_brgy(this)">
+								</div>
 							</div>
-							<div class="x-col s9 autocomplete">
-								<input id="addr_prov" type="text" class="form_data x-input x-border x-round " placeholder="Province" onkeyup="ls_prov(this)">
+							<div class="x-container">
+								<input id="addr_street_purok_sitio" type="text" class="form_data x-input x-border x-round x-block" placeholder="Street/Purok/Sitio">
 							</div>
-						</div>
-						<div class="x-container">
-							<div class="x-col s6 autocomplete">
-								<input id="addr_city" type="text" class="form_data x-input x-border x-round " placeholder="Municipality/City" onkeyup="ls_city(this)">
-							</div>
-							<div class="x-col s6 autocomplete">
-								<input id="addr_brgy" type="text" class="form_data x-input x-border x-round " placeholder="Barangay" onkeyup="ls_brgy(this)">
-							</div>
-						</div>
-						<div class="x-container">
-							<input id="addr_street_purok_sitio" type="text" class="form_data x-input x-border x-round x-block" placeholder="Street/Purok/Sitio">
 						</div>
 
 						<hr>
