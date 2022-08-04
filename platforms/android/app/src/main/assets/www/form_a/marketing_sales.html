@@ -89,7 +89,10 @@
 									}
 								</script>
 								<hr>
-								<input style="display: none;" placeholder="Name of Coop" type="text" id="market-name_coop" name="" class="form_data dis_in x-input x-border x-round ">
+								<!-- <input style="display: none;" placeholder="Name of Coop" type="text" id="market-name_coop" name="" class="form_data dis_in x-input x-border x-round "> -->
+								<div class="autocomplete x-block">
+									<input id="market-name_coop" class="form_data dis_in x-input x-border x-round require_f" placeholder="Name of Coop" onkeyup="get_fo_ls(this)"  style="display: none;">
+								</div>
 								<input style="display: none;" placeholder="Name of SME" type="text" id="market-name_sme" name="" class="form_data dis_in x-input x-border x-round ">
 								<input style="display: none;" placeholder="Name of Anchor Firm" type="text" id="market-name_anchor_firm" name="" class="form_data dis_in x-input x-border x-round ">
 								<input style="display: none;" placeholder="If Others, please specify" type="text" id="market-name_others" name="" class="form_data dis_in x-input x-border x-round ">
@@ -129,7 +132,7 @@
 						<b class="x-text-grey">Remarks (For Enumerator)</b><br>
 						<input placeholder="" type="text" id="form-remarks" name="feedback-rsbsa_no" class="form_data x-input x-border x-round ">
 						<hr>
-						<button class="x-blue x-block x-btn x-round-large" onclick="duplicate()">Add More Crop <span class="fa fa-plus"></span></button>
+						<button class="x-blue x-block x-btn x-round-large" onclick="duplicate()">Add More Product <span class="fa fa-plus"></span></button>
 						<hr>
 						<span class="x-text-grey">
 							

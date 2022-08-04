@@ -101,14 +101,14 @@
 						<hr>
 						<span class="x-text-grey"> PH Product Form</span>
 						<select name="post_harv-ph_product_form" id="post_harv-ph_product_form" class="form_data x-select x-border" onchange="phcrop(this.value)">
-							<option value="primary" selected>Primary Crop (selected primary crop)</option>
-							<optgroup label="Coffee">
+							<option style="display:none" value="primary" selected>Primary Crop (selected primary crop)</option>
+							<optgroup id="Coffee_form" style="display:none" label="Coffee">
 								<option value="fresh cherries">fresh cherries</option>
 								<option value="dried beans/green coffee beans">dried beans/green coffee beans</option>
 								<option value="roasted beans">roasted beans</option>
 								<option value="roasted ground coffee">roasted ground coffee</option>
 							</optgroup>
-							<optgroup label="Cacao">
+							<optgroup id="Cacao_form" style="display:none" label="Cacao">
 								<option value="wet beans">wet beans</option> 
 								<option value="sun dried beans">sun dried beans</option> 
 								<option value="dried fermented beans">ried fermented beans</option> 
@@ -116,7 +116,7 @@
 								<option value="cacao nibs">cacao nibs</option> 
 								<option value="chocolates">chocolates</option> 
 							</optgroup>
-							<optgroup label="Coconut">
+							<optgroup id="Coconut_form" style="display:none" label="Coconut">
 								<option value="whole nuts (dehusked)">whole nuts (dehusked)</option>
 								<option value="whole nut with husk">whole nut with husk</option>
 								<option value="copra">copra</option>
@@ -128,7 +128,7 @@
 								<option value="pressed coconut hut">pressed coconut hut</option>
 							</optgroup>
 
-							<optgroup label="Calamansi">
+							<optgroup id="Calamansi_form" style="display:none" label="Calamansi">
 								<option value="fresh calamansi">fresh calamansi</option>
 								<option value="calamansi concentrate">calamansi concentrate</option>
 								<option value="calamansi puree">calamansi puree</option>
@@ -136,12 +136,21 @@
 								<option value="calamansi powder">calamansi powder</option> 
 							</optgroup>
 
-							<optgroup label="Banana">
+							<optgroup id="Banana_form" style="display:none" label="Banana">
 								<option value="defingered banana">defingered banana</option>
 								<option value="first fry banana">first fry banana</option>
 								<option value="first fry banana chips">first fry banana chips</option>
 								<option value="fresh cardaba banana">fresh cardaba banana</option>
 								<option value="banana flour">banana flour</option>
+							</optgroup>
+							<optgroup id="Mango_form" style="display:none" label="Mango">
+								<option value="none" disabled>No Data Yet for this Commodity</option>
+							</optgroup>
+							<optgroup id="Pili_Nut_form" style="display:none" label="Pili Nut">
+								<option value="none" disabled>No Data Yet for this Commodity</option>
+							</optgroup>
+							<optgroup id="Jackfruit_from" style="display:none" label="Jackfruit">
+								<option value="none" disabled>No Data Yet for this Commodity</option>
 							</optgroup>
 							<option value="others">Others</option>
 						</select>
@@ -202,11 +211,22 @@
 		}catch(err){println(err)}
 
 		function ONLOADDATA(data){
-			var incs_ = data.record_num
-			println("Number of Increment is .. "+data.record_num)
-			for (var i = 0; i < incs_; i++) {
-				duplicate()
-			}
+			var farmer_prof_file = data.farmer_code + "@profile.txt"
+			_readFileEntry(farmer_prof_file,function(res){
+				var f_info = JSON.parse(res)
+				try{
+					var f_primary = (f_info["farmer-primary_crop"].replace(" ","_"))+"_form"
+				}catch{println("--")}
+				println(f_primary)
+				$ID(f_primary).style.display = "block"
+
+				// -------------------------------------------------------
+				var incs_ = data.record_num
+				println("Number of Increment is .. "+data.record_num)
+				for (var i = 0; i < incs_; i++) {
+					duplicate()
+				}
+			})
 			// check_for_data(function(data_){println("Data Recollected ")})
 		}
 
@@ -220,7 +240,7 @@
 
 			for (var i = 0; i < elemets_.length; i++) {
 				elemets_[i].id = elemets_[i].id + iii
-				println(elemets_[i].id)
+				// println(elemets_[i].id)
 			}
 
 			original.parentNode.appendChild(clone);

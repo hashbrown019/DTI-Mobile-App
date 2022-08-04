@@ -105,7 +105,10 @@
 								<div class="x-container" id="c_if_loan_non_bank" style="display:none;">
 									<span class="x-text-grey">Name of Farmers' Organization/Cooperative<span class="x-text-grey"></span>
 									<div>
-										<input placeholder="" type="text" id="financial-loan_name_fo" class="form_data x-input x-border x-round  x-col s6">
+										<!-- <input placeholder="" type="text" id="financial-loan_name_fo" class="form_data x-input x-border x-round  x-col s6"> -->
+										<div class="autocomplete x-block   x-col s6">
+											<input id="financial-loan_name_fo" class="form_data dis_in x-input x-border x-round" placeholder="Name of FO" onkeyup="get_fo_ls(this)">
+										</div>
 										<input type="text" class="form_data x-input x-border x-col s6" id="financial-loan_type_fo" placeholder="Type of Loan">
 									</div>
 									<span class="x-text-grey">Name of NGO<span class="x-text-grey"></span>

@@ -208,6 +208,16 @@ function ip_names(el){
 	// println(JSON.stringify(IP_NAMES))
 }
 
+function get_dip_ls(el){
+	_autocomplete(el,DIP_LIST)
+	// println(JSON.stringify(IP_NAMES))
+}
+
+function get_fo_ls(el){
+	_autocomplete(el,FO_LIST)
+	// println(JSON.stringify(IP_NAMES))
+}
+
 function region_sel(el){
 	var arrs = []
 	for (const [key, value] of Object.entries(ALL_LOCATION)) {
@@ -258,6 +268,7 @@ function _autocomplete(inp, arr) {
 	var currentFocus;
 	inp.addEventListener("input", function(e) {
 			var a, b, i, val = this.value;
+			println(a)
 			closeAllLists();
 			if (!val) { return false;}
 			currentFocus = -1;
@@ -277,7 +288,11 @@ function _autocomplete(inp, arr) {
 							// closeAllLists();
 					});
 					a.appendChild(b);
+					// if(i >=5){
+					// 	break
+					// }
 				}
+
 			}
 	});
 	
