@@ -40,7 +40,7 @@
 	<body class=" center-bg" style=" height: 100vh;">
 		<header id="offline" class="x-header x-red x-center" style="display:none">Offline Mode</header>
 <header id="localhostversion" class="x-header x-yellow x-center" style="display:block">This is a Localhost Version, do not use outside NPCO</header>
-			<input type="text" placeholder="record_num" id="record_num" name="record_num" class="form_data" value="0">
+			<input type="hidden" placeholder="record_num" id="record_num" name="record_num" class="form_data" value="0">
 		<!-- <form action="" method="POST" id="form0" class="" style="display:block;padding: 0px;margin: 0px;"> -->
 			<div class="">
 				<header class="-header gr_body x-blue x-padding">
@@ -97,13 +97,11 @@
 								<input style="display: none;" placeholder="Name of Anchor Firm" type="text" id="market-name_anchor_firm" name="" class="form_data dis_in x-input x-border x-round ">
 								<input style="display: none;" placeholder="If Others, please specify" type="text" id="market-name_others" name="" class="form_data dis_in x-input x-border x-round ">
 								<hr>
-								<span class="x-text-grey">Primary Crop Distribution Point/Location</span>
+								<span class="x-text-grey">Primary Crop Distribution Payment Terms</span>
 								<select name="market-primary_crop_dist_point" id="market-primary_crop_dist_point" class="form_data x-select x-border">
-									<option selected value='Consignment'>Consignment</option>
-									<option selected value='COD-w'>Cash on Delivery (Weekly)</option>
-									<option selected value='COD-15d'>Cash on Delivery (15 days)</option>
-									<option selected value='COD-mnth'>Cash on Delivery (Monthly)</option>
-									<option selected value='CASH'>Cash</option>
+									<option selected value='consignment'>Consignment</option>
+									<option selected value='cash'>Cash</option>
+									<option selected value='credit'>Credit</option>
 									<option selected value='others'>Others</option>
 								</select>
 								<span class="x-text-grey">If Others, please specify</span>
@@ -117,8 +115,12 @@
 									<option selected value='Others'>Others</option>
 								</select>
 								<span class="x-text-grey">If Others, please specify</span>
-								<input type="text" id="market-primary_crop_buyer_others" class="form_data x-input x-border x-round dist"><br>
-								<hr><hr>
+								<input type="text" id="market-primary_crop_buyer_others" class="form_data x-input x-border x-round dist">
+								<hr>
+
+								<span class="x-text-grey">Product Price in Php (fgp)</span>
+								<input placeholder="FGP in Php" type="text" id="market-primary_crop_product_fgp" class="form_data x-input x-border x-round dist">
+								<hr>
 							</div>
 							
 							<hr>

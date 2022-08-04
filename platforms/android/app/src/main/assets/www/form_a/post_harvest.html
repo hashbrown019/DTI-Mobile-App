@@ -162,11 +162,33 @@
 						</script>
 						<input placeholder="If Others, please specify product form" type="text" id="post_harv-phcropothers" name="post_harv-others" class="form_data x-input x-border x-round" style="display: none;"><hr>
 
-						<span class="x-text-grey"> PH Capacity (in kg)</span>
-						<input type="text" id="post_harv-capacity" name="post_harv-capacityfull_address" class="form_data x-input x-border x-round ">
+						<div class="x-row">
+							<div class="x-col s6">
+								<span class="x-text-grey"> PH Capacity (qty)</span>
+								<input type="text" id="post_harv-capacity" name="post_harv-capacityfull_address" class="form_data x-input x-border x-round ">
+							</div>
+							<div class="x-col s6">
+								<span class="x-text-grey"> PH Capacity unit</span>
+								<select class="form_data x-select" id="post_harv-capacity_unit">
+									<option value="kg_hr">kg/hr</option>
+									<option value="kg_day">kg/day</option>
+									<option value="kg_month">kg/month</option>
+									<option value="kg_year">kg/year</option>
+									<option value="kg_harvest">kg/harvest</option>
+								</select>
+							</div>
+						</div>
 						
-						<span class="x-text-grey">Farmer Photo</span>
-						<input type="file" id="post_harv-photo" name="post_harv-photo" class="form_data x-input x-border x-round ">
+						<div class="img_cc_asd">
+							<span class="x-text-grey">Post-Harvest Facility/Equipment Photo</span>
+							<input type="file" id="post_harv-photo_selector" name="post_harv-photo_selector" class="form-data x-input x-border x-round" multiple onchange="farm_photo(this)">
+
+							<div id="farm_photo-viewer" class="img_viewer x-container">
+								<span> NO Photos Available</span>
+							</div>
+							<input type="hidden" id="post_harv-photo" class="img_content form_data x-tiny" value="No Base64 image">
+
+						</div>
 						<hr>
 					</div>
 					<hr>
@@ -188,7 +210,7 @@
 				</span><br>
 				<div class="x-container">
 					<div class="x-container">
-						<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="window.history.go(-1)">Previous Form<span class="fa fa-arrow-lef"></span></button>
+						<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="window.history.go(-1)">Previous Form<span class="fa fa-arrow-left"></span></button>
 						<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
 					</div>
 				</div>
@@ -210,6 +232,7 @@
 			}
 		}catch(err){println(err)}
 
+		// ONLOAD_RE_EXEC = true
 		function ONLOADDATA(data){
 			var farmer_prof_file = data.farmer_code + "@profile.txt"
 			_readFileEntry(farmer_prof_file,function(res){
@@ -226,6 +249,13 @@
 				for (var i = 0; i < incs_; i++) {
 					duplicate()
 				}
+
+				println("======= AFTER DUPLICATE")
+				var smp_s = document.querySelectorAll("div.img_cc_asd")
+				for (var i = 0; i < smp_s.length; i++) {
+					println(smp_s[i].querySelector(".img_content").id)
+				}
+				RELOAD_FIELD() /// Reload Field again for Slow Loading Image and contmaienrs
 			})
 			// check_for_data(function(data_){println("Data Recollected ")})
 		}
@@ -249,6 +279,28 @@
 			for (var i = 0; i < $CLASS('post_num').length; i++) {
 				$CLASS('post_num')[i].innerHTML = i+1
 			}
+		}
+
+
+		function farm_photo(tag){
+			// var _files = $ID('').files
+			// $ID('farm_photo-viewer').innerHTML = ""
+			tag.parentNode.querySelectorAll(".img_viewer")[0].innerHTML = ""
+			var farm_photo_arr = []
+			var _files = tag.files
+			for (var i = 0; i < _files.length; i++) {
+				getBase64(_files[i],function(img64){
+					var img_prev = `<img src="`+img64+`" style="max-width:20%;" class="x-border x-round-large">` 
+					farm_photo_arr.push(img64)
+					tag.parentNode.querySelectorAll(".img_content")[0].value = JSON.stringify(farm_photo_arr)
+					// $ID("post_harv-photo").value = JSON.stringify(farm_photo_arr)
+					// $ID('farm_photo-viewer').innerHTML += img_prev
+					tag.parentNode.querySelectorAll(".img_viewer")[0].innerHTML += img_prev
+				}) 
+				println(tag.parentNode.querySelectorAll(".img_content")[0])
+			}
+			// println(tag.parentNode.querySelectorAll(".img_viewer")[0])
+
 		}
 		// -------------------------------------board--------------------------------------------------
 		function save_form(){

@@ -45,49 +45,86 @@ function check_for_data(func){
 	)
 }
 
+let RELOAD_FIELD = undefined
+let ONLOAD_RE_EXEC = false
 function refill_data_forms(file_name,func){ /////////// REFILLING FOR HAS DATA 
 	_readFileEntry(file_name,function(res,fnmae){
 		var form_data_refill = JSON.parse(res)
 		var form_data = $CLASS("form_data")
 
 		func(fnmae,form_data_refill) // CALLBACK FROM check_for_data() FUNCTION
+		RELOAD_FIELD =function FILL_F(){
+			for (var i = 0; i < form_data.length; i++) {
+				if(form_data[i].type=='checkbox'){
+					// form_data[i].checked = form_data_refill[form_data[i].id] // DIRECT VALUE Transfer 
 
-		for (var i = 0; i < form_data.length; i++) {
-			if(form_data[i].type=='checkbox'){
-				// form_data[i].checked = form_data_refill[form_data[i].id] // DIRECT VALUE Transfer 
-
-				if(form_data_refill[form_data[i].id]){// Simulate Clicked
-					println(" --- Clicking >>>> "+form_data[i].id) // Simulate Clicked
-					form_data[i].click() // Simulate Clicked
+					if(form_data_refill[form_data[i].id]){// Simulate Clicked
+						println(" --- Clicking >>>> "+form_data[i].id) // Simulate Clicked
+						form_data[i].click() // Simulate Clicked
+					}
+				}
+				else{
+					try{form_data[i].value = form_data_refill[form_data[i].id]}
+					catch(e){println("ERROR in refill_data_forms :: "+e)}
 				}
 			}
-			else{
-				try{form_data[i].value = form_data_refill[form_data[i].id]}
-				catch(e){println("ERROR in refill_data_forms :: "+e)}
+
+			// -----------------For Image PROFILE--------------------
+			try{
+				$ID('preview_profile_img').src = form_data_refill['farmer_img_base64']
+			}
+			catch{
+				println(" no image preview availble on this form")
+			}
+			// ------------------For Image add Profile--------------------
+			try{
+				var farm_img = JSON.parse(form_data_refill['farm-photo'])
+				$ID('farm_photo-viewer').innerHTML = ""
+				if(farm_img.length!=0){
+					for (var i = 0; i < farm_img.length; i++) {
+						$ID('farm_photo-viewer').innerHTML += `<img src="`+farm_img[i]+`" style="max-width:20%;" class="x-border x-round-large">` 
+					}
+	 			}
+			}
+			catch{
+				println(" no image preview availble on this form")
+			}
+			// ------------------For Image POST Harvest--------------------
+			try{
+				var img_cv = 0
+				for(key in form_data_refill){
+					if(key.includes("post_harv-photo")){
+						var pic_ls = JSON.parse(form_data_refill[key])
+
+						println('oyeah has ['+pic_ls.length+']>>> '+key)
+						$ID(key).parentNode.querySelectorAll(".img_viewer")[0].innerHTML = ""
+						var img_prev =""
+						for (var i = 0; i < pic_ls.length; i++) {
+							img_prev += `<img src="`+pic_ls[i]+`" style="max-width:20%;" class="x-border x-round-large">`
+
+						}
+						$ID(key).parentNode.querySelectorAll(".img_viewer")[0].innerHTML += img_prev + pic_ls.length + " Photo/s"
+						// document.querySelectorAll("div.img_viewer")[img_cv].innerHTML += img_prev
+						img_cv+=1
+					}
+				}
+			}
+			catch(e){
+				println(" no image preview availble on this form \n  "+e)
+			}
+			var smp_s = document.querySelectorAll("div.img_cc_asd")
+			for (var i = 0; i < smp_s.length; i++) {
+				println(smp_s[i].querySelector(".img_content").id)
+			}
+			if (ONLOAD_RE_EXEC) {
+				println(" * ONLOADDATA Re Execute -----")
+				func(fnmae,form_data_refill)
+				ONLOAD_RE_EXEC = false
+				println(" * ONLOADDATA Re Execute Fini-----")
+
 			}
 		}
-
-		// -----------------For Image PROFILE--------------------
-		try{
-			$ID('preview_profile_img').src = form_data_refill['farmer_img_base64']
-		}
-		catch{
-			println(" no image preview availble on this form")
-		}
-		// ------------------For Image add Profile--------------------
-		try{
-			var farm_img = JSON.parse(form_data_refill['farm-photo'])
-			$ID('farm_photo-viewer').innerHTML = ""
-			if(farm_img.length!=0){
-				for (var i = 0; i < farm_img.length; i++) {
-					$ID('farm_photo-viewer').innerHTML += `<img src="`+farm_img[i]+`" style="max-width:20%;" class="x-border x-round-large">` 
-				}
- 			}
-		}
-		catch{
-			println(" no image preview availble on this form")
-		}
-		// func(fnmae,form_data_refill)
+		RELOAD_FIELD()
 	})
 }
 
