@@ -19,8 +19,10 @@ function onDeviceReady() {
 			println("--- ONLOADDATA() function Detected")
 
 		}catch{
+			
 			println("xxx NO ONLOADDATA() function Detected")
 		}
+
 	})
 
 }
