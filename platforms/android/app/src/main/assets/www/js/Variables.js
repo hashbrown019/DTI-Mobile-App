@@ -11,9 +11,9 @@ let update_version = "1.1.2 beta" //
 
 // 192.168.0.121
 
-// var DOMAIN = "https://crisnotbrown.pythonanywhere.com";var LOCAL_RENDER = false;
+var DOMAIN = "https://crisnotbrown.pythonanywhere.com";var LOCAL_RENDER = false;
 // var DOMAIN = "https://DESKTOP-ND7O5AE:5000"; var LOCAL_RENDER = true; // LOCAL UNSECURE
-var DOMAIN = "https://192.168.205.30:5000"; var LOCAL_RENDER = true; // LOCAL SECUREE
+// var DOMAIN = "https://192.168.205.30:5000"; var LOCAL_RENDER = true; // LOCAL SECUREE
 
 
 
