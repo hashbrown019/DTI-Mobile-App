@@ -63,7 +63,14 @@
 					<input type="hidden" id="farmer_img_base64" name="farmer_img_base64" class="form_data x-input x-border x-round require_f">
 					<!-- -------------------------------- -->
 					<span class="x-text-grey">Farmer Name</span>
-					<input type="text" id="farmer_name" name="farmer_name" class="form_data x-input x-border x-round require_f">
+					<div class="x-row">
+						<input type="text" placeholder="First Name" onkeyup="farmer_name(this)" id="f_name" class="form_data x-col s3 x-input x-border x-round require_f">
+						<input type="text" placeholder="Middle Name" onkeyup="farmer_name(this)" id="m_name" class="form_data x-col s3 x-input x-border x-round require_f">
+						<input type="text" placeholder="Last Name" onkeyup="farmer_name(this)" id="l_name" class="form_data x-col s3 x-input x-border x-round require_f">
+						<input type="text" placeholder="Ext/Suffix" onkeyup="farmer_name(this)" id="ext_name" class="form_data x-col s3 x-input x-border x-round require_f">
+						<input type="hidden" id="farmer_name" class="form_data x-input x-border x-round require_f">
+
+					</div>
 					<span class="x-text-grey">Farmer Sex</span>
 					<select id="farmer_sex" class="form_data x-select x-border">
 						<option value="undefined">Please Select</option>
@@ -352,5 +359,8 @@
 			}
 		}
 
+		function farmer_name(tag){
+			$ID("farmer_name").value = $ID("f_name").value +" "+ $ID("m_name").value +" "+ $ID("l_name").value +" "+ $ID("ext_name").value 
+		}
 	</script>
 </html>

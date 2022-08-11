@@ -66,7 +66,10 @@ function refill_data_forms(file_name,func){ /////////// REFILLING FOR HAS DATA
 					}
 				}
 				else{
-					try{form_data[i].value = form_data_refill[form_data[i].id]}
+					try{
+						if (form_data_refill[form_data[i].id]==undefined) {form_data_refill[form_data[i].id] = ""}
+						form_data[i].value = form_data_refill[form_data[i].id]
+					}
 					catch(e){println("ERROR in refill_data_forms :: "+e)}
 				}
 			}
