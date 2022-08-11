@@ -246,6 +246,20 @@ module.exports = [
         "id": "cordova-plugin-media-capture.CaptureProxy",
         "pluginId": "cordova-plugin-media-capture",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/src/browser/InAppBrowserProxy.js",
+        "id": "cordova-plugin-inappbrowser.InAppBrowserProxy",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -254,7 +268,8 @@ module.exports.metadata =
     "cordova-plugin-file": "7.0.0",
     "cordova-plugin-geolocation": "4.1.0",
     "cordova-plugin-ionic-keyboard": "2.2.0",
-    "cordova-plugin-media-capture": "4.0.0"
+    "cordova-plugin-media-capture": "4.0.0",
+    "cordova-plugin-inappbrowser": "5.0.0"
 }
 // BOTTOM OF METADATA
 });

@@ -61,33 +61,35 @@
 						<span> NO Photos Available</span>
 					</div>
 					<!-- <input type="text" id="farm-photo" class="form_data x-tiny" value="NO Base64 image"> -->
-					<input type="hidden" id="farm-photo" class="form_data x-tiny" value="NO Base64 image">
+					<input type="hidden" id="farm-photo" class="form_data x-tiny" value="No Base64 image">
 
 					<b class="x-text-green">Addresses</b><br>
 					<span class="x-text-grey x-small">
-						<b>To get exact farmer's address please <i class="x-text-blue" onmouseup="get_location()">click here</i></b><br>
+						<b>If you are in the exact location of the farm, Please <i class="x-blue x-round" style="padding:2px" onmouseup="get_location()">click here</i></b><br>
+						<span>Or you can manually input the coordinates</span><br>
 					</span>
 					<span class="x-text-grey">
-						<span id="geolocation"></span>
-						<input class="form_data" type="hidden" id="farmer-coords_long">
-						<input class="form_data" type="hidden" id="farmer-coords_lat">
-					</span><br><br>
+						<span style="display:none;" id="geolocation"></span>
+						<input class="form_data x-input" placeholder="Longitude" type="text" id="farmer-coords_long">
+						<input class="form_data x-input" placeholder="Latitude" type="text" id="farmer-coords_lat">
+					</span>
+					<br><br>
 
 					<span class="x-text-grey">Full Address</span>
 					<div class="x-container">
 						<div class="x-col s3 autocomplete">
-							<input id="addr_region" type="text" class="form_data x-input x-border x-round " placeholder="Region" onkeyup="region_sel(this)">
+							<input id="addr_region" type="text" class="form_data require_f x-input x-border x-round " placeholder="Region" onkeyup="region_sel(this)">
 						</div>
 						<div class="x-col s9 autocomplete">
-							<input id="addr_prov" type="text" class="form_data x-input x-border x-round " placeholder="Province" onkeyup="ls_prov(this)">
+							<input id="addr_prov" type="text" class="form_data require_f x-input x-border x-round " placeholder="Province" onkeyup="ls_prov(this)">
 						</div>
 					</div>
 					<div class="x-container">
 						<div class="x-col s6 autocomplete">
-							<input id="addr_city" type="text" class="form_data x-input x-border x-round " placeholder="Municipality/City" onkeyup="ls_city(this)">
+							<input id="addr_city" type="text" class="form_data require_f x-input x-border x-round " placeholder="Municipality/City" onkeyup="ls_city(this)">
 						</div>
 						<div class="x-col s6 autocomplete">
-							<input id="addr_brgy" type="text" class="form_data x-input x-border x-round " placeholder="Barangay" onkeyup="ls_brgy(this)">
+							<input id="addr_brgy" type="text" class="form_data require_f x-input x-border x-round " placeholder="Barangay" onkeyup="ls_brgy(this)">
 						</div>
 					</div>
 					<div class="x-container">
@@ -100,8 +102,8 @@
 					<input type="number" id="farm-declare_area" name="farm-declare_area" class="form_data x-input x-border x-round ">
 					<hr>
 					<b class="x-text-green">Cropping</b><br>
-					<input id="farm-is_single_crop" class="form_data x-check" type="checkbox">
-					<label>Single Crop</label><br>
+					<!-- <input id="farm-is_single_crop" class="form_data x-check" type="checkbox">
+					<label>Single Crop</label><br> -->
 					<input id="farm-is_multi_crop" class="form_data x-check" type="checkbox" onchange="interc(this)" >
 					<label>Inter cropping</label><hr>
 					<script type="text/javascript">
@@ -148,44 +150,58 @@
 					<span class="x-text-grey">No. of NON-BEARING trees planted</span>
 					<input placeholder="" value="None" type="number" id="farm-non_bearing_plants" name="farm-non_bearing_plants" class="form_data x-input x-border x-round ">
 
-					<span class="x-text-grey">Number of Lots</span>
+<!-- 					<span class="x-text-grey">Number of Lots</span>
 					<select name="farm-number_of_lots" id="farm-number_of_lots" class="form_data x-select x-border" _onchange="rsbsa_change(this.value)">
 						<option selected value='No'>1</option>
 						<option value='yes'>2</option>
 						<option value='No Idea'>3</option>
 						<option value='No Idea'>4</option>
-					</select>
+					</select> -->
+					<hr>
+					<b class="x-text-grey">Land Tenurial Status in Ha.</b><br>
+					<div>
+						
+					</div>
+						<input id="farm-tenurial_so" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number" >
+						<label>Sole Ownership <i>(in Ha.)</i></label><br>
 
-					<span class="x-text-grey">Land Tenurial Status</span><br>
-					<input id="farm-tenurial_so" class="form_data x-check tenur_stat" onchange="$show_view_args_check(this.id,'tenur_stat',false,true)" type="checkbox" checked="checked">
-					<label>Sole Ownership</label><br>
+						<input id="farm-tenurial_co" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
+						<label>Co-Ownership <i>(in Ha.)</i></label><br>
 
-					<input id="farm-tenurial_co" class="form_data x-check tenur_stat" onchange="$show_view_args_check(this.id,'tenur_stat',false,true)" type="checkbox">
-					<label>Co-Ownership</label><br>
+						<input id="farm-tenurial_cloa" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
+						<label>CLOA/Individual EP <i>(in Ha.)</i></label><br>
 
-					<input id="farm-tenurial_cloa" class="form_data x-check tenur_stat" onchange="$show_view_args_check(this.id,'tenur_stat',false,true)" type="checkbox">
-					<label>CLOA/Individual EP</label><br>
+						<input id="farm-tenurial_stew" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
+						<label>Stewardship <i>(in Ha.)</i></label><br>
 
-					<input id="farm-tenurial_stew" class="form_data x-check tenur_stat" onchange="$show_view_args_check(this.id,'tenur_stat',false,true)" type="checkbox">
-					<label>Stewardship</label><br>
+						<input id="farm-tenurial_Usfruc" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
+						<label>Usufruct <i>(in Ha.)</i></label><br>
 
-					<input id="farm-tenurial_Usfruc" class="form_data x-check tenur_stat" onchange="$show_view_args_check(this.id,'tenur_stat',false,true)" type="checkbox">
-					<label>Usufruct</label><br>
+						<input id="farm-tenurial_ten" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
+						<label>Tenancy <i>(in Ha.)</i></label><br>
 
-					<input id="farm-tenurial_ten" class="form_data x-check tenur_stat" onchange="$show_view_args_check(this.id,'tenur_stat',false,true)" type="checkbox">
-					<label>Tenancy</label><br>
-
-					<input id="farm-tenurial_others" class="form_data x-check tenur_stat" onchange="$show_view_args_check(this.id,'tenur_stat',false,true)" type="checkbox">
-					<label>Others</label><br>
+						<input id="farm-tenurial_others" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
+						<label>Others <i>(in Ha.)</i>...</label><br>
 
 					<script type="text/javascript">
 						function tenur_stat(sel){
-
+							// throw {"sample":"sample"}
+							var tenur = $CLASS("tenur_stat")
+							var val = 0
+							for (var i = 0; i < tenur.length; i++) {
+								var temp_val = 0
+								if(tenur[i].value!=""){
+									temp_val = parseInt(tenur[i].value)
+								}
+								val += temp_val
+							}
+							$ID("farm-total_no_tenurial_lots").value = val
+							if(val>)
 						}
 					</script>
 
-					<span class="x-text-grey">Number of Lots with Selected Tenurial status</span>
-					<input  type="text" id="farm-no_tenurial_lots" name="farm-no_tenurial_lots" class="form_data x-input x-border x-round ">
+					<span class="x-text-grey">Total Number of Lots with Selected Tenurial status</span>
+					<input disabled type="text" id="farm-total_no_tenurial_lots" name="farm-total_no_tenurial_lots" class="form_data x-input x-border x-round ">
 
 					<hr>
 					<b class="x-text-green">Production Profile</b><br>
@@ -373,83 +389,83 @@
 
 		// ===============================================================
 
-		var marker = undefined
-		try{
-			var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-			L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-				attribution: 'DTI RAPID GROWTH',
-				maxZoom: 18,
-				id: 'mapbox/streets-v11',
-				tileSize: 512,
-				zoomOffset: -1,
-				accessToken: 'pk.eyJ1IjoiZGlvYW1lIiwiYSI6ImNrbGo1ZDc1aDAxZTQybnBoc2tpZGcxOWoifQ.90lp0SPxVC4Kz113q_Wn9g'
-			}).addTo(mymap);
-			let samp = {"lat":8.945209,"lng":125.538939}
-			mymap.setView([samp.lat, samp.lng], 13);
+		// var marker = undefined
+		// try{
+		// 	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+		// 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+		// 		attribution: 'DTI RAPID GROWTH',
+		// 		maxZoom: 18,
+		// 		id: 'mapbox/streets-v11',
+		// 		tileSize: 512,
+		// 		zoomOffset: -1,
+		// 		accessToken: 'pk.eyJ1IjoiZGlvYW1lIiwiYSI6ImNrbGo1ZDc1aDAxZTQybnBoc2tpZGcxOWoifQ.90lp0SPxVC4Kz113q_Wn9g'
+		// 	}).addTo(mymap);
+		// 	let samp = {"lat":8.945209,"lng":125.538939}
+		// 	mymap.setView([samp.lat, samp.lng], 13);
 
 
-			// var popup = L.popup();
+		// 	// var popup = L.popup();
 
-			function onMapClick(e) {
-				if(marker != undefined){mymap.removeLayer(marker)}
-				// popup
-				// 	.setLatLng(e.latlng)
-				// 	.setContent("You clicked the map at " + e.latlng.toString())
-				// 	.openOn(mymap);
+		// 	function onMapClick(e) {
+		// 		if(marker != undefined){mymap.removeLayer(marker)}
+		// 		// popup
+		// 		// 	.setLatLng(e.latlng)
+		// 		// 	.setContent("You clicked the map at " + e.latlng.toString())
+		// 		// 	.openOn(mymap);
 
-				marker = L.marker(e.latlng).addTo(mymap);
-				// println(e.latlng.lat)
-				$.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+e.latlng.lat+'&lon='+e.latlng.lng, function(data){
-					console.log(data.address);
-					// $ID("reg_business_address").value = data.address.region + ', ' +data.address.state
-					// $ID("reg_muni").value = data.address.city
-					var addr = data.address.village + "," 
-						+data.address.road + "," 
-						+data.address.neighbourhood+","
-						+data.address.quarter+","
-						+data.address.suburb+","
-						+data.address.tourism + ","
-						+data.address.leisure + ","
-						+data.address.state + ","
-						+data.address.city + ","
-						+data.address.region + " || "
-						+e.latlng.lat +","+e.latlng.lng+ ","
-					// $ID("reg_brgy").value = addr.split("undefined ,").join("")
-					$ID("farm-full_address").value = addr.replaceAll("undefined,","")
-				});
-			}
-			mymap.on('click', onMapClick);
-		}
-		catch(e){
-			try{
-				$ID("map_cont").style.display = "none"
-			}
-			catch(e){println(e)}
+		// 		marker = L.marker(e.latlng).addTo(mymap);
+		// 		// println(e.latlng.lat)
+		// 		$.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+e.latlng.lat+'&lon='+e.latlng.lng, function(data){
+		// 			console.log(data.address);
+		// 			// $ID("reg_business_address").value = data.address.region + ', ' +data.address.state
+		// 			// $ID("reg_muni").value = data.address.city
+		// 			var addr = data.address.village + "," 
+		// 				+data.address.road + "," 
+		// 				+data.address.neighbourhood+","
+		// 				+data.address.quarter+","
+		// 				+data.address.suburb+","
+		// 				+data.address.tourism + ","
+		// 				+data.address.leisure + ","
+		// 				+data.address.state + ","
+		// 				+data.address.city + ","
+		// 				+data.address.region + " || "
+		// 				+e.latlng.lat +","+e.latlng.lng+ ","
+		// 			// $ID("reg_brgy").value = addr.split("undefined ,").join("")
+		// 			$ID("farm-full_address").value = addr.replaceAll("undefined,","")
+		// 		});
+		// 	}
+		// 	mymap.on('click', onMapClick);
+		// }
+		// catch(e){
+		// 	try{
+		// 		$ID("map_cont").style.display = "none"
+		// 	}
+		// 	catch(e){println(e)}
 
-		}
-		// -------------------------------------------------------------------------------
+		// }
+		// // -------------------------------------------------------------------------------
 		
 
 
-		// -------------------------------------------------------------------------------
-		function get_address_(lat,lng){
-			$.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+lat+'&lon='+lng, function(data){
-				console.log(data.address);
-				var addr = 
-					 String(data.address.village + "," ).replace("undefined,",'')
-					+String(data.address.neighbourhood+",").replace("undefined,",'')
-					+String(data.address.quarter+",").replace("undefined,",'')
-					+String(data.address.suburb+",").replace("undefined,",'')
-					+String(data.address.road + ",").replace("undefined,",'')
-					+String(data.address.tourism + ",").replace("undefined,",'')
-					+String(data.address.leisure + ",").replace("undefined,",'')
-					+String(data.address.state + ",").replace("undefined,",'')
-					+String(data.address.region + ",").replace("undefined,",'')
-					+String(lat +","+lng+ ",").replace("undefined,",'')
-				// $ID("reg_brgy").value = addr.split("undefined ,").join("")
-				$ID("farm-full_address").value = addr
-			});
-		}
+		// // -------------------------------------------------------------------------------
+		// function get_address_(lat,lng){
+		// 	$.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+lat+'&lon='+lng, function(data){
+		// 		console.log(data.address);
+		// 		var addr = 
+		// 			 String(data.address.village + "," ).replace("undefined,",'')
+		// 			+String(data.address.neighbourhood+",").replace("undefined,",'')
+		// 			+String(data.address.quarter+",").replace("undefined,",'')
+		// 			+String(data.address.suburb+",").replace("undefined,",'')
+		// 			+String(data.address.road + ",").replace("undefined,",'')
+		// 			+String(data.address.tourism + ",").replace("undefined,",'')
+		// 			+String(data.address.leisure + ",").replace("undefined,",'')
+		// 			+String(data.address.state + ",").replace("undefined,",'')
+		// 			+String(data.address.region + ",").replace("undefined,",'')
+		// 			+String(lat +","+lng+ ",").replace("undefined,",'')
+		// 		// $ID("reg_brgy").value = addr.split("undefined ,").join("")
+		// 		$ID("farm-full_address").value = addr
+		// 	});
+		// }
 
 
 	</script>

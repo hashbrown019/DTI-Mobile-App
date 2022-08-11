@@ -217,7 +217,16 @@
 					"update_version": update_version,
 				}),
 				func : function (res){
-					println(res)
+					println(JSON.stringify(res))
+					var VERSION = JSON.parse(res)[0].APP_VERSION
+					println(" * App Current Version >> "+ update_version)
+					println(" * App Update Available >> "+ VERSION)
+					if(update_version != VERSION){
+						var ans = confirm("NEW UPDATE ALERT.\nNew Update is available\nClick [ok] to Update, [cancel] otherwise\n"+update_version+" to "+VERSION)
+						if(ans){
+							goto("../update.html?cur_ver="+update_version+"&new_update="+VERSION)
+						}
+					}
 				}
 			})
 		}

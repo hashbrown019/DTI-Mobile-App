@@ -38,7 +38,8 @@
         "GPS_REQUIRED": "true"
       },
       "cordova-plugin-media-capture": {},
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-inappbrowser": {}
     }
   }
 }

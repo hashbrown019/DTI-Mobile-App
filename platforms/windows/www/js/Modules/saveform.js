@@ -1,5 +1,5 @@
 ﻿let page = window.location.pathname.split("/").pop().split(".")[0]
-println("Current page : "+page)
+// println("Current page : "+page)
 document.querySelector('title').textContent = page;
 
 // ==================================================================
@@ -11,11 +11,23 @@ function onDeviceReady() {
 	console.log(cordova.file);
 	println(" * SAVE FORM Module Ready ===================");
 
-	check_for_data()
+	check_for_data(function(fname,DATA){
+		println("--- Done Loading Data From >>> "+fname)
+		println("--- Calling ONLOADDATA() function ")
+		try{
+			ONLOADDATA(DATA)
+			println("--- ONLOADDATA() function Detected")
+
+		}catch{
+			
+			println("xxx NO ONLOADDATA() function Detected")
+		}
+
+	})
 
 }
 
-function check_for_data(){
+function check_for_data(func){
 	var form_name = url_args['farmer_id']+"@"+page+".txt"
 	selected_farmer_ = url_args['farmer_id']
 	println("Finding :::: "+form_name)
@@ -24,7 +36,7 @@ function check_for_data(){
 		function (res){
 			println("data found :::: "+form_name)
 			$ID("is_form_filled").innerHTML = "Profiling - Edit"
-			refill_data_forms(form_name)
+			refill_data_forms(form_name,func)
 
 		},
 		function (){
@@ -35,40 +47,95 @@ function check_for_data(){
 	)
 }
 
-function refill_data_forms(file_name){ /////////// REFILLING FOR HAS DATA 
-	_readFileEntry(file_name,function(res){
+let RELOAD_FIELD = undefined
+let ONLOAD_RE_EXEC = false
+function refill_data_forms(file_name,func){ /////////// REFILLING FOR HAS DATA 
+	_readFileEntry(file_name,function(res,fnmae){
 		var form_data_refill = JSON.parse(res)
 		var form_data = $CLASS("form_data")
-		for (var i = 0; i < form_data.length; i++) {
-			if(form_data[i].type=='checkbox'){
-				form_data[i].checked = form_data_refill[form_data[i].id]
-			}
-			else{
-				try{form_data[i].value = form_data_refill[form_data[i].id]}
-				catch(e){println("ERROR in refill_data_forms :: "+e)}
-			}
-		}
 
-		// -----------------For Image PROFILE--------------------
-		try{
-			$ID('farm_photo-viewer').src = form_data_refill['farmer_img_base64']
-		}
-		catch{
-			println(" no image preview availble on this form")
-		}
-		// ------------------For Image add Profile--------------------
-		try{
-			var farm_img = JSON.parse(form_data_refill['farm-photo'])
-			$ID('farm_photo-viewer').innerHTML = ""
-			if(farm_img.length!=0){
-				for (var i = 0; i < farm_img.length; i++) {
-					$ID('farm_photo-viewer').innerHTML += `<img src="`+farm_img[i]+`" style="max-width:20%;" class="x-border x-round-large">` 
+		func(fnmae,form_data_refill) // CALLBACK FROM check_for_data() FUNCTION
+		RELOAD_FIELD =function FILL_F(){
+			for (var i = 0; i < form_data.length; i++) {
+				if(form_data[i].type=='checkbox'){
+					// form_data[i].checked = form_data_refill[form_data[i].id] // DIRECT VALUE Transfer 
+
+					if(form_data_refill[form_data[i].id]){// Simulate Clicked
+						println(" --- Clicking >>>> "+form_data[i].id) // Simulate Clicked
+						form_data[i].click() // Simulate Clicked
+					}
 				}
- 			}
+				else{
+					try{
+						if (form_data_refill[form_data[i].id]==undefined) {form_data_refill[form_data[i].id] = ""}
+						form_data[i].value = form_data_refill[form_data[i].id]
+					}
+					catch(e){println("ERROR in refill_data_forms :: "+e)}
+				}
+			}
+
+			// -----------------For Image PROFILE--------------------
+			try{
+				$ID('preview_profile_img').src = form_data_refill['farmer_img_base64']
+			}
+			catch{
+				println(" no image preview availble on this form")
+			}
+			// ------------------For Image add Profile--------------------
+			try{
+				var farm_img = JSON.parse(form_data_refill['farm-photo'])
+				$ID('farm_photo-viewer').innerHTML = ""
+				if(farm_img.length!=0){
+					for (var i = 0; i < farm_img.length; i++) {
+						$ID('farm_photo-viewer').innerHTML += `<img src="`+farm_img[i]+`" style="max-width:20%;" class="x-border x-round-large">` 
+					}
+	 			}
+			}
+			catch{
+				println(" no image preview availble on this form")
+			}
+			// ------------------For Image POST Harvest--------------------
+			try{
+				var img_cv = 0
+				for(key in form_data_refill){
+					if(key.includes("post_harv-photo")){
+						var pic_ls = JSON.parse(form_data_refill[key])
+
+						println('oyeah has ['+pic_ls.length+']>>> '+key)
+						$ID(key).parentNode.querySelectorAll(".img_viewer")[0].innerHTML = ""
+						var img_prev =""
+						for (var i = 0; i < pic_ls.length; i++) {
+							img_prev += `<img src="`+pic_ls[i]+`" style="max-width:20%;" class="x-border x-round-large">`
+
+						}
+						$ID(key).parentNode.querySelectorAll(".img_viewer")[0].innerHTML += img_prev + pic_ls.length + " Photo/s"
+						// document.querySelectorAll("div.img_viewer")[img_cv].innerHTML += img_prev
+						img_cv+=1
+					}
+				}
+			}
+			catch(e){
+				println(" no image preview availble on this form \n  "+e)
+			}
+			var smp_s = document.querySelectorAll("div.img_cc_asd")
+			for (var i = 0; i < smp_s.length; i++) {
+				println(smp_s[i].querySelector(".img_content").id)
+			}
+			if (ONLOAD_RE_EXEC) {
+				println(" * ONLOADDATA Re Execute -----")
+				func(fnmae,form_data_refill)
+				ONLOAD_RE_EXEC = false
+				println(" * ONLOADDATA Re Execute Fini-----")
+
+			}
+
+			try{
+				AFTER_LOAD_DATA(form_data_refill) // Decalre to execute Function after loading data forms
+			}catch{
+				println(" * No AFTER_LOAD_DATA() function found. Proceeding")
+			}
 		}
-		catch{
-			println(" no image preview availble on this form")
-		}
+		RELOAD_FIELD()
 	})
 }
 
@@ -143,6 +210,7 @@ function get_location(){
 }
 
 function onSuccess(position) {
+
 	$ID('geolocation').innerHTML = 
 		'Latitude: ' + 
 		position.coords.latitude + 
@@ -150,12 +218,28 @@ function onSuccess(position) {
 		position.coords.longitude
 	$ID('farmer-coords_long').value = position.coords.longitude
 	$ID('farmer-coords_lat').value = position.coords.latitude
+	navigator.geolocation.clearWatch(geoloc)
 }
 // onError Callback receives a PositionError object
 //
 function onError(error) {
 	alert('code: '    + error.code    + '\n' +
 			'message: ' + error.message + '\n');
+}
+
+
+function __get_location(tag){
+	geoloc= navigator.geolocation.watchPosition(function(position){
+		// tag.parentNode.parentNode.querySelectorAll('#geolocation').innerHTML = 
+		// 	'Latitude: ' + 
+		// 	position.coords.latitude + 
+		// 	'<br />Longitude: ' + 
+		// 	position.coords.longitude
+		println(tag.parentNode.parentNode)
+		tag.parentNode.parentNode.querySelectorAll('.coords_long')[0].value = position.coords.longitude
+		tag.parentNode.parentNode.querySelectorAll('.coords_lat')[0].value = position.coords.latitude
+		navigator.geolocation.clearWatch(geoloc)
+	}, onError, { timeout: 30000 });
 }
 
 // =================================================
@@ -183,6 +267,21 @@ function onError(error) {
 
 // --------------------------------------
 
+
+function ip_names(el){
+	_autocomplete(el,IP_NAMES)
+	// println(JSON.stringify(IP_NAMES))
+}
+
+function get_dip_ls(el){
+	_autocomplete(el,DIP_LIST)
+	// println(JSON.stringify(IP_NAMES))
+}
+
+function get_fo_ls(el){
+	_autocomplete(el,FO_LIST)
+	// println(JSON.stringify(IP_NAMES))
+}
 
 function region_sel(el){
 	var arrs = []
@@ -234,6 +333,7 @@ function _autocomplete(inp, arr) {
 	var currentFocus;
 	inp.addEventListener("input", function(e) {
 			var a, b, i, val = this.value;
+			println(a)
 			closeAllLists();
 			if (!val) { return false;}
 			currentFocus = -1;
@@ -247,12 +347,17 @@ function _autocomplete(inp, arr) {
 					b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
 					b.innerHTML += arr[i].substr(val.length);
 					b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+					println(arr[i])
 					b.addEventListener("click", function(e) {
 							inp.value = this.getElementsByTagName("input")[0].value;
-							closeAllLists();
+							// closeAllLists();
 					});
 					a.appendChild(b);
+					// if(i >=5){
+					// 	break
+					// }
 				}
+
 			}
 	});
 	
@@ -299,4 +404,66 @@ function _autocomplete(inp, arr) {
 	document.addEventListener("click", function (e) {
 			closeAllLists(e.target);
 	});
+}
+
+function trigger_check(chbox,_ids){
+	if (chbox.checked) {$ID(_ids).style.display = "block"}
+	else{$ID(_ids).style.display = "none"}
+}
+
+
+// ==============================Temporary Solutionfor Duplication field in prod_cost address
+
+function __region_sel(el){
+	var arrs = []
+	for (const [key, value] of Object.entries(ALL_LOCATION)) {
+		arrs.push(key)
+	}
+	_autocomplete(el,arrs)
+}
+
+function __ls_prov(el){
+	println(el.parentNode.parentNode.querySelectorAll(".reg"))
+	var selregion = el.parentNode.parentNode.querySelectorAll(".reg")[0].value.toUpperCase();
+	// var selregion = $ID('addr_region').value.toUpperCase();
+	var arrs = []
+	for (const [key, value] of Object.entries(ALL_LOCATION[selregion]['province_list'])) {
+		arrs.push(key)
+	}
+	_autocomplete(el,arrs)
+}
+
+
+function __ls_city(el){
+	var arrs = []
+	var region = el.parentNode.parentNode.querySelectorAll(".reg")[0].value.toUpperCase();
+	var prov = el.parentNode.parentNode.querySelectorAll(".prov")[0].value.toUpperCase();
+
+	// var region = $ID("addr_region").value.toUpperCase();
+	// var prov = $ID("addr_prov").value.toUpperCase();
+
+	for (const [key, value] of Object.entries(ALL_LOCATION[region]['province_list'][prov]['municipality_list'])) {
+		arrs.push(key)
+	}
+	_autocomplete(el,arrs)
+}
+
+
+function __ls_brgy(el){
+	var arrs = []
+
+	var region = el.parentNode.parentNode.querySelectorAll(".reg")[0].value.toUpperCase();
+	var prov = el.parentNode.parentNode.querySelectorAll(".prov")[0].value.toUpperCase();
+	var municipality = el.parentNode.parentNode.querySelectorAll(".city")[0].value.toUpperCase();
+
+	// var region = $ID("addr_region").value.toUpperCase();
+	// var prov = $ID("addr_prov").value.toUpperCase();
+	// var municipality = $ID("addr_city").value.toUpperCase();
+
+	for (var i = 0; i < ALL_LOCATION[region]['province_list'][prov]['municipality_list'][municipality]['barangay_list'].length; i++) {
+		var key = ALL_LOCATION[region]['province_list'][prov]['municipality_list'][municipality]['barangay_list'][i]
+		arrs.push(key)
+	}
+	_autocomplete(el,arrs)
+
 }

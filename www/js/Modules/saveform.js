@@ -128,6 +128,12 @@ function refill_data_forms(file_name,func){ /////////// REFILLING FOR HAS DATA
 				println(" * ONLOADDATA Re Execute Fini-----")
 
 			}
+
+			try{
+				AFTER_LOAD_DATA(form_data_refill) // Decalre to execute Function after loading data forms
+			}catch{
+				println(" * No AFTER_LOAD_DATA() function found. Proceeding")
+			}
 		}
 		RELOAD_FIELD()
 	})
@@ -204,6 +210,7 @@ function get_location(){
 }
 
 function onSuccess(position) {
+
 	$ID('geolocation').innerHTML = 
 		'Latitude: ' + 
 		position.coords.latitude + 
@@ -211,12 +218,28 @@ function onSuccess(position) {
 		position.coords.longitude
 	$ID('farmer-coords_long').value = position.coords.longitude
 	$ID('farmer-coords_lat').value = position.coords.latitude
+	navigator.geolocation.clearWatch(geoloc)
 }
 // onError Callback receives a PositionError object
 //
 function onError(error) {
 	alert('code: '    + error.code    + '\n' +
 			'message: ' + error.message + '\n');
+}
+
+
+function __get_location(tag){
+	geoloc= navigator.geolocation.watchPosition(function(position){
+		// tag.parentNode.parentNode.querySelectorAll('#geolocation').innerHTML = 
+		// 	'Latitude: ' + 
+		// 	position.coords.latitude + 
+		// 	'<br />Longitude: ' + 
+		// 	position.coords.longitude
+		println(tag.parentNode.parentNode)
+		tag.parentNode.parentNode.querySelectorAll('.coords_long')[0].value = position.coords.longitude
+		tag.parentNode.parentNode.querySelectorAll('.coords_lat')[0].value = position.coords.latitude
+		navigator.geolocation.clearWatch(geoloc)
+	}, onError, { timeout: 30000 });
 }
 
 // =================================================

@@ -56,25 +56,34 @@
 				<input type="hidden" id="datetime" name="farmer-is_synced" class="form_data">
 				<div id="board" class="x-container  x-padding">
 					<!--  -->
-					<div id="post_harvest0">
-						<b class="x-text-green"><b class="post_num">1</b> POST Harvest/Semi-Processing Capacity</b><hr>
+					<div id="post_harvest0" class="x-padding x-leftbar x-border-green" style="margin-bottom: 20px;">
+						<b class="x-text-green x-large">[<b class="post_num">1</b>] POST Harvest/Semi-Processing Capacity</b>
 						
 						<span class="x-text-">Facility/Equipment Information</span><br>
 						<span class="x-text-grey"> Type of PH Facility/Equipment</span>
-						<select name="post_harv-type_faci_equip" id="post_harv-type_faci_equip" class="form_data x-select x-border" _onchange="ls_muni(this.value)" >
-							<option  value='Mechanized'>Mechanized</option>
-							<option  value='Manual'>Manual</option>
-							<option  value='Both Mechanized and Manual'>Both Mechanized and Manual</option>
-						</select>
-						
+						<div class="x-row">
+							<select name="post_harv-type_faci_equip" id="post_harv-type_faci_equip" class="form_data x-input x-border" >
+								<option  value='Mechanized'>Mechanized</option>
+								<option  value='Manual'>Manual</option>
+								<option  value='Both Mechanized and Manual'>Both Mechanized and Manual</option>
+							</select>
+							<span class="x-text-grey">Name of Equipment/Facilities</span>
+							<input type="text" placeholder="Input Name of Equipment/Facilities" id="post_harv-type_faci_equip_name" class="x-select x-border form_data">
+						</div>
+						<hr>
 						<b class="x-text-green">Addresses</b><br>
 						<span class="x-text-grey x-small">
-							<b>To get exact farmer's address please <i class="x-text-blue" onmouseup="get_location()">click here</i></b><br>
-						</span>
-						<span class="x-text-grey">
-							<span id="geolocation"></span>
-							<input class="form_data" type="hidden" id="farmer-coords_long">
-							<input class="form_data" type="hidden" id="farmer-coords_lat">
+							<b>
+								If you are in the exact location of the farm, Please 
+								<i class="x-blue x-round" style="padding:2px" onmouseup="__get_location(this)">
+									click here
+								</i>
+							</b><br>
+							<span>Or you can manually input the coordinates</span><br>
+
+							<span style="display:none;" id="geolocation"></span>
+							<input class="form_data coords_long x-input" placeholder="Longitude" type="text" id="farmer-coords_long">
+							<input class="form_data coords_lat x-input" placeholder="Latitude" type="text" id="farmer-coords_lat">
 						</span><br><br>
 
 						<span class="x-text-grey">Full Address</span>
@@ -169,14 +178,22 @@
 								<span class="x-text-grey"> PH Capacity (qty)</span>
 								<input type="text" id="post_harv-capacity" name="post_harv-capacityfull_address" class="form_data x-input x-border x-round ">
 							</div>
-							<div class="x-col s6">
-								<span class="x-text-grey"> PH Capacity unit</span>
+							<div class="x-col s3">
+								<span class="x-text-grey">unit</span>
 								<select class="form_data x-select" id="post_harv-capacity_unit">
-									<option value="kg_hr">kg/hr</option>
-									<option value="kg_day">kg/day</option>
-									<option value="kg_month">kg/month</option>
-									<option value="kg_year">kg/year</option>
-									<option value="kg_harvest">kg/harvest</option>
+									<option value="kg">kg</option>
+									<option value="metric_tons">Metric Tons</option>
+									<option value="sack">Sack/Crate/Box</option>
+								</select>
+							</div>
+							<div class="x-col s3">
+								<span class="x-text-grey">Freq.</span>
+								<select class="form_data x-select" id="post_harv-capacity_unit_time">
+									<option value="hr">hr</option>
+									<option value="day">day</option>
+									<option value="month">month</option>
+									<option value="year">year</option>
+									<option value="harvest">harvest</option>
 								</select>
 							</div>
 						</div>
@@ -189,25 +206,18 @@
 								<span> NO Photos Available</span>
 							</div>
 							<input type="hidden" id="post_harv-photo" class="img_content form_data x-tiny" value="No Base64 image">
-
 						</div>
-						<hr>
 					</div>
-					<hr>
-
 				</div>
 				<div class="x-container">
 					<button type="button" class="x-btn x-round-large x-block x-blue" onclick="duplicate()">Add Post Harvest Form <span class="fa fa-plus"></span></button>
+					<br>
+					<b class="x-text-grey">Remarks (For Enumerator)</b><br>
+					<input placeholder="" type="text" id="form-remarks" name="feedback-rsbsa_no" class="form_data x-input x-border x-round ">
 				</div>
-				<hr>
-				
-				<hr>
-				<b class="x-text-grey">Remarks (For Enumerator)</b><br>
-				<input placeholder="" type="text" id="form-remarks" name="feedback-rsbsa_no" class="form_data x-input x-border x-round ">
 				<hr>
 
 				<span class="x-text-grey">
-					
 					Before Clicking next, pls make sure to check all fields as they cannot be undone while the profiling is not yet finished
 				</span><br>
 				<div class="x-container">
@@ -246,7 +256,7 @@
 			// for (var i = 0; i < opt_g.length; i++) {
 			// 	opt_g[i].style.display = "none"
 			// }
-			alert(" Proceed in new Data?")
+			// alert(" Proceed in new Data?")
 			var farmer_prof_file = url_args['farmer_id'] + "@profile.txt"
 			_readFileEntry(farmer_prof_file,function(res){
 				var f_info = JSON.parse(res)

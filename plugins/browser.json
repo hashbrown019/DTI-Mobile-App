@@ -19,6 +19,9 @@
     },
     "cordova-plugin-media-capture": {
       "PACKAGE_NAME": "com.dtixinpco.rapid"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.dtixinpco.rapid"
     }
   },
   "dependent_plugins": {}

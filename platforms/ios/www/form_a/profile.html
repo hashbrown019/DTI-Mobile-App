@@ -63,27 +63,89 @@
 					<input type="hidden" id="farmer_img_base64" name="farmer_img_base64" class="form_data x-input x-border x-round require_f">
 					<!-- -------------------------------- -->
 					<span class="x-text-grey">Farmer Name</span>
-					<input type="text" id="farmer_name" name="farmer_name" class="form_data x-input x-border x-round require_f">
+					<div class="x-row">
+						<input type="text" placeholder="First Name" onkeyup="farmer_name(this)" id="f_name" class="form_data x-col s3 x-input x-border x-round require_f">
+						<input type="text" placeholder="Middle Name" onkeyup="farmer_name(this)" id="m_name" class="form_data x-col s3 x-input x-border x-round require_f">
+						<input type="text" placeholder="Last Name" onkeyup="farmer_name(this)" id="l_name" class="form_data x-col s3 x-input x-border x-round require_f">
+						<input type="text" placeholder="Ext/Suffix" onkeyup="farmer_name(this)" id="ext_name" class="form_data x-col s3 x-input x-border x-round require_f">
+						<input type="hidden" id="farmer_name" class="form_data x-input x-border x-round require_f">
+
+					</div>
+					<span class="x-text-grey">Farmer Sex</span>
+					<select id="farmer_sex" class="form_data x-select x-border">
+						<option value="undefined">Please Select</option>
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+					</select>
 					<span class="x-text-grey">Farmer Mobile number</span>
 					<input type="text" id="farmer-number" name="farmer-number" class="form_data x-input x-border x-round ">
 					<span class="x-text-grey">Farmer email</span>
 					<input type="email" id="farmer-email" name="farmer-email" class="form_data x-input x-border x-round ">
 					<span class="x-text-grey">Birthday</span>
 					<input type="date" id="farmer-bday" name="farmer-bday" class="form_data x-input x-border x-round require_f" onchange="cal_age(this.value)">
+					<input id="farmer-is_bday_sure" name="farmer-is_bday_sure" class="form_data x-check" type="checkbox">
+					<label>Check if the farmer is not sure about the exact date of his/her birthday</label><br>
+					<br>
 					<span class="x-text-grey">age</span>
 					<input type="number" id="farmer-age" name="farmer-age" class="form_data x-input x-border x-round require_f" disabled>
 					<span class="x-text-grey">Civil Status</span>
-					<select name="farmer-civil_status" id="farmer-civil_status" class="form_data x-select x-border">
-						<option disabled selected value="">Please select Civil Status</option>
+					<select name="farmer-civil_status" id="farmer-civil_status" class="form_data x-select x-border" onchange="marital_status(this.value)">
 						<option value="Single">Single</option>
 						<option value="Married">Married</option>
 						<option value="Widow/Widower">Widow/Widower</option>
 						<option value="Separated">Separated</option>
-					</select><hr>
+					</select>
+					<div id="name_marital_field" style="display:none">
+						<span class="x-text-grey">Farmer's spouse name</span>
+						<input type="email" id="farmer-marital_partner_name" name="farmer-marital_partner_name" class="form_data x-input x-border x-round ">
+					</div>
+					<!-- <span class="x-text-grey">Are you the head of the household</span> -->
+<!-- 					<select name="farmer-head_of_house" id="farmer-head_of_house" class="form_data x-select x-border require_f" >
+						<option value="Yes">Yes</option>
+						<option value="No">No</option>
+					</select> -->
+					<input id="farmer-head_of_house" name="farmer-head_of_house" class="form_data x-check" type="checkbox" onchange="not_head_hh(this.checked)">
+					<label>Are you The Head of the HouseHold</label><br>
+					<div style="display:block;" id="not_head_hh" class="x-container">
+						<span class="x-text-grey">Name of head of the Household</span>
+						<input type="text" id="farmer-name_head_hh" name="farmer-number" class="form_data x-input x-border x-round ">
+						<span class="x-text-grey">Relationship with head of the Household(<i> Leave blank if the spouse is the head of the Household</i>)</span>
+						<select name="farmer-relation_head_hh" id="farmer-relation_head_hh" class="form_data x-select x-border">
+							<option disabled selected value="none">Please select Civil Status (none)</option>
+							<option value="Spouse">Spouse</option>
+							<option value="Parent">Parent</option>
+							<option value="Child">Child</option>
+							<option value="Sibling">Sibling</option>
+							<option value="Cousin">Cousin</option>
+							<option value="Non-Blood Relative">Non-Blood Relative</option>
+						</select>
+						<span class="x-text-grey">Sex of head of the Household</span>
+						<select id="farmer_sex_head_hh" class="form_data x-select x-border">
+							<option value="undefined">Please Select</option>
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
+						</select>
+						<label>IP</label><br>
+						<div class="autocomplete x-block">
+							<span class="x-text-grey">IP Group of Head of the Household</span><br>
+							<input id="farmer-ip_sex_head_hh" type="text" class="form_data x-input x-border x-round require_f" placeholder="Leave Blank if none" onkeyup="ip_names(this)">
+						</div>
+					</div>
+					<script type="text/javascript">
+						function not_head_hh(sel){
+							if(!sel){
+								$ID("not_head_hh").style.display = "block"
+							}else{
+								$ID("not_head_hh").style.display = "none"
+							}
+						}
+					</script>
+					<hr>
+
 					
 					<b class="x-text-green">Addresses</b><br>
 					<span class="x-text-grey x-small">
-						<b>To get exact farmer's address please <i class="x-blue x-round" style="padding:2px" onmouseup="get_location()">click here</i></b><br>
+						<b>If you are in the exact location of the farm, Please <i class="x-blue x-round" style="padding:2px" onmouseup="get_location()">click here</i></b><br>
 						<span>Or you can manually input the coordinates</span><br>
 					</span>
 					<span class="x-text-grey">
@@ -124,26 +186,14 @@
 						<option value="Jackfruit">Jackfruit</option>
 						<option value="Mango">Mango</option>
 						<option value="Pili Nut">Pili Nut</option>
-						<option value="Other fruits and nuts">Other fruits and nuts</option>
+						<!-- <option value="Other fruits and nuts">Other fruits and nuts</option> -->
 					</select>
 
-					<span class="x-text-grey">DIP Reference</span>
-					<select name="farmer-dip_ref" id="farmer-dip_ref" class="form_data x-select x-border require_f" onchange="ls_prov(this.value)">
-						<option disabled selected value=''>Please select entry</option>
-							<option value="Coffee - Nestle MOR and LDN">Coffee - Nestle MOR and LDN</option>
-							<option value="PFN Banana – with Sees’International">PFN Banana – with Sees’International</option>
-							<option value="Coffee - Linear Coffee Roaster as Anchor Firm">Coffee - Linear Coffee Roaster as Anchor Firm</option>
-							<option value="Coffee – Nestle +++">Coffee – Nestle +++</option>
-							<option value="Coconut - Copra (Anchor Firm: Granex)">Coconut - Copra (Anchor Firm: Granex)</option>
-							<option value="Coconut - Charcoal (Anchor Firm: Donau Carbon Phil">Coconut - Charcoal (Anchor Firm: Donau Carbon Phil)</option>
-							<option value="Coconut - Fiber (Anchor Firm: CDO Draco & PEM Cargo)">Coconut - Fiber (Anchor Firm: CDO Draco & PEM Cargo)</option>
-							<option value="PFN - Kalamansi">PFN - Kalamansi</option>
-							<option value="PFN-Banana">PFN-Banana</option>
-							<option value="Cacao - 2 FOs to link with AM Noble Nature's Blessing">Cacao - 2 FOs to link with AM Noble Nature's Blessing</option>
-							<option value="Coconut Fiber with PAGRO">Coconut Fiber with PAGRO</option>
-							<option value="Cacao–with Kennemer">Cacao–with Kennemer</option>
-							<option value="PFN - Kalamansi">PFN - Kalamansi</option>
-					</select>
+					<span class="x-text-grey">DIP Name</span>
+					<div class="autocomplete x-block">
+						<input id="farmer_dip_ref" class="form_data x-input x-border x-round require_f" placeholder="DIP Name" onkeyup="get_dip_ls(this)">
+					</div>
+
 					<hr>
 					<span class="x-text-grey">Sectoral Group.</span><br>
 
@@ -153,67 +203,28 @@
 					<label> Youth (18 - 30 yo)</label><br>
 					<input id="farmer-is_srcitizen" name="farmer-srcitizen" class="form_data x-check" type="checkbox">
 					<label>Senior Citizen</label><br> -->
+
 					<input id="farmer-is_pwd" name="farmer-is_pwd" class="form_data x-check" type="checkbox">
 					<label>PWD</label><br>
 					<input id="farmer-is_ofw" name="farmer-is_ofw" class="form_data x-check" type="checkbox">
 					<label>OFW</label><br>
 					<input id="farmer-is_ip" name="farmer-is_ip" class="form_data x-check" type="checkbox" onchange="$ID('farmer-ip').disabled= !this.checked">
 					<label>IP</label><br>
-					<span class="x-text-grey">IP Group</span>
-					<select name="farmer-ip" id="farmer-ip" class="form_data x-select x-border" disabled onchange="println(this.value)">
-						<option disabled selected value='none'>Please select entry</option>
-						<option value="Aromanon">Aromanon</option>
-						<option value="Ata">Ata</option>
-						<option value="'laan">B'laan</option>
-						<option value="Badjao">Badjao</option>
-						<option value="Badjao, Sama Laut">Badjao, Sama Laut</option>
-						<option value="Bagobo">Bagobo</option>
-						<option value="Banwaon">Banwaon</option>
-						<option value="Dibabawon">Dibabawon</option>
-						<option value="Dulangan">Dulangan</option>
-						<option value="Higaonon">Higaonon</option>
-						<option value="Iranon">Iranon</option>
-						<option value="Iranun">Iranun</option>
-						<option value="Jama Mapon">Jama Mapon</option>
-						<option value="Kagan">Kagan</option>
-						<option value="Kalagan">Kalagan</option>
-						<option value="Kalibugan">Kalibugan</option>
-						<option value="Kamigin">Kamigin</option>
-						<option value="Karintik">Karintik</option>
-						<option value="Klata-Guiangan">Klata-Guiangan</option>
-						<option value="Kongking">Kongking</option>
-						<option value="Lambangian">Lambangian</option>
-						<option value="Maguindanaon">Maguindanaon</option>
-						<option value="Mamanwa">Mamanwa</option>
-						<option value="Mandaya">Mandaya</option>
-						<option value="Manobo">Manobo</option>
-						<option value="Manobo B'lit">Manobo B'lit</option>
-						<option value="Mansaka">Mansaka</option>
-						<option value="Maranao">Maranao</option>
-						<option value="Matigsalog">Matigsalog</option>
-						<option value="Sama">Sama</option>
-						<option value="Sama-Bangingi">Sama-Bangingi</option>
-						<option value="Samal">Samal</option>
-						<option value="Sangil">Sangil</option>
-						<option value="Subanen">Subanen</option>
-						<option value="Subanon">Subanon</option>
-						<option value="T-boli">T-boli</option>
-						<option value="Tagabawa">Tagabawa</option>
-						<option value="Tagakaolo">Tagakaolo</option>
-						<option value="Talaandig">Talaandig</option>
-						<option value="Talaingod, Langilan">Talaingod, Langilan</option>
-						<option value="Tausug">Tausug</option>
-						<option value="Tigawahanon">Tigawahanon</option>
-						<option value="Tiruray">Tiruray</option>
-						<option value="Ubo Manobo">Ubo Manobo</option>
-						<option value="Umayamnon">Umayamnon</option>
-						<option value="Yakan">Yakan</option>
-						<option value="others">others</option>
-					</select><br><br>
+					<div class="autocomplete x-block">
+						<span class="x-text-grey">IP Group</span><br>
+						<input id="farmer-ip" type="text" class="form_data x-input x-border x-round require_f" placeholder="Ip Name" onkeyup="ip_names(this)">
+					</div>
+					<br><br>
+					<hr>
 					<span class="x-text-grey">Years of Farming</span>
 					<input type="number" id="farmer-yearsfarming" name="farmer-yearsfarming" class="form_data x-input x-border x-round ">
 					<span class="x-text-grey">Name of Cooperative or Farmers Organization (RAPID beneficiary only)</span>
-					<input value="None" type="text" id="farmer-fo_name_rapid" name="farmer-fo_name_rapid" class="form_data x-input x-border x-round ">
+					<!-- <input type="text" id="farmer-fo_name_rapid" name="farmer-fo_name_rapid" class="form_data x-input x-border x-round "> -->
+
+					<div class="autocomplete x-block">
+						<input id="farmer-fo_name_rapid" class="form_data x-input x-border x-round require_f" placeholder="Fo Name ( Leave Blank if None)" onkeyup="get_fo_ls(this)">
+					</div>
+
 					<span class="x-text-grey">Position in Cooperative or Farmers Organization (RAPID beneficiary only).</span>
 					<select name="farmer-fo_position" id="farmer-fo_position" class="form_data x-select x-border" onchange="foposition_change(this.value)">
 						<option selected value='none'>None</option>
@@ -221,9 +232,9 @@
 						<option value='Officer'>Officer</option>
 					</select>
 					<span class="x-text-grey">If Officer, what designation?</span>
-					<input value="None" type="text" id="farmer-fo_designation" name="farmer-fo_designation" class="form_data x-input x-border x-round ">
+					<input type="text" id="farmer-fo_designation" name="farmer-fo_designation" class="form_data x-input x-border x-round ">
 					<span class="x-text-grey">Coop/FO member since (year)?</span>
-					<input value="None" type="text" id="farmer-fo_member_since" name="farmer-fo_member_since" class="form_data x-input x-border x-round ">
+					<input type="text" id="farmer-fo_member_since" name="farmer-fo_member_since" class="form_data x-input x-border x-round ">
 
 					<span class="x-text-grey">Listed in Registry System for Basic Sectors in Agriculture (RSBSA).</span>
 					<select name="farmer-rsbsa" id="farmer-rsbsa" class="form_data x-select x-border" onchange="rsbsa_change(this.value)">
@@ -235,7 +246,8 @@
 					<hr>
 
 					<span class="x-text-grey">Highest Educational Attainment?</span>
-					<select name="farmer-highest_education" id="farmer-highest_education" class="form_data x-select x-border">
+					<select name="farmer-highest_education" id="farmer-highest_education" class="form_data x-select x-border require_f
+					">
 						<option value="College Graduate">College Graduate</option>
 						<option value="College Undergraduate">College Undergraduate</option>
 						<option value="High School Graduate">High School Graduate</option>
@@ -246,13 +258,8 @@
 					</select>
 					
 					<span class="x-text-grey">Vocational Skills</span>
-					<input value="None" type="text" id="farmer-vocational" name="farmer-vocational" class="form_data x-input x-border x-round ">
+					<input type="text" id="farmer-vocational" name="farmer-vocational" class="form_data x-input x-border x-round ">
 
-					<span class="x-text-grey">Are you the head of the household</span>
-					<select name="farmer-head_of_house" id="farmer-head_of_house" class="form_data x-select x-border">
-						<option value="Yes">Yes</option>
-						<option value="No">No</option>
-					</select>
 					<hr>
 					
 					<hr>
@@ -314,6 +321,11 @@
 			})
 		}
 
+		function marital_status(vals) {
+			if(vals=="Married"){ $ID("name_marital_field").style.display="block" }
+			else{ $ID("name_marital_field").style.display="none" }
+		}
+
 		function cal_age(bday){
 			var parts2 = bday.split('-');
 			// var todate = new Date(parts[0], parts[1] - 1, parts[2]);
@@ -347,5 +359,8 @@
 			}
 		}
 
+		function farmer_name(tag){
+			$ID("farmer_name").value = $ID("f_name").value +" "+ $ID("m_name").value +" "+ $ID("l_name").value +" "+ $ID("ext_name").value 
+		}
 	</script>
 </html>

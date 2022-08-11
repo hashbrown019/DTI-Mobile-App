@@ -1,7 +1,11 @@
 try{
 	document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
-		console.log(cordova.file);
+		// EXPERIMENTAL //
+		// if(navigator.userAgent==BROWSER_AGENT){cordova.file.externalDataDirectory = cordova.file.cacheDirectory ;  println("USING WEB PLATFORM")}
+		// else{println("USING PHONE PLATFORM")}
+
+		console.log(JSON.stringify(cordova.file));
 		println(" * File Module Ready ================================");
 	}
 }catch(err){println(err)}
@@ -76,6 +80,7 @@ function FILES_GET_EXTERNALSTORAGE(func){
 		func(files)
 	});
 }
+
 function externalDataDirectory() {
 	let fff = undefined
 	var errorHandler =  _defultErrorHandler;
@@ -90,8 +95,6 @@ function externalDataDirectory() {
 		fff = func
 		window.resolveLocalFileSystemURL(path, _gotFiles, errorHandler );
 	}
-
-
 	function _gotFiles(entry) {
 		if (entry.isFile) {}
 		else {

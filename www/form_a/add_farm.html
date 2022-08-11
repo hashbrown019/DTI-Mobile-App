@@ -65,13 +65,15 @@
 
 					<b class="x-text-green">Addresses</b><br>
 					<span class="x-text-grey x-small">
-						<b>To get exact farmer's address please <i class="x-text-blue" onmouseup="get_location()">click here</i></b><br>
+						<b>If you are in the exact location of the farm, Please <i class="x-blue x-round" style="padding:2px" onmouseup="get_location()">click here</i></b><br>
+						<span>Or you can manually input the coordinates</span><br>
 					</span>
 					<span class="x-text-grey">
-						<span id="geolocation"></span>
-						<input class="form_data" type="hidden" id="farmer-coords_long">
-						<input class="form_data" type="hidden" id="farmer-coords_lat">
-					</span><br><br>
+						<span style="display:none;" id="geolocation"></span>
+						<input class="form_data x-input" placeholder="Longitude" type="text" id="farmer-coords_long">
+						<input class="form_data x-input" placeholder="Latitude" type="text" id="farmer-coords_lat">
+					</span>
+					<br><br>
 
 					<span class="x-text-grey">Full Address</span>
 					<div class="x-container">
@@ -156,30 +158,30 @@
 						<option value='No Idea'>4</option>
 					</select> -->
 					<hr>
-					<b class="x-text-grey">Land Tenurial Status</b><br>
+					<b class="x-text-grey">Land Tenurial Status in Ha.</b><br>
 					<div>
 						
 					</div>
 						<input id="farm-tenurial_so" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number" >
-						<label>Sole Ownership</label><br>
+						<label>Sole Ownership <i>(in Ha.)</i></label><br>
 
 						<input id="farm-tenurial_co" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
-						<label>Co-Ownership</label><br>
+						<label>Co-Ownership <i>(in Ha.)</i></label><br>
 
 						<input id="farm-tenurial_cloa" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
-						<label>CLOA/Individual EP</label><br>
+						<label>CLOA/Individual EP <i>(in Ha.)</i></label><br>
 
 						<input id="farm-tenurial_stew" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
-						<label>Stewardship</label><br>
+						<label>Stewardship <i>(in Ha.)</i></label><br>
 
 						<input id="farm-tenurial_Usfruc" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
-						<label>Usufruct</label><br>
+						<label>Usufruct <i>(in Ha.)</i></label><br>
 
 						<input id="farm-tenurial_ten" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
-						<label>Tenancy</label><br>
+						<label>Tenancy <i>(in Ha.)</i></label><br>
 
 						<input id="farm-tenurial_others" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
-						<label>Others...</label><br>
+						<label>Others <i>(in Ha.)</i>...</label><br>
 
 					<script type="text/javascript">
 						function tenur_stat(sel){
@@ -194,6 +196,7 @@
 								val += temp_val
 							}
 							$ID("farm-total_no_tenurial_lots").value = val
+							if(val>)
 						}
 					</script>
 

@@ -28,7 +28,6 @@
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
 				integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
 				crossorigin=""/>
-
 		<script src="../js/leaflet/jquery.min.js"></script>
 		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
 				integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
@@ -40,7 +39,7 @@
 	</head>
 	<body class=" center-bg" style=" height: 100vh;">
 		<header id="offline" class="x-header x-red x-center" style="display:none">Offline Mode</header>
-<header id="localhostversion" class="x-header x-yellow x-center" style="display:block">This is a Localhost Version, do not use outside NPCO</header>
+		<header id="localhostversion" class="x-header x-yellow x-center" style="display:block">This is a Localhost Version, do not use outside NPCO</header>
 		<form action="" method="POST" id="form0" class="" style="display:block;padding: 0px;margin: 0px;">
 			<div class="">
 				<header class="-header gr_body x-blue x-padding">
@@ -57,6 +56,9 @@
 						<option  selected value='yes'>Yes</option>
 						<option  selected value='no  '>No</option>
 					</select>
+					<span class="x-text-grey">Crop Cycle per Year<span class="x-text-grey"></span>
+					<input placeholder="" type="number" id="prodcost-crop_cycle_year" name="prodcost-crop_cycle_year" class="cost_labor form_data x-input x-border x-round ">
+
 					<hr>
 					<b class="x-text-grey">LABOR COST<span class="x-text-grey"></b><br>
 					<!-- <input disabled value="0" placeholder="" type="number" id="prodcost-total_labor" name="prodcost-rsbsa_no" class="form_data x-input x-border x-round "> -->
@@ -157,6 +159,30 @@
 			create_formdata(FILE_NAME,function(){
 				redirectto("workers_laborers.html?user_id="+url_args['user_id']+"&farmer_id="+url_args['farmer_id'])
 			})
+		}
+
+		// ONLOAD_RE_EXEC = true
+		// NO_ONLOADDATA()
+		function AFTER_LOAD_DATA(){
+			// var opt_g = $CLASS("optg")
+			// for (var i = 0; i < opt_g.length; i++) {
+			// 	opt_g[i].style.display = "none"
+			// }
+			// alert(" Proceed in new Data?")
+			var farmer_prof_file = url_args['farmer_id'] + "@add_farm.txt"
+			_readFileEntry(farmer_prof_file,function(res){
+				try{
+					var f_info = JSON.parse(res)
+					println(" >>>>> CYCLE SELECTED >> "+f_info["farm-primary_crop_cycle_year"])
+					$ID("prodcost-crop_cycle_year").value f_info["farm-primary_crop_cycle_year"]
+				}
+				catch{
+					alert(` * In order to successfully complete this form, you must finish the
+					 [FARM INFORMATION] form and indicate the number of Primary crop cycle per year`)
+				 /// Reload Field again for Slow Loading Image and contmaienrs
+				}
+			})
+			// check_for_data(function(data_){println("Data Recollected ")})
 		}
 
 		// load_dropdowns()

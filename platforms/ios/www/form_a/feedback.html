@@ -48,13 +48,37 @@
 			</header>
 
 			<div class="x-container  x-padding">
-
+				<input type="hidden" id="record_num" name="record_num" class="form_data" >
 				<input type="hidden" id="farmer_code" name="farmer_code" class="form_data">
 				<input type="hidden" id="is_synced" name="farmer-is_synced" class="form_data" value="0">
 				<input type="hidden" id="datetime" name="farmer-is_synced" class="form_data">
 
-				<b class="x-text-green">Industry Feedback and Support Needed</b><br><hr>
+				<!-- ------------------------------------------------------------------ -->
 
+				<b class="x-text-green">Core Competency</b><br>
+				<span class="x-text-grey">Number of farm-related trainings attended in the last 2-3 years</span><br>
+				<input placeholder="" type="number" id="feedback-num_of_trainings_2_3_years" class="form_data x-input x-border x-round ">
+				<span class="x-text-grey">Value Chain</span><br>
+				<input id="farmer-Cacao" class="form_data x-check" type="checkbox"><label value="Cacao">Cacao</label><br>
+				<input id="farmer-Coffee" class="form_data x-check" type="checkbox"><label value="Coffee">Coffee</label><br>
+				<input id="farmer-Coconut" class="form_data x-check" type="checkbox"><label value="Coconut">Coconut</label><br>
+				<input id="farmer-Banana" class="form_data x-check" type="checkbox"><label value="Banana">Banana</label><br>
+				<input id="farmer-Calamansi" class="form_data x-check" type="checkbox"><label value="Calamansi">Calamansi</label><br>
+				<input id="farmer-Jackfruit" class="form_data x-check" type="checkbox"><label value="Jackfruit">Jackfruit</label><br>
+				<input id="farmer-Mango" class="form_data x-check" type="checkbox"><label value="Mango">Mango</label><br>
+				<input id="farmer-Pili_Nut" class="form_data x-check" type="checkbox"><label value="Pili Nut">Pili Nut</label><br>
+				<input id="farmer-Other_fruits_nuts" class="form_data x-check" type="checkbox"><label value="Mango">Other fruits and nuts</label><br>
+				<input id="farmer-Others" class="form_data x-check" type="checkbox"><label value="Pili Nut">Others</label><br>
+
+				<span class="x-text-grey">Farm Certification acquired</span><br>
+				<input placeholder="Input Title, Leave blank if none" type="text" id="feedback-cert_acquired" class="form_data x-input x-border x-round ">
+
+				<span class="x-text-grey">Support Needed to improve productivity</span><br>
+				<input placeholder="Leave blank if none" type="text" id="feedback-support_need" class="form_data x-input x-border x-round ">
+
+				<!-- ------------------------------------------------------ -->
+				<hr>
+				<b class="x-text-green">Industry Feedback and Support Needed</b><br>
 				<span class="x-text-grey">Sources of Information<span class="x-text-grey"><br><span class="x-tiny">Where do you hear about current events and local news?</span></span><br>
 				<div class="x-row">
 					<div class="x-col s10">
@@ -104,6 +128,7 @@
 					<option selected value=''>Legacy Phone</option>
 					<option selected value=''>None</option>
 				</select>
+				<!-- ------------------------------------------------------ -->
 				<hr>
 				<b class="x-text-grey">Other comments (about RAPID Project)</b><br>
 				<input placeholder="" type="text" id="feedback-commnets" name="feedback-rsbsa_no" class="form_data x-input x-border x-round ">
@@ -112,7 +137,6 @@
 				<input placeholder="" type="text" id="feedback-remarks" name="feedback-rsbsa_no" class="form_data x-input x-border x-round ">
 				<hr>
 				<span class="x-text-grey">
-					
 					Before Clicking next, pls make sure to check all fields as they cannot be undone while the profiling is not yet finished
 				</span><br>
 				<hr>
@@ -138,7 +162,7 @@
 					class="x-button x-display-topright">&times;</span>
 					<span class="x-xxxlarge fa fa-thumbs-o-up x-text-blue"></span><br>
 					<span class="x-text-green x-xlarge">Finalizing Forms Done</span><br>
-					<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
+					<!-- <button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button> -->
 					<button class="x-green x-round-xlarge x-btn" onclick="done_forms()">Continue</button>
 				</div>
 			</div>
@@ -164,14 +188,33 @@
 			// redirectto("../home_screen_new.html?user_id="+url_args['user_id']+"&farmer_id="+url_args['farmer_id'])
 			
 		}
-		
+		function ONLOADDATA(data){
+			var incs_ = data.record_num
+			println("Number of Increment is .. "+data.record_num)
+			for (var i = 0; i < incs_; i++) {
+				duplicate()
+			}
+
+			// check_for_data(function(data_){println("Data Recollected ")})
+		}
 		var iii = 0;
 		function duplicate() {
 			var original = $ID('tobe_copy' + iii);
+			println(original.id)
 			var clone = original.cloneNode(true); // "deep" clone
 			clone.id = "tobe_copy" + ++ iii; // there can only be one element with an ID
 			// clone.onclick = duplicate; // event handlers are not cloned
+			var elemets_ = clone.querySelectorAll(".form_data");
+			for (var i = 0; i < elemets_.length; i++) {
+				elemets_[i].id = elemets_[i].id + iii
+				// println(elemets_[i].id)
+			}
+
 			original.parentNode.appendChild(clone);
+			$ID('record_num').value = iii
+			for (var i = 0; i < $CLASS('post_num').length; i++) {
+				$CLASS('post_num')[i].innerHTML = i+1
+			}
 		}
 
 		function save_form(){
@@ -269,59 +312,59 @@
 
 		// ===============================================================
 
-		var marker = undefined
-		try{
-			var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-			L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-				attribution: 'DTI RAPID GROWTH',
-				maxZoom: 18,
-				id: 'mapbox/streets-v11',
-				tileSize: 512,
-				zoomOffset: -1,
-				accessToken: 'pk.eyJ1IjoiZGlvYW1lIiwiYSI6ImNrbGo1ZDc1aDAxZTQybnBoc2tpZGcxOWoifQ.90lp0SPxVC4Kz113q_Wn9g'
-			}).addTo(mymap);
-			let samp = {"lat":8.945209,"lng":125.538939}
-			mymap.setView([samp.lat, samp.lng], 13);
+		// var marker = undefined
+		// try{
+		// 	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+		// 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+		// 		attribution: 'DTI RAPID GROWTH',
+		// 		maxZoom: 18,
+		// 		id: 'mapbox/streets-v11',
+		// 		tileSize: 512,
+		// 		zoomOffset: -1,
+		// 		accessToken: 'pk.eyJ1IjoiZGlvYW1lIiwiYSI6ImNrbGo1ZDc1aDAxZTQybnBoc2tpZGcxOWoifQ.90lp0SPxVC4Kz113q_Wn9g'
+		// 	}).addTo(mymap);
+		// 	let samp = {"lat":8.945209,"lng":125.538939}
+		// 	mymap.setView([samp.lat, samp.lng], 13);
 
 
-			// var popup = L.popup();
+		// 	// var popup = L.popup();
 
-			function onMapClick(e) {
-				if(marker != undefined){mymap.removeLayer(marker)}
-				// popup
-				// 	.setLatLng(e.latlng)
-				// 	.setContent("You clicked the map at " + e.latlng.toString())
-				// 	.openOn(mymap);
+		// 	function onMapClick(e) {
+		// 		if(marker != undefined){mymap.removeLayer(marker)}
+		// 		// popup
+		// 		// 	.setLatLng(e.latlng)
+		// 		// 	.setContent("You clicked the map at " + e.latlng.toString())
+		// 		// 	.openOn(mymap);
 
-				marker = L.marker(e.latlng).addTo(mymap);
-				// println(e.latlng.lat)
-				$.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+e.latlng.lat+'&lon='+e.latlng.lng, function(data){
-					console.log(data.address);
-					// $ID("reg_business_address").value = data.address.region + ', ' +data.address.state
-					// $ID("reg_muni").value = data.address.city
-					var addr = data.address.village + "," 
-						+data.address.road + "," 
-						+data.address.neighbourhood+","
-						+data.address.quarter+","
-						+data.address.suburb+","
-						+data.address.tourism + ","
-						+data.address.leisure + ","
-						+data.address.state + ","
-						+data.address.city + ","
-						+data.address.region + " || "
-						+e.latlng.lat +","+e.latlng.lng+ ","
-					// $ID("reg_brgy").value = addr.split("undefined ,").join("")
-					$ID("feedback-full_address").value = addr.replaceAll("undefined,","")
-				});
-			}
-			mymap.on('click', onMapClick);
-		}
-		catch(e){
-			try{
-				$ID("map_cont").style.display = "none"
-			}
-			catch(e){println(e)}
-		}
+		// 		marker = L.marker(e.latlng).addTo(mymap);
+		// 		// println(e.latlng.lat)
+		// 		$.get('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+e.latlng.lat+'&lon='+e.latlng.lng, function(data){
+		// 			console.log(data.address);
+		// 			// $ID("reg_business_address").value = data.address.region + ', ' +data.address.state
+		// 			// $ID("reg_muni").value = data.address.city
+		// 			var addr = data.address.village + "," 
+		// 				+data.address.road + "," 
+		// 				+data.address.neighbourhood+","
+		// 				+data.address.quarter+","
+		// 				+data.address.suburb+","
+		// 				+data.address.tourism + ","
+		// 				+data.address.leisure + ","
+		// 				+data.address.state + ","
+		// 				+data.address.city + ","
+		// 				+data.address.region + " || "
+		// 				+e.latlng.lat +","+e.latlng.lng+ ","
+		// 			// $ID("reg_brgy").value = addr.split("undefined ,").join("")
+		// 			$ID("feedback-full_address").value = addr.replaceAll("undefined,","")
+		// 		});
+		// 	}
+		// 	mymap.on('click', onMapClick);
+		// }
+		// catch(e){
+		// 	try{
+		// 		$ID("map_cont").style.display = "none"
+		// 	}
+		// 	catch(e){println(e)}
+		// }
 
 
 	</script>

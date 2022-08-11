@@ -38,7 +38,7 @@ function send_data(f_name,data_,func){
 			// println(res)
 			// println(loop+"/"+lll)
 			_readFileEntry(res_file+".txt",function(res,fnames_){
-				println("-----upload "+fnames_+" complete----")
+				// println("-----upload "+fnames_+" complete----")
 				var _new_data = JSON.parse(res)
 
 				_new_data.is_synced = 1 
@@ -46,7 +46,7 @@ function send_data(f_name,data_,func){
 				// alert("Loop ["+loop__+"]")
 				_createNewFileEntry(fnames_,JSON.stringify(_new_data),function(){
 					// populate_file_ls()
-					println("Loop :"+loop__)
+					// println("Loop :"+loop__)
 					func(loop__)
 				})
 			})

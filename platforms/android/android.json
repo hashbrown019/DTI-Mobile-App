@@ -42,6 +42,10 @@
             {
               "xml": "<feature name=\"Capture\"><param name=\"android-package\" value=\"org.apache.cordova.mediacapture.Capture\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -101,6 +105,9 @@
       "PACKAGE_NAME": "com.dtixinpco.rapid"
     },
     "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "com.dtixinpco.rapid"
+    },
+    "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "com.dtixinpco.rapid"
     }
   },
@@ -376,12 +383,21 @@
       "clobbers": [
         "window.Keyboard"
       ]
+    },
+    {
+      "id": "cordova-plugin-inappbrowser.inappbrowser",
+      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+      "pluginId": "cordova-plugin-inappbrowser",
+      "clobbers": [
+        "cordova.InAppBrowser.open"
+      ]
     }
   ],
   "plugin_metadata": {
     "cordova-plugin-file": "7.0.0",
     "cordova-plugin-geolocation": "4.1.0",
     "cordova-plugin-media-capture": "4.0.0",
-    "cordova-plugin-ionic-keyboard": "2.2.0"
+    "cordova-plugin-ionic-keyboard": "2.2.0",
+    "cordova-plugin-inappbrowser": "5.0.0"
   }
 }

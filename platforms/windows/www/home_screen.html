@@ -145,8 +145,8 @@
 					<div class="x-container x-small">
 
 						<div class="x-col s5 x-padding x-center">
-							<img src="img/no_img.png" class="x-image x-img">
-							<span class="x-center x-text-blue">Upload Farmer Photo</span>
+							<img id="farmer_img_base64" src="img/no_img.png" class="x-image x-img">
+							<span class="x-center x-text-blue">Farmer Photo</span>
 						</div>
 
 						<div class="x-col s7 x-padding">
@@ -165,6 +165,7 @@
 
 					</div>
 				</div>
+				<!-- >
 				<div class="x-container">
 					<span class="x-text-gray">Farm Photos</span>
 					<div id="" class="x-center x-container x-small">
@@ -173,6 +174,7 @@
 						<img src="img/no_img.png" class="x-image x-col s4 x-img">
 					</div>
 				</div>
+				< -->
 				<div>
 					<h4>Forms</h4>
 					<div id="forms_list" class="x-container x-small">
@@ -189,8 +191,8 @@
 					<span onclick="$ID('modal_user_info').style.display='none'"
 					class="x-button x-display-topright">&times;</span>
 					<div class="x-container">
-						<div class="x-col s5 x-padding">
-							<img src="img/no_img.png" class="x-image x-img">
+						<div class="x-col s5 x-padding x-container">
+							<img id="user_img_info" src="img/no_img.png" class="x-image x-img">
 						</div>
 
 						<div class="x-col s7">
@@ -236,13 +238,18 @@
 			</div>
 		</div>
 		<!-- -----------------------MODAL : DONE-------------------------------------- -->
-		<div id="modal_done" class="x-modal" style="">
+		<div id="modal_done" class="x-modal" style="display: none;">
 			<div class="x-modal-content x-padding x-margin x-round-large">
 				<div class="x-container x-center x-padding">
 					<span onclick="$ID('modal_done').style.display='none'"
 					class="x-button x-display-topright">&times;</span>
-					<span class="x-xxxlarge fa fa-thumbs-o-up x-text-blue"></span><br>
+					<span class="x-jumbo fa fa-thumbs-o-up x-text-blue"></span><br>
 					<span class="x-text-green">Task Done</span><br>
+					<span class="x-text-grey">
+						Your task is now being processed. some results may appear as dialog, 
+						Pop-up, Modal (like this one) or an alert depending on the result, 
+						and some will not appear 
+					</span><br><br>
 					<button class="x-green x-round-xlarge x-btn" onclick="done_sync()">Continue</button>
 				</div>
 			</div>
@@ -366,24 +373,34 @@
 		}
 
 		function selected_farmer(farmer_id){
+			$ID('farmer_img_base64').src = "img/no_img.png"
 			$ID('farmer_id_modal').innerHTML = farmer_id
 			var form_btn = ""
 			for (var i = 0; i < FORM_A_LS.length; i++) {
 				form_btn += `
-					<button 
+					<div 
 						id="`+FORM_A_LS[i].file+`"
-						class="x-btn x-pale-yellow x-row x-leftbar x-border x-border-yellow x-block"
+						class="x-container x-border x-light-grey x-row x-leftbar x-block"
 						onclick="view_farmer_form('`+farmer_id+`', '`+FORM_A_LS[i].file+`')"
-						style="margin: 2px;">
+						style="
+							padding-left:0px;
+							padding-right:0px;
+							">
 							<b class="x-left">`+FORM_A_LS[i].label+` </b>
-							<b class="x-right" id='p_`+FORM_A_LS[i].file+`'><i>Not filled</i></b>
-					</button><br>`
+
+						<div class="x-container" style="padding-left:0px;padding-right:0px;">
+							<div id="percent_`+FORM_A_LS[i].file+`" class="x-container x-center x-teal" style="width:0%;">
+								<div id="pret_`+FORM_A_LS[i].file+`" class="x-center x-text-white">0%</div>
+							</div>
+						</div>
+					</div><br>`
 			}
 			$ID("forms_list").innerHTML = form_btn
 			$ID('modal_selected_farmer').style.display='block';
 			_readFileEntry(farmer_id+"@profile.txt",function(res){
 				var f_profile = JSON.parse(res)
-				for (const [key, value] of Object.entries(f_profile)) {
+				$ID('farmer_img_base64').src = f_profile.farmer_img_base64 // GET FARMERS PROFILE IMAGE DIRECTLY
+				for (const [key, value] of Object.entries(f_profile)) { // DYNAMIC SET OF INFORMATION FROM JSON to FIELDS
 					try{$ID(key).innerHTML = value}
 					catch{}
 					// println(key+" : "+value)
@@ -397,10 +414,8 @@
 					if(file_name_[0] == farmer_id ){
 						forms_available.push(file_name_[1].split(".")[0])
 						try{
-							$ID(file_name_[1].split(".")[0]).classList.add("x-pale-blue")
-							$ID(file_name_[1].split(".")[0]).classList.add("x-border-blue")
-							$ID(file_name_[1].split(".")[0]).classList.remove("x-pale-yellow");
-							$ID(file_name_[1].split(".")[0]).classList.remove("x-border-yellow");
+							$ID(file_name_[1].split(".")[0]).classList.add("x-border-yellow",)
+							// $ID(file_name_[1].split(".")[0]).classList.remove("x-pale-red");
 						}catch{}
 						_readFileEntry(files[i].name,function(res,fname_){
 							var f_profile = JSON.parse(res)
@@ -415,12 +430,22 @@
 							}
 							var tagName_ = "p_"+_fname_[1].split(".")[0]
 							var form_percent_ = (inputed/input*100).toFixed(2)
-							$ID(tagName_).innerHTML = inputed+"/"+input +" <i>("+ form_percent_ +"%)</i>"
-							var per_width = $ID(_fname_[1].split(".")[0]).parentNode.width
-							println(per_width + " : Parent BORDER WIDTH")
-							var border_width = (form_percent_ * 0.01) *per_width
-							println(border_width + " : BORDER WIDTH")
-							$ID(_fname_[1].split(".")[0]).style.borderLeftWidth = border_width+"px";
+
+							var id_btn = (fname_.split("@")[1]).split(".")[0]
+							println(form_percent_ + " >>>> " + id_btn)
+							if(form_percent_>=90){
+								// $ID(id_btn).classList.remove("x-pale-yellow","x-border-yellow","x-pale-red","x-border-red");
+								$ID(id_btn).classList.remove("x-border-yellow");
+								$ID(id_btn).classList.add("x-border-green")
+							}
+
+							$ID("percent_"+id_btn).style.width=form_percent_+"%"
+							$ID("pret_"+id_btn).innerHTML=inputed+"/"+input +" <i>("+ form_percent_ +"%)</i>"
+							// var per_width = $ID(_fname_[1].split(".")[0]).parentNode.width
+							// println(per_width + " : Parent BORDER WIDTH")
+							// var border_width = (form_percent_ * 0.01) *per_width
+							// println(border_width + " : BORDER WIDTH")
+							// $ID(_fname_[1].split(".")[0]).style.borderLeftWidth = border_width+"px";
 						})
 					}
 
@@ -434,16 +459,13 @@
 			var ls_profile = ""
 			FILES_GET_EXTERNALSTORAGE(function(files){
 				var num_records = 0
-				println("** START LISTING ***")
 				for (var i = 0; i < files.length; i++) {
 					var _sync_note
 					if(files[i].name.includes("@profile.txt")){
 						num_records +=1
 						$ID('num_record').innerHTML = num_records
 						_readFileEntry(files[i].name,function(res){
-							println("** START DATA CONVERTION ***")
 							var farmer_info  = JSON.parse(res)
-							println("** END DATA CONVERTION ***")
 							var FARMER_ID = farmer_info.farmer_code
 							// println("Farmer : "+farmer_info.is_synced)
 							// println(JSON.stringify(_USER_DATA_))
@@ -460,7 +482,6 @@
 										<b class="x-center x-text-red" style="writing-mode: vertical-rl;text-orientation: mixed">Unsync</b>
 									</div>`
 							}
-
 							ls_profile += `
 								<div id="_`+FARMER_ID+`" class="x-container" style="padding-bottom:5px;">
 									<div class="x-card x-round x-small x-container" style="padding-left:0px;display:flex">
@@ -484,7 +505,6 @@
 						})
 					}
 				}
-				println("** DONE LISTING ***")
 				// if(tab_home=="1"){
 				// 	if(url_args['selected_farmer_']!=undefined || url_args['selected_farmer_']!=""){
 				// 		selected_farmer(url_args['selected_farmer_']) // IF from Form go back to the farmer profile
@@ -497,10 +517,12 @@
 			$ID("modal_login_loading").style.display = "block"
 			FILES_GET_EXTERNALSTORAGE(function(files){
 				var inc_loop = 0
+				var ind_form_num = 0
 				for (var i = 0; i < files.length; i++) {
-						println(argument)
+					println(argument)
 					if(files[i].name.includes(argument)){
 						if(files[i].name != "user_info.txt"){
+							ind_form_num +=1 // Kung pila ang form sa isa ka tao
 							_readFileEntry(files[i].name,function(res,fnames_){
 								var farmer_info  = JSON.parse(res)
 								var FARMER_ID = farmer_info.farmer_code
@@ -509,16 +531,21 @@
 									fnames_.split(".")[0],
 									JSON.stringify(farmer_info),
 									function(count_){
-										// alert(count_)
+										inc_loop += 1
+										println("Uploading Ind forms : "+inc_loop+ " / " + ind_form_num)
+										if(inc_loop >=ind_form_num){
+											$ID("modal_login_loading").style.display = "none"
+											$ID("modal_done").style.display = "block"
+										}
 									}
-								) // OLD IMPLEMENTATION
+								)
 							})
 						}
 					}
 
 				}
-				$ID("modal_login_loading").style.display = "none"
-				$ID("modal_done").style.display = "block"
+				// $ID("modal_login_loading").style.display = "none"
+				// $ID("modal_done").style.display = "block"
 			})
 		}
 
