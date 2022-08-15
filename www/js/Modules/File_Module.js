@@ -129,3 +129,22 @@ function getBase64(file,func) {
 		 return "ERROR BASE64__"
 	 };
 }
+
+
+function del_record(FILE_DEL,func) {
+
+    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function (dir) {
+
+        dir.getFile(FILE_DEL, {create: false}, function (fileEntry) {
+            fileEntry.remove(function (file) {
+                func("success",file);
+            }, function (error) {
+            	println(error.code)
+                func("error","error");
+            }, function () {
+                func("missing","missing");
+            });
+        });
+    });
+
+}

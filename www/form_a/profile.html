@@ -73,7 +73,7 @@
 					</div>
 					<span class="x-text-grey">Farmer Sex</span>
 					<select id="farmer_sex" class="form_data x-select x-border">
-						<option value="undefined">Please Select</option>
+						<option value="undefined" disabled selected>Please Select</option>
 						<option value="Male">Male</option>
 						<option value="Female">Female</option>
 					</select>
@@ -90,6 +90,7 @@
 					<input type="number" id="farmer-age" name="farmer-age" class="form_data x-input x-border x-round require_f" disabled>
 					<span class="x-text-grey">Civil Status</span>
 					<select name="farmer-civil_status" id="farmer-civil_status" class="form_data x-select x-border" onchange="marital_status(this.value)">
+						<option value="undefined" disabled selected>Please Select</option>
 						<option value="Single">Single</option>
 						<option value="Married">Married</option>
 						<option value="Widow/Widower">Widow/Widower</option>
@@ -106,12 +107,13 @@
 					</select> -->
 					<input id="farmer-head_of_house" name="farmer-head_of_house" class="form_data x-check" type="checkbox" onchange="not_head_hh(this.checked)">
 					<label>Are you The Head of the HouseHold</label><br>
+
 					<div style="display:block;" id="not_head_hh" class="x-container">
 						<span class="x-text-grey">Name of head of the Household</span>
 						<input type="text" id="farmer-name_head_hh" name="farmer-number" class="form_data x-input x-border x-round ">
 						<span class="x-text-grey">Relationship with head of the Household(<i> Leave blank if the spouse is the head of the Household</i>)</span>
 						<select name="farmer-relation_head_hh" id="farmer-relation_head_hh" class="form_data x-select x-border">
-							<option disabled selected value="none">Please select Civil Status (none)</option>
+							<option disabled selected value="none">Please select Relationship </option>
 							<option value="Spouse">Spouse</option>
 							<option value="Parent">Parent</option>
 							<option value="Child">Child</option>
@@ -125,12 +127,21 @@
 							<option value="Male">Male</option>
 							<option value="Female">Female</option>
 						</select>
-						<label>IP</label><br>
+						<label>Sectoral Group For Head of the Household</label><br>
 						<div class="autocomplete x-block">
-							<span class="x-text-grey">IP Group of Head of the Household</span><br>
-							<input id="farmer-ip_sex_head_hh" type="text" class="form_data x-input x-border x-round require_f" placeholder="Leave Blank if none" onkeyup="ip_names(this)">
+							<input id="farmer-ihead-hh-s_pwd" name="farmer-ihead-hh-s_pwd" class="form_data x-check" type="checkbox">
+							<label>PWD</label><br>
+							<input id="farmer-ihead-hh-s_ofw" name="farmer-ihead-hh-s_ofw" class="form_data x-check" type="checkbox">
+							<label>OFW</label><br>
+							<input id="farmer-ihead-hh-s_ip" name="farmer-ihead-hh-s_ip" class="form_data x-check" type="checkbox" onchange="$ID('farmer-ihead-hh-p').disabled= !this.checked">
+							<label>IP</label><br>
+							<div class="autocomplete x-block">
+								<span class="x-text-grey">IP Group</span><br>
+								<input id="farmer-ihead-hh-p" type="text" class="form_data x-input x-border x-round require_f" placeholder="Ip Name" onkeyup="ip_names(this)">
+							</div>
 						</div>
 					</div>
+
 					<script type="text/javascript">
 						function not_head_hh(sel){
 							if(!sel){
@@ -178,6 +189,7 @@
 
 					<span class="x-text-grey">Primary Crop.</span>
 					<select name="farmer-primary_crop" id="farmer-primary_crop" class="form_data x-select x-border require_f">
+						<option disabled selected value="none">Please select </option>
 						<option value="Cacao">Cacao</option>
 						<option value="Coffee">Coffee</option>
 						<option value="Coconut">Coconut</option>

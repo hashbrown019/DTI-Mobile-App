@@ -14,6 +14,7 @@
 		<script type="text/javascript" src="js/modules/autocomplete.js"></script>
 		<script type="text/javascript" src="js/Modules/File_Module.js"></script> 
 		<script type="text/javascript" src="js/Modules/Utility.js"></script> 
+		<script type="text/javascript" src="js/Modules/TawkTo.js"></script> 
 
 
 		<link rel="stylesheet" href="css/x.css">
@@ -211,7 +212,7 @@
 							</span>
 						</div>
 					</div>
-					<div class="x-padding x-center">
+					<div class="x-padding x-center" style="display: none;">
 						<button class="x-btn x-round-large x-block x-green" onclick="SYNC_DATA()">
 							Sync
 						</button>
@@ -259,15 +260,16 @@
 			<div class="x-modal-content x-padding x-margin x-round-large">
 				<span onclick="$ID('modal_login_loading').style.display='none';no_edit()" class="x-button x-display-topright x-round-large"><b>x</b></span>
 				<div class="x-container x-center x-padding">
-					<span class="x-xxxlarge fa fa-circle-o-notch fa-spin x-text-blue"></span><br>
-					<span class="x-text-gray">Loading. please wait</span>
+					<span class="x-xxxlarge fa fa-circle-o-notch fa-spin x-text-blue"></span><br><br>
+					<b class=" x-large">Loading. please wait</b><hr>
+					<span class="x-text-grey">This might take a while. Please dont exit the App while we working your data</span>
 				</div>
 			</div>
 		</div>
 		<!-- ---------------------------MODAL : choose vco ------------------------------ -->
-		<div id="_sample_modal_datapriv" class="x-modal" style="display:none;padding: 0px;margin: 0px;">
+		<div id="_sample_modal_datapriv" class="x-modal" style="display:none;padding: 0px;margin: 0px;max-width: 100%;">
 			<br><br><br>
-			<div class="x-modal-content x-animate-top">
+			<div class="x-modal-content x-animate-top" style="padding:0px;margin: 0px;">
 				<header class="-header x-padding">
 					<span onclick="$ID('_sample_modal_datapriv').style.display='none';no_edit()" class="x-button x-display-topright x-round-large x-red"><b>x</b></span>
 					<b class="x-xlarge">Data Privacy Act Statement</b>
@@ -275,7 +277,7 @@
 				</header>
 				<div class="x-container  x-padding">
 					<span id="data_priv">loading</span><hr>
-					<div class="x-container x-row">
+					<div class="x-container x-row" style="display:none;">
 						<canvas id="sig-canvas" class="x-round-large x-border-dashed" style="width:100%">
 						<span>Place the signature above inside the box if the person is </span>
 						<script type="text/javascript" src="js/Modules/signature.js"></script> 
@@ -306,6 +308,10 @@
 				
 				_USER_DATA_ = JSON.parse(res).data[0]
 				println("_USER_DATA_---------")
+				println(JSON.stringify(_USER_DATA_))
+				println("END -----_USER_DATA_---------")
+
+				TAWKTO_CHAT_INIT(_USER_DATA_)
 			})
 		}
 
@@ -339,13 +345,9 @@
 			goto("form_a/profile.html?farmer_id=&user_id="+_USER_DATA_["id"])
 		}
 
-		function no_edit() {
-			// body...
-		}
+		function no_edit() {// body...}
 
 
-		// ------------------------------------------------------------------------------------------------
-		// ------------------------------------------------------------------------------------------------
 		// ------------------------------------------------------------------------------------------------
 		// ------------------------------------------------------------------------------------------------
 		// ------------------------------------------------------------------------------------------------
@@ -486,17 +488,21 @@
 								<div id="_`+FARMER_ID+`" class="x-container" style="padding-bottom:5px;">
 									<div class="x-card x-round x-small x-container" style="padding-left:0px;display:flex">
 										`+_sync_note+`
-										<div class="x-col s6 x-padding">
+										<div class="x-col s5 x-padding">
 											<span class="x-text-grey">Name<br><b class="x-text-black">`+farmer_info.farmer_name+`</b> </span>
 										</div>
-										<div class=" x-col s5 x-right">
-											<div class='x-container x-center x-padding x-green x-col s5'  style="height: 100%;" onclick="selected_farmer('`+FARMER_ID+`')">
+										<div class=" x-col s6 x-right">
+											<div class='x-container x-center x-padding x-green x-col s4'  style="height: 100%;" onclick="selected_farmer('`+FARMER_ID+`')">
 												<b class="x-large fa fa-edit"></b><br>
 												<span class="">Edit</span>
 											</div>
-											<div class='x-container x-center x-padding x-blue x-col s5'  style="height: 100%;" onclick='ind_sync("`+FARMER_ID+`")'>
+											<div class='x-container x-center x-padding x-blue x-col s4'  style="height: 100%;" onclick='ind_sync("`+FARMER_ID+`")'>
 												<b class="x-large fa fa-cloud"></b><br>
 												<span class="">Upload</span>
+											</div>
+											<div class='x-container x-center x-padding x-red x-col s4'  style="height: 100%;" onclick='rem_rec("`+FARMER_ID+`")'>
+												<b class="x-large fa fa-trash"></b><br>
+												<span class="">Remove</span>
 											</div>
 										</div>
 									</div>
@@ -511,6 +517,18 @@
 				// 	}
 				// }
 			})
+		}
+
+		function rem_rec(ids){
+			for (var i = 0; i < FORM_A_LS.length; i++) {
+				var file_name = ids+"@"+FORM_A_LS[i].file +".txt"
+				del_record(file_name,function(note,file_){
+					// println(file_name)
+					println(file_)
+				})
+				// println(file_name)
+			}
+			populate_file_ls()
 		}
 
 		function ind_sync(argument) {

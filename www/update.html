@@ -61,9 +61,13 @@
 					<span class="x-large fa fa-circle-o-notch fa-spin"></span>
 				</div>
 			</div>
-			<div class="x-display-bottommiddle x-padding">
+			<div class="x-display-bottommiddle x-padding x-center">
 				<!-- <a id="download_link" target="_blank" download="" href="" onclick="DOWNLOAD_APP(this)"> -->
-					<button class="x-btn x-green" onclick="DOWNLOAD_APP()"> Download <span class=" fa fa-download"></span></button>
+					<button class="x-btn x-green x-round-large" onclick="DOWNLOAD_APP()"> Download <span class=" fa fa-download"></span></button><hr>
+					<span class="x-small">
+						You Will be redirected to your default browser. In some cases, a prompt will appear. This regard this prompt and click <b>Download Anyway</b>
+					</span>
+					<hr>
 				<!-- </a> -->
 			</div> 
 		</div>
@@ -73,7 +77,7 @@
 		function onDeviceReady() {
 			console.log(cordova.file);
 			println(" * UPDATE PAGE Module Ready ===================");
-			DOWNLOAD_APP()
+			// DOWNLOAD_APP()
 
 		}
 
@@ -81,7 +85,9 @@
 			// println(tag.href)
 			// redirectto(DOMAIN + "/api/download_zip_app")
 			println(cordova.InAppBrowser)
-			cordova.InAppBrowser.open(DOMAIN + "/api/download_zip_app", '_system', 'location=yes');
+			var ref = cordova.InAppBrowser.open(DOMAIN + "/api/download_zip_app", '_system', 'location=no', 'hidden=yes');
+			ref.close();
+			goto("index.html")
 		}
 
 		// -----------------------------

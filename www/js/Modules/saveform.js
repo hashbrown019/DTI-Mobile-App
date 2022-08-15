@@ -131,8 +131,8 @@ function refill_data_forms(file_name,func){ /////////// REFILLING FOR HAS DATA
 
 			try{
 				AFTER_LOAD_DATA(form_data_refill) // Decalre to execute Function after loading data forms
-			}catch{
-				println(" * No AFTER_LOAD_DATA() function found. Proceeding")
+			}catch(e){
+				println(" * No AFTER_LOAD_DATA() function found. Proceeding == "+e)
 			}
 		}
 		RELOAD_FIELD()

@@ -121,6 +121,7 @@
 
 					<span class="x-text-grey">Primary Crop.</span>
 					<select name="farm-primary_crop" id="farm-primary_crop" class="form_data x-select x-border">
+						<option disabled selected value="none">Please select</option>
 						<option value="Cacao">Cacao</option>
 						<option value="Coffee">Coffee</option>
 						<option value="Coconut">Coconut</option>
@@ -183,25 +184,11 @@
 						<input id="farm-tenurial_others" class="form_data x-border tenur_stat" onkeyup="tenur_stat()" style="width: 50%;" type="number">
 						<label>Others <i>(in Ha.)</i>...</label><br>
 
-					<script type="text/javascript">
-						function tenur_stat(sel){
-							// throw {"sample":"sample"}
-							var tenur = $CLASS("tenur_stat")
-							var val = 0
-							for (var i = 0; i < tenur.length; i++) {
-								var temp_val = 0
-								if(tenur[i].value!=""){
-									temp_val = parseInt(tenur[i].value)
-								}
-								val += temp_val
-							}
-							$ID("farm-total_no_tenurial_lots").value = val
-							if(val>)
-						}
-					</script>
 
-					<span class="x-text-grey">Total Number of Lots with Selected Tenurial status</span>
-					<input disabled type="text" id="farm-total_no_tenurial_lots" name="farm-total_no_tenurial_lots" class="form_data x-input x-border x-round ">
+
+					<span class="x-text-grey">Total Ha of Lots with Selected Tenurial status</span>
+					<input disabled type="text" id="farm-total_no_tenurial_lots" name="farm-total_no_tenurial_lots" class="form_data x-input x-border x-round "><br>
+					<span id="land_note"></span>
 
 					<hr>
 					<b class="x-text-green">Production Profile</b><br>
@@ -217,6 +204,7 @@
 					<div id="sec_crop" style="display: none;">
 						<span class="x-text-grey">Secondary Crop.</span>
 						<select name="farm-secondary_crop" id="farm-secondary_crop" class="form_data x-select x-border" onchange="sec_others(this)">
+							<option disabled selected value="none">Please select</option>
 							<option value="Cacao">Cacao</option>
 							<option value="Coffee">Coffee</option>
 							<option value="Coconut">Coconut</option>
@@ -268,9 +256,9 @@
 						Before Clicking next, pls make sure to check all fields as they cannot be undone while the profiling is not yet finished
 					</span><br>
 					<div class="x-container">
-	<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="history.back()">Previous Form<span class="fa fa-arrow-lef"></span></button>
-	<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
-</div>
+						<button type="button" class="x-col s6 x-btn x-round-large x-block x-yellow" onclick="history.back()">Previous Form<span class="fa fa-arrow-lef"></span></button>
+						<button type="button" class="x-col s6 x-btn x-round-large x-block x-green" onclick="save_form()">Save and Proceed <span class="fa fa-arrow-right"></span></button>
+					</div>
 				</div>
 			</div>
 		</form>
@@ -286,6 +274,7 @@
 					if(isOnline()){$ID("offline").style.display="none"}
 					else{$ID("offline").style.display="block"}
 				}, 1000)
+				AFTER_LOAD_DATA(undefined)
 			}
 		}catch(err){println(err)}
 
@@ -299,9 +288,50 @@
 			
 			create_formdata(FILE_NAME,function(){
 				redirectto("hh_profile.html?user_id="+url_args['user_id']+"&farmer_id="+url_args['farmer_id'])
+
 			})
 		}
 
+		function AFTER_LOAD_DATA(_data) {
+			var farmer_prof_file = url_args['farmer_id'] + "@profile.txt"
+			_readFileEntry(farmer_prof_file,function(res){
+				// try{
+					var f_info = JSON.parse(res)
+					println(" >>>>> CYCLE SELECTED >> "+f_info["farmer-primary_crop"])
+					$ID('farm-primary_crop').value = f_info["farmer-primary_crop"]
+					if(f_info["farmer-primary_crop"]==undefined || f_info["farmer-primary_crop"]=="" || f_info["farmer-primary_crop"]==" "){
+						throw "no primary crop in 1st from"
+					}
+					$ID("prodcost-crop_cycle_year").value = f_info["farmer-primary_crop"]
+				// }
+				// catch(e){
+				// 	alert(` * Please Specify Primary Crop from the 1st Form`)
+				// 	console.log(e)
+				//  /// Reload Field again for Slow Loading Image and contmaienrs
+				// }
+				$ID("modal_login_loading").display="none"
+			})
+		}
+
+		function tenur_stat(sel){
+			// throw {"sample":"sample"}
+			var tenur = $CLASS("tenur_stat")
+			var dec_area = $CLASS("tenur_stat")
+			var val = 0
+			for (var i = 0; i < tenur.length; i++) {
+				var temp_val = 0
+				if(tenur[i].value!=""){
+					temp_val = parseInt(tenur[i].value)
+				}
+				val += temp_val
+			}
+			$ID("farm-total_no_tenurial_lots").value = val
+			if(val != parseInt($ID("farm-declare_area").value) ){
+				$ID("land_note").innerHTML = `<span class='x-text-red'> Your land Tenurial lots (Ha) Exceeds or Less than your Declared land Area</span> `
+			}else{
+				$ID("land_note").innerHTML = ``
+			}
+		}
 		function farm_photo(tag){
 			// var _files = $ID('').files
 			$ID('farm_photo-viewer').innerHTML = ""

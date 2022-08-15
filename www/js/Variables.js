@@ -4,14 +4,16 @@
 // println("Current platform >>>>> "+ navigator.userAgent)
 
 
-var APP_VERSION = "1.1.2 beta"
-let update_version = "1.1.2 beta" //
+var APP_VERSION = "1.3.2"
+let update_version = APP_VERSION //
+// let update_version = "1.2.2" //
 
 
 
 // 192.168.0.121
 
-var DOMAIN = "https://crisnotbrown.pythonanywhere.com";var LOCAL_RENDER = false;
+var DOMAIN = "https://dtirapid.pythonanywhere.com";var LOCAL_RENDER = false; //https://dtirapid.pythonanywhere.com/
+// var DOMAIN = "https://crisnotbrown.pythonanywhere.com";var LOCAL_RENDER = false; //https://dtirapid.pythonanywhere.com/
 // var DOMAIN = "https://DESKTOP-ND7O5AE:5000"; var LOCAL_RENDER = true; // LOCAL UNSECURE
 // var DOMAIN = "https://192.168.205.30:5000"; var LOCAL_RENDER = true; // LOCAL SECUREE
 
@@ -38944,7 +38946,7 @@ let ALL_LOCATION = {
   "11": {
     "region_name": "REGION XI",
     "province_list": {
-      "COMPOSTELA VALLEY": {
+      "DAVAO DE ORO": {
         "municipality_list": {
           "COMPOSTELA": {
             "barangay_list": [

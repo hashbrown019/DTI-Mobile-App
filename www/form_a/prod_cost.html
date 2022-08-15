@@ -53,24 +53,26 @@
 					<b class="x-text-green">Production Cost Per Crop/commodity</b><hr>
 					<span class="x-text-grey">Do you keep a record of your farm activities?<span class="x-text-grey"></span>
 					<select name="prodcost-is_keep_record" id="prodcost-is_keep_record" class="form_data x-select x-border" >
+						<option disabled selected value="none">Please select</option>
 						<option  selected value='yes'>Yes</option>
 						<option  selected value='no  '>No</option>
 					</select>
 					<span class="x-text-grey">Crop Cycle per Year<span class="x-text-grey"></span>
-					<input placeholder="" type="number" id="prodcost-crop_cycle_year" name="prodcost-crop_cycle_year" class="cost_labor form_data x-input x-border x-round ">
+					<input placeholder="" onkeyup="__cal()" type="number" id="prodcost-crop_cycle_year" name="prodcost-crop_cycle_year" class="form_data x-input x-border x-round ">
+					<i class="x-text-grey">if Crop Cycle per Year is undefined or blank, the annual cost per year will be treated as 1 Cycle</i>
 
 					<hr>
-					<b class="x-text-grey">LABOR COST<span class="x-text-grey"></b><br>
+					<b class="x-text-grey">LABOR COST PER CYCLE<span class="x-text-grey"></b><br>
 					<!-- <input disabled value="0" placeholder="" type="number" id="prodcost-total_labor" name="prodcost-rsbsa_no" class="form_data x-input x-border x-round "> -->
 
 					<span class="x-text-grey">Land Development/Preparation<span class="x-text-grey"></span>
-					<input onkeyup="calcu('labor','cost_labor')" placeholder="" type="number" id="prodcost-labor_land_dev_prep" name="prodcost-labor_land_dev_prep" class="cost_labor form_data x-input x-border x-round ">
+					<input onkeyup="__cal()" placeholder="" type="number" id="prodcost-labor_land_dev_prep" name="prodcost-labor_land_dev_prep" class="cost_labor form_data x-input x-border x-round ">
 					<span class="x-text-grey">Crop Maintenance Activities<span class="x-text-grey"></span>
-					<input onkeyup="calcu('labor','cost_labor')" placeholder="" type="number" id="prodcost-labor_crop_maintenance_act" name="prodcost-labor_crop_maintenance_act" class="cost_labor form_data x-input x-border x-round ">
+					<input onkeyup="__cal()" placeholder="" type="number" id="prodcost-labor_crop_maintenance_act" name="prodcost-labor_crop_maintenance_act" class="cost_labor form_data x-input x-border x-round ">
 					<span class="x-text-grey">Crop Harvesting<span class="x-text-grey"></span>
-					<input onkeyup="calcu('labor','cost_labor')" placeholder="" type="number" id="prodcost-labor_crop_harvest" name="prodcost-labor_crop_harvest" class="cost_labor form_data x-input x-border x-round ">
+					<input onkeyup="__cal()" placeholder="" type="number" id="prodcost-labor_crop_harvest" name="prodcost-labor_crop_harvest" class="cost_labor form_data x-input x-border x-round ">
 					<span class="x-text-grey">Post-harvest Activities<span class="x-text-grey"></span>
-					<input onkeyup="calcu('labor','cost_labor')" placeholder="" type="number" id="prodcost-labor_post_harvest_act" name="prodcost-labor_post_harvest_act" class="cost_labor form_data x-input x-border x-round ">
+					<input onkeyup="__cal()" placeholder="" type="number" id="prodcost-labor_post_harvest_act" name="prodcost-labor_post_harvest_act" class="cost_labor form_data x-input x-border x-round ">
 					<script type="text/javascript">
 						function total_labor(val){
 							if(val==""){val=0}
@@ -78,17 +80,17 @@
 						}
 					</script>
 					<hr>
-					<b class="x-text-grey">COSTS OF MATERIALS AND INPUTS<span class="x-text-grey"></b><br>
+					<b class="x-text-grey">COSTS OF MATERIALS AND INPUTS PER CYCLE<span class="x-text-grey"></b><br>
 					<!-- <input disabled value="0" placeholder="" type="number" id="prodcost-cost_mateials" name="prodcost-rsbsa_no" class="form_data x-input x-border x-round "> -->
 
 					<span class="x-text-grey">Land Development/Preparation<span class="x-text-grey"></span>
-					<input onkeyup="calcu('cost_materials','cost_materryals')" placeholder="" type="number" id="prodcost-materials_land_dev_prep" name="prodcost-materials_land_dev_prep" class="cost_materryals form_data x-input x-border x-round ">
+					<input onkeyup="__cal()" placeholder="" type="number" id="prodcost-materials_land_dev_prep" name="prodcost-materials_land_dev_prep" class="cost_materryals form_data x-input x-border x-round ">
 					<span class="x-text-grey">Crop Maintenance Activities<span class="x-text-grey"></span>
-					<input onkeyup="calcu('cost_materials','cost_materryals')" placeholder="" type="number" id="prodcost-materials__act" name="prodcost-materials__act" class="cost_materryals form_data x-input x-border x-round ">
+					<input onkeyup="__cal()" placeholder="" type="number" id="prodcost-materials__act" name="prodcost-materials__act" class="cost_materryals form_data x-input x-border x-round ">
 					<span class="x-text-grey">Crop Harvesting<span class="x-text-grey"></span>
-					<input onkeyup="calcu('cost_materials','cost_materryals')" placeholder="" type="number" id="prodcost-crop_harvest" name="prodcost-crop_harvest" class="cost_materryals form_data x-input x-border x-round ">
+					<input onkeyup="__cal()" placeholder="" type="number" id="prodcost-crop_harvest" name="prodcost-crop_harvest" class="cost_materryals form_data x-input x-border x-round ">
 					<span class="x-text-grey">Post-harvest Activities<span class="x-text-grey"></span>
-					<input onkeyup="calcu('cost_materials','cost_materryals')" placeholder="" type="number" id="prodcost-post_harvest_act" name="prodcost-post_harvest_act" class="cost_materryals form_data x-input x-border x-round ">
+					<input onkeyup="__cal()" placeholder="" type="number" id="prodcost-post_harvest_act" name="prodcost-post_harvest_act" class="cost_materryals form_data x-input x-border x-round ">
 					<hr>
 
 					<div class="x-container">
@@ -96,21 +98,21 @@
 						<div class="x-col s6">
 							<div class="">
 								<div class="x-container x-center">
-									<b class="x-center x-large x-text-black" id=""><span class="amounts__ss" id="labor">0</span></b>
+									<b class="x-center x-xlarge x-text-black" id=""><span class="amounts__ss" id="labor">0</span></b>
 								</div>
 							</div>
-							<div class="">
-								<b class="x-leftbar x-border-green">LABOR COST</b><br>
+							<div class="x-center">
+								<b class="x-leftbar x-border-green">ANNUAL LABOR COST</b><br>
 							</div>
 						</div>
 						<div class="x-col s6">
 							<div class="">
 								<div class="x-container x-center">
-									<b class="x-center x-large x-text-black" id=""><span class="" id="cost_materials">0</span></b>
+									<b class="x-center x-xlarge x-text-black" id=""><span class="" id="cost_materials">0</span></b>
 								</div>
 							</div>
-							<div class="">
-								<b class="x-leftbar x-border-green">COSTS OF MATERIALS AND INPUTS</b><br>
+							<div class="x-center">
+								<b class="x-leftbar x-border-green">ANUAL COSTS OF MATERIALS AND INPUTS</b><br>
 							</div>
 						</div>
 						<hr>
@@ -143,12 +145,31 @@
 			}
 		}catch(err){println(err)}
 
-		window.setTimeout(function() {
-			println("Calculating . . . ")
-			calcu('cost_materials','cost_materryals')
-			calcu('labor','cost_labor')
-		}, 2000);
+		// window.setTimeout(function() {
+		// 	println("Calculating . . . ")
+		// 	calcu('cost_materials','cost_materryals')
+		// 	calcu('labor','cost_labor')
+		// 	// __cal()
+		// }, 2000);
 
+		function __cal(){
+			var cycle = $ID("prodcost-crop_cycle_year").value
+			var COST_MAN = calcu('cost_materials','cost_materryals')
+			var COSt_ =calcu('labor','cost_labor')
+			println(" ====== "+cycle+" =======")
+
+			if(cycle=="" || cycle==" " || cycle==undefined){
+				$ID("labor").innerHTML = COSt_
+				$ID("cost_materials").innerHTML = COST_MAN 
+				println(" no CYCLE")
+			}else{
+				$ID("labor").innerHTML = COSt_ * parseInt(cycle)
+				$ID("cost_materials").innerHTML = COST_MAN  * parseInt(cycle)
+				println(" HAS CYCLE "+cycle)
+			}
+			println(" 1 Cost >> "+COST_MAN+" * "+ cycle +" = = "+COST_MAN*parseInt(cycle))
+			println(" 2 Cost >> "+COSt_+" * "+ cycle +" = = "+COSt_*parseInt(cycle))
+		}
 
 		// ---------------------------------------------------------------------------------------
 		function save_form(){
@@ -174,13 +195,16 @@
 				try{
 					var f_info = JSON.parse(res)
 					println(" >>>>> CYCLE SELECTED >> "+f_info["farm-primary_crop_cycle_year"])
-					$ID("prodcost-crop_cycle_year").value f_info["farm-primary_crop_cycle_year"]
+					if(f_info["farm-primary_crop_cycle_year"]==undefined || f_info["farm-primary_crop_cycle_year"]=="" || f_info["farm-primary_crop_cycle_year"]==" "){
+						throw "no Cycle"
+					}
+					$ID("prodcost-crop_cycle_year").value = f_info["farm-primary_crop_cycle_year"]
 				}
 				catch{
-					alert(` * In order to successfully complete this form, you must finish the
-					 [FARM INFORMATION] form and indicate the number of Primary crop cycle per year`)
+					alert(` * In order to successfully complete this form, you must finish the [FARM INFORMATION] form and indicate the number of Primary crop cycle per year`)
 				 /// Reload Field again for Slow Loading Image and contmaienrs
 				}
+				__cal()
 			})
 			// check_for_data(function(data_){println("Data Recollected ")})
 		}
