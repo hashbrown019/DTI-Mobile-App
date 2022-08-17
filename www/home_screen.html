@@ -345,7 +345,7 @@
 			goto("form_a/profile.html?farmer_id=&user_id="+_USER_DATA_["id"])
 		}
 
-		function no_edit() {// body...}
+		function no_edit() {}
 
 
 		// ------------------------------------------------------------------------------------------------
@@ -520,15 +520,18 @@
 		}
 
 		function rem_rec(ids){
-			for (var i = 0; i < FORM_A_LS.length; i++) {
-				var file_name = ids+"@"+FORM_A_LS[i].file +".txt"
-				del_record(file_name,function(note,file_){
+			var ans = confirm("Are you sure you want to delete this record ?\nClick [ok] to continue, [cancel] otherwise")
+			if(ans){
+				for (var i = 0; i < FORM_A_LS.length; i++) {
+					var file_name = ids+"@"+FORM_A_LS[i].file +".txt"
+					del_record(file_name,function(note,file_){
+						// println(file_name)
+						println(file_)
+					})
 					// println(file_name)
-					println(file_)
-				})
-				// println(file_name)
+				}
+				populate_file_ls()
 			}
-			populate_file_ls()
 		}
 
 		function ind_sync(argument) {

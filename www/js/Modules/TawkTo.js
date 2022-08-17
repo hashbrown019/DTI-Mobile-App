@@ -2,21 +2,13 @@
 
 
 function TAWKTO_CHAT_INIT(_USER_DATA_){
-	var Tawk_API=Tawk_API||{}
+	
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+
 	Tawk_API.visitor = {
-		"name" : _USER_DATA_["name"],
-		"email" : _USER_DATA_["email"]
+		name : _USER_DATA_["name"],
+		email : _USER_DATA_["email"]
 	};
-
-	Tawk_API.onLoad = function(){
-	Tawk_API.setAttributes({
-		"name" : _USER_DATA_["name"],
-		"email" : _USER_DATA_["email"]
-	}, function (error) {
-		println(" ---- TAWKTO ERROR >>> "+ error)
-	});
-
-	var Tawk_LoadStart=new Date();
 
 	(function(){
 		var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];

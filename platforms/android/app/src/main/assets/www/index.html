@@ -117,11 +117,13 @@
 							<span class="x-text-grey">RCU<span class="x-text-red">*</span></span>
 							<select name="rcu"t id="rcu" class="form_data x-select x-border" onchange="set_ls_pcu(this.value)">
 								<option disabled selected value="">Please select RCU</option>
+								<!-- <option value="n_a">N/A</option> -->
 							</select>
 
 							<span class="x-text-grey">PCU<span class="x-text-red">*</span></span>
-							<select name="pcu"t id="pcu" class="form_data x-select x-border" disabled>
+							<select name="pcu" id="pcu" class="form_data x-select x-border" disabled>
 								<option disabled selected value="">Please select PCU</option>
+								<option value="n_a">N/A</option>
 							</select>
 
 
@@ -273,6 +275,7 @@
 			for (var i = 0; i < RCU_PCU[sel_rcu].length; i++) {
 				$ID("pcu").innerHTML += "<option value='"+RCU_PCU[sel_rcu][i]+"'>"+RCU_PCU[sel_rcu][i]+"</option>"
 			}
+			$ID("pcu").innerHTML += `<option value="n_a">N/A</option>`
 			$ID("pcu").disabled = false
 		}
 
