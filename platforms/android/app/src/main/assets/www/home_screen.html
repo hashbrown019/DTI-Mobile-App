@@ -85,25 +85,44 @@
 		<!-- ------------------------------------------------------------------------------------------------------------------ -->
 		<div class="body_content x-_animate-right" style="display: none;">
 			<div class="">
-				<div class="x-container x-col s6 x-padding">
-					<span class="x-xlarge x-text-blue"><span class="x-large fa fa-dashboard"></span> <b class="x-small">Dashboard</b></span>
+				<div class="x-center">
+					<img src="img/under_m.gif" style="max-width:70%">
 				</div>
-				<div class="x-container x-col s6 x-padding">
-					<b class="x-right x-center x-text-orange x-bottombar x-border-orange">
-						<span class="x-tiny">Refresh</span> <span class="fa fa-refresh fa-spin"></span> 
-					</b>
+				<div class="x-container x-padding">
+					<span>
+						<b class="x-text-teal x-large"> hi there!</b><br>
+						<span>
+							We our currently improving your experience using this app. this Dashboard is currently unavailable at this time. Stay tuned for updates<br>
+							You can drop your suggestion and feedback by clicking the chat button on the bottom right corner if it appears. <i>Dont forget to say hi</i> ;)
+
+						</span>
+						
+					</span>
 				</div>
-			</div><br> 
-			<div class="x-container">
-				<div class="x-col s9">
-					<div class="x- x-container x-leftbar x-border-green">
-						<b>Overall Profiling</b><br>
-						<span class="x-text-grey">Per Value Chain</span>
+			</div>
+			<!-- ----- -->
+			<div style="display:none">
+				<div class="" >
+					<div class="x-container x-col s6 x-padding">
+						<span class="x-xlarge x-text-blue"><span class="x-large fa fa-dashboard"></span> <b class="x-small">Dashboard</b></span>
 					</div>
-					<div id="chartdiv_01"></div>
-				</div>
-				<div class="x- x-col s3 x-card x-container x-round-large">
-					<b>Overall Profiling</b>
+					<div class="x-container x-col s6 x-padding">
+						<b class="x-right x-center x-text-orange x-bottombar x-border-orange">
+							<span class="x-tiny">Refresh</span> <span class="fa fa-refresh fa-spin"></span> 
+						</b>
+					</div>
+				</div><br> 
+				<div class="x-container">
+					<div class="x-col s9">
+						<div class="x- x-container x-leftbar x-border-green">
+							<b>Overall Profiling</b><br>
+							<span class="x-text-grey">Per Value Chain</span>
+						</div>
+						<div id="chartdiv_01"></div>
+					</div>
+					<div class="x- x-col s3 x-card x-container x-round-large">
+						<b>Overall Profiling</b>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -463,12 +482,14 @@
 				var num_records = 0
 				for (var i = 0; i < files.length; i++) {
 					var _sync_note
+					// if(parseInt(farmer_info.USER_ID) !=parseInt(_USER_DATA_["id"])){
+					// 	continue // SKIPPING WHEN USER NOT CREATED THIS RECORD
+					// }
 					if(files[i].name.includes("@profile.txt")){
-						num_records +=1
-						$ID('num_record').innerHTML = num_records
 						_readFileEntry(files[i].name,function(res){
 							var farmer_info  = JSON.parse(res)
 							var FARMER_ID = farmer_info.farmer_code
+							println("Current User : "+farmer_info.USER_ID +" ||dRecord user : "+_USER_DATA_["id"])
 							// println("Farmer : "+farmer_info.is_synced)
 							// println(JSON.stringify(_USER_DATA_))
 							if (parseInt(farmer_info.is_synced )== 1){
@@ -484,30 +505,35 @@
 										<b class="x-center x-text-red" style="writing-mode: vertical-rl;text-orientation: mixed">Unsync</b>
 									</div>`
 							}
-							ls_profile += `
-								<div id="_`+FARMER_ID+`" class="x-container" style="padding-bottom:5px;">
-									<div class="x-card x-round x-small x-container" style="padding-left:0px;display:flex">
-										`+_sync_note+`
-										<div class="x-col s5 x-padding">
-											<span class="x-text-grey">Name<br><b class="x-text-black">`+farmer_info.farmer_name+`</b> </span>
+							if(parseInt(farmer_info.USER_ID) == parseInt(_USER_DATA_["id"])){
+								ls_profile += `
+									<div id="_`+FARMER_ID+`" class="x-container" style="padding-bottom:5px;">
+										<div class="x-card x-round x-small x-container" style="padding-left:0px;display:flex">
+											`+_sync_note+`
+											<div class="x-col s5 x-padding">
+												<span class="x-text-grey">Name<br><b class="x-text-black">`+farmer_info.farmer_name+`</b> </span>
+											</div>
+											<div class=" x-col s6 x-right">
+												<div class='x-container x-center x-padding x-green x-col s4'  style="height: 100%;" onclick="selected_farmer('`+FARMER_ID+`')">
+													<b class="x-large fa fa-edit"></b><br>
+													<span class="">Edit</span>
+												</div>
+												<div class='x-container x-center x-padding x-blue x-col s4'  style="height: 100%;" onclick='ind_sync("`+FARMER_ID+`")'>
+													<b class="x-large fa fa-cloud"></b><br>
+													<span class="">Upload</span>
+												</div>
+												<div class='x-container x-center x-padding x-red x-col s4'  style="height: 100%;" onclick='rem_rec("`+FARMER_ID+`")'>
+													<b class="x-large fa fa-trash"></b><br>
+													<span class="">Remove</span>
+												</div>
+											</div>
 										</div>
-										<div class=" x-col s6 x-right">
-											<div class='x-container x-center x-padding x-green x-col s4'  style="height: 100%;" onclick="selected_farmer('`+FARMER_ID+`')">
-												<b class="x-large fa fa-edit"></b><br>
-												<span class="">Edit</span>
-											</div>
-											<div class='x-container x-center x-padding x-blue x-col s4'  style="height: 100%;" onclick='ind_sync("`+FARMER_ID+`")'>
-												<b class="x-large fa fa-cloud"></b><br>
-												<span class="">Upload</span>
-											</div>
-											<div class='x-container x-center x-padding x-red x-col s4'  style="height: 100%;" onclick='rem_rec("`+FARMER_ID+`")'>
-												<b class="x-large fa fa-trash"></b><br>
-												<span class="">Remove</span>
-											</div>
-										</div>
-									</div>
-								</div>`
+									</div>`
+								num_records +=1
+								// continue // SKIPPING WHEN USER NOT CREATED THIS RECORD
+							}
 							$ID('prof_ls').innerHTML = ls_profile
+							$ID('num_record').innerHTML = num_records
 						})
 					}
 				}
@@ -576,7 +602,7 @@
 		// }else{
 		// 	go_tab(0)
 		// }
-		go_tab(1)
+		go_tab(0)
 
 		println(tab_home)
 		function go_tab(_index){

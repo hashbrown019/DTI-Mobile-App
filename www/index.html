@@ -57,7 +57,10 @@
 			<div class="x-display-right">Right</div>
 			<div class="x-display-topmiddle x-hide-small">Top Middle</div> -->
 			<div class="x-display-bottommiddle x-padding">
-				<span class="x-grey x-padding x-round-large x-text-white x-tiny" id="update_version"></span><br><br><br>
+				<span class="x-grey x-padding x-round-large x-text-white x-tiny">
+					Version: <span id="update_version"></span>
+				</span>
+				<br><br><br>
 			</div> 
 		</div>
 
@@ -175,11 +178,25 @@
 					<div class="x-container x-center x-padding">
 						<span onclick="$ID('modal_done').style.display='none'"
 						class="x-button x-display-topright">&times;</span>
+						<span class="x-jumbo fa fa-thumbs-o-up x-text-blue"></span><br>
+						<span class="x-text-green">Task Done</span><br>
+						<span class="x-text-grey">
+							Your task is now being processed. some results may appear as dialog, 
+							Pop-up, Modal (like this one) or an alert depending on the result, 
+							and some will not appear 
+						</span><br><br>
+						<button class="x-green x-round-xlarge x-btn" onclick="$ID('modal_done').style.display='none'">Continue</button>
+					</div>
+				</div>
+<!-- 				<div class="x-modal-content x-padding x-margin x-round-large">
+					<div class="x-container x-center x-padding">
+						<span onclick="$ID('modal_done').style.display='none'"
+						class="x-button x-display-topright">&times;</span>
 						<span class="x-xxxlarge fa fa-thumbs-o-up x-text-blue"></span><br>
 						<span class="x-text-green">Task Done</span>
 						<button class="x-green x-round-xlarge x-btn" onclick="$ID('modal_done').style.display='none'">Continue</button>
 					</div>
-				</div>
+				</div> -->
 			</div>
 
 			<div id="modal_eula" class="x-modal">

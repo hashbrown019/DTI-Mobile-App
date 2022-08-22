@@ -4,7 +4,7 @@
 // println("Current platform >>>>> "+ navigator.userAgent)
 
 
-var APP_VERSION = "1.3.4"
+var APP_VERSION = "1.3.6"
 let update_version = APP_VERSION //
 // let update_version = "1.2.2" //
 
