@@ -10,11 +10,13 @@
         <script src="cordova.js"></script>
 
 		<script type="text/javascript" src="js/Brorn.min.js"></script>
+		
+		<script type="text/javascript" src="js/Modules/TawkTo.js"></script> 
+
 		<script type="text/javascript" src="js/Variables.js"></script>
 		<script type="text/javascript" src="js/modules/autocomplete.js"></script>
 		<script type="text/javascript" src="js/Modules/File_Module.js"></script> 
 		<script type="text/javascript" src="js/Modules/Utility.js"></script> 
-		<script type="text/javascript" src="js/Modules/TawkTo.js"></script> 
 
 
 		<link rel="stylesheet" href="css/x.css">
@@ -308,6 +310,35 @@
 	</body>
 	<script type="text/javascript">
 		let _USER_DATA_ = undefined
+
+		// tawkto ==-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+		var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+		window.Tawk_API.visitor = {
+		    name  : 'SKKKKKRT',
+		    email : 'email@email.com'
+		};
+		window.Tawk_API.onChatMaximized = function(){
+		    Tawk_API.setAttributes({
+						// 'name' : UISER__["name"],
+						// 'email': UISER__["email"],
+						'name' : "dragonBall",
+						'email': "dragonBall@gmail.com ",
+						'hash' : 'hash-value'
+					}, function (error) {
+						alert(error)
+					});
+		    alert(JSON.stringify(Tawk_API))
+		};
+
+		var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+		s1.async=true;
+		s1.src='https://embed.tawk.to/62f9c9c554f06e12d88ea549/1gafrob5j';
+		s1.charset='UTF-8';
+		s1.setAttribute('crossorigin','*');
+		s0.parentNode.insertBefore(s1,s0);
+		// tawkto ==-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
 		try{
 			document.addEventListener("deviceready", onDeviceReady, false);
 			function onDeviceReady() {
@@ -330,7 +361,22 @@
 				println(JSON.stringify(_USER_DATA_))
 				println("END -----_USER_DATA_---------")
 
-				TAWKTO_CHAT_INIT(_USER_DATA_)
+
+				// TAWKTO_CHAT_INIT()
+				// TAWKTO_CHAT_INIT(_USER_DATA_)
+
+				Tawk_API.onLoad = function(){
+					Tawk_API.setAttributes({
+						// 'name' : UISER__["name"],
+						// 'email': UISER__["email"],
+						'name' : "dragonBall",
+						'email': "dragonBall@gmail.com ",
+						'hash' : 'hash-value'
+					}, function (error) {
+						alert(error)
+					});
+				};
+		
 			})
 		}
 
@@ -604,7 +650,7 @@
 		// }
 		go_tab(0)
 
-		println(tab_home)
+		// println(tab_home)
 		function go_tab(_index){
 			var tabs = $CLASS("main_tab_profile")
 			var body_content = $CLASS("body_content")
