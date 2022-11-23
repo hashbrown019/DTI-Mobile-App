@@ -607,8 +607,9 @@
 								var farmer_info  = JSON.parse(res)
 								var FARMER_ID = farmer_info.farmer_code
 								// send_data(FARMER_ID,JSON.stringify(farmer_info),i,lll_) // OLD IMPLEMENTATION
-								farmer_info["farmer_img_base64"] = ""
-								farmer_info["post_harv-photo"] = ""
+								// // CANCEL UPLOADING IMAGE // IMGCANCEL
+								// farmer_info["farmer_img_base64"] = ""
+								// farmer_info["post_harv-photo"] = ""
 								send_data(
 									fnames_.split(".")[0],
 									JSON.stringify(farmer_info),
