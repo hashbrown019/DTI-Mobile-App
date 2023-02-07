@@ -305,7 +305,6 @@ function ls_city(el){
 	var arrs = []
 	var region = $ID("addr_region").value.toUpperCase();
 	var prov = $ID("addr_prov").value.toUpperCase();
-
 	for (const [key, value] of Object.entries(ALL_LOCATION[region]['province_list'][prov]['municipality_list'])) {
 		arrs.push(key)
 	}
